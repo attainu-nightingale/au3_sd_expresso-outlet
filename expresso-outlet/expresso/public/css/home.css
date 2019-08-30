@@ -1,0 +1,47 @@
+body{
+    font-family: Arvo, serif;
+}
+
+.logo{
+    height: 70px;
+}
+
+.expressotext{
+    margin-left: 10px;
+    font-family: Harlow Solid Italic, serif;
+}
+
+/* .navbar-nav li{
+    color: #fff;
+    font-size: 17px;
+    margin-right: 40px;
+    padding: 5px 0;
+}
+
+.navbar-nav li:hover{
+    border-bottom: 1px solid brown;
+    padding-bottom: 4px;
+} */
+
+.navbar-nav { 
+    overflow: hidden; 
+   
+}
+    
+.navbar-nav li { 
+        
+    display: block;
+    font-size: 17px;
+    color: black; 
+    text-align: center; 
+    margin-right: 40px;
+    padding: 5px 0;
+    text-decoration: none; 
+    } 
+    
+.navbar-nav li:hover { 
+    background-color: white; 
+    color: Green; 
+    border-bottom: 1px solid brown;
+    border-top: 1px solid brown;
+    } 

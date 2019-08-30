@@ -2,7 +2,10 @@ var express=require("express");
 var router=express.Router();
 
 router.get("/",function(req,res){
-    res.send("homepage");
+    res.render("Login.hbs",{
+        title:"Login Page",
+        addNavLink:"active"
+    })
     
 });
 module.exports=router;

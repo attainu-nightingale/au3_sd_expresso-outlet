@@ -2,7 +2,10 @@ var express=require("express");
 var router=express.Router();
 
 router.get("/",function(req,res){
-    res.send("login");
+    res.render("speciality.hbs",{
+        title:"Speciality Page",
+        addNavLink:"active"
+    })
     
 });
 module.exports=router;
