@@ -1,0 +1,19 @@
+{
+  "name": "au3_sd_expresso-outlet",
+  "version": "1.0.0",
+  "description": "Expresso Application using Express for Steamin' Mugs Outlet",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Team Expresso",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
+    "hbs": "^4.0.4",
+    "mongodb": "^3.3.2",
+    "path": "^0.12.7"
+  }
+}
