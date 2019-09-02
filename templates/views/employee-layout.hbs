@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+         
+         <!-- Bootstrap CSS -->
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+        <!--Fontawesome CDN-->
+	    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+       <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <!-- Common CSS -->
+        {{!-- <link rel="stylesheet" type="text/css" href="../../css/internalapp.css"/> --}}
+        <!-- Own CSS -->
+        <link rel="stylesheet" type="text/css" href="{{style}}"/>
+
+        <title>{{title}}</title>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-dark navbar-expand-sm sticky-top">
+  <a class="navbar-brand" href="#">
+    <img id="logo" src="../../images/logo1.jpg" width="30" height="30" alt="logo"/>
+    <span id="expresso">Expresso</span>
+  </a>
+  {{!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list-4" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button> --}}
+  <div class="collapse navbar-collapse" id="navbar-list-4">
+    <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img src="../../images/boy.png" width="60" height="60" class="rounded-circle">
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/employee">Dashboard</a>
+          <a class="dropdown-item" href="/employee/my-profile">My Profile</a>
+          <a class="dropdown-item" href="/employee/logout">Log Out</a>
+        </div>
+      </li>   
+    </ul>
+  </div>
+</nav>
+
+ 
+     
+        {{{body}}}
+
+
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+  <script src="{{script}}"></script>
+  
+  <script>
+  $('#menu-toggle').click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+  });
+  </script>
+
+
+  
+    </body>
+</html>

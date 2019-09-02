@@ -9,11 +9,12 @@ var PATH = path.join(__dirname, "/public/");
 var PORT = 5500;
 var app = express();
 var db;
+var document;
 
 mongoClient.connect(url, {useNewUrlParser : true, useUnifiedTopology: true}, (err,client) => {
     if(err)
     throw err;
-    db = client.db('employeeDB');
+    app.locals.db = client.db('employeeDB');
     console.log("Connected to database : employeeDB");
 });
 
@@ -42,9 +43,9 @@ app.use(express.json());
 app.use(express.static(PATH));
 
 app.use(session({
-    secret: 'Secret signature for secure session ID' ,
-    resave: false ,
-    saveUninitialized: true
+    resave: true ,
+    saveUninitialized: true,
+    secret: 'Secret signature for secure session ID'
 })); 
 
 app.get('/', (req,res) => {
@@ -77,24 +78,30 @@ app.get('/contactus', (req,res) => {
 app.get('/manager-login', (req,res) => {
     res.render(VIEWS_PATH + '/manager-login.hbs',{
         title : "Manager Login Page" ,
-        style : '../../css/login.css'
+        style : '../../css/login.css',
+        layout : 'login-layout.hbs'
     }); 
 });
 
 app.get('/employee-login', (req,res) => {
     res.render(VIEWS_PATH + '/employee-login.hbs',{
         title : "Employee Login Page" ,
-        style : '../../css/login.css'
+        style : '../../css/login.css',
+        layout : 'login-layout.hbs'
     }); 
 });
 
 app.post("/manager-auth" , (req,res) => {
     console.log(req.body);
+    var db = req.app.locals.db;
     db.collection('manager').find({$and : [{username : req.body.username , password : req.body.password , emp_role : req.body.role}]}).toArray((err,doc) => {
         if (err) 
             throw err;
         console.log(doc);
         if (doc.length > 0) {
+            app.locals.username = req.body.username;
+            app.locals.password = req.body.password;
+            console.log(app.locals.username + ' ' + app.locals.password);
             req.session.isLoggedIn = true;
             res.redirect("/manager");
         } 
@@ -106,11 +113,23 @@ app.post("/manager-auth" , (req,res) => {
 
 app.post("/employee-auth" , (req,res) => {
     console.log(req.body);
+    var db = req.app.locals.db;
     db.collection('employees').find({$and : [{username : req.body.username , password : req.body.password , emp_role : req.body.role}]}).toArray((err,doc) => {
         if (err) 
             throw err;
         console.log(doc);
+
         if (doc.length > 0) {
+            app.locals.username = req.body.username;
+            app.locals.password = req.body.password;
+            app.locals.employee_name = doc[0].emp_name;
+            app.locals.is_employee_of_month = doc[0].is_employee_of_month;
+            app.locals._id = doc[0]._id;
+
+        //    if(doc[0].is_employee_of_month === true){
+        //         app.locals.is_employee_of_month = true;
+        //    }
+            console.log(app.locals.username + ' ' + app.locals.password + ' ' + app.locals.employee_name + ' ' + app.locals.is_employee_of_month + ' ' + app.locals._id);    
             req.session.isLoggedIn = true;
             res.redirect("/employee");
         } 

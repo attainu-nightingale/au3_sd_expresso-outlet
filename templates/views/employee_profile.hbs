@@ -1,0 +1,82 @@
+<!-- Sidebar -->
+
+    <div id="wrapper">
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                        Manage
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="/employee/my-timesheets">MY TIMESHEETS</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+      
+<!-- Page Content -->
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 shadow-lg p-3 mb-5 rounded bg-white">
+                <h1 class="display-6">Personal Info</h1><br/>
+                 <a href="#menu-toggle" class="btn btn-danger" id="menu-toggle">Toggle Menu</a><br/><br/>
+                 <div class="card" style="width: 18rem;">
+                    <img src="../../images/boy.png" class="card-img-top">
+                        <div class="card-body shadow-lg p-3 mb-5 rounded bg-white">
+    <h5 class="card-title text-center">Details</h5>
+    <p class="card-text">
+        {{#each data}} 
+        Name :<span id="name">{{this.emp_name}}</span><br/>
+        Age : {{this.emp_age}}<br/>
+        Email : {{this.email}}<br/>
+        Gender : {{this.emp_gender}}<br/>
+        Role : {{this.emp_role}}<br/>
+        Job : {{this.job}}<br/>
+        Username : {{this.username}}<br/>
+        Password : {{this.password}}<br/>
+        Joining date : {{this.joining_date}}<br/>
+        {{/each}}
+        </p>
+    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#updateModal">Reset Password</a>
+  </div>
+</div>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+        <!-- /#page-content-wrapper -->
+
+    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Password Reset</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form role="form" method="POST" action="">
+          <div class="form-group">
+                <label class="control-label">Enter New Password</label>
+                        <div>
+                            <input type="password" id="new-password" class="form-control input-lg" name="new_password">
+                        </div>
+            </div> 
+            <p id="message">Password reset successfully !</p> 
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="save">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+    <!-- /#wrapper -->

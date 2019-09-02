@@ -1,0 +1,40 @@
+<!-- Sidebar -->
+
+    <div id="wrapper">
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                        Manage
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="/employee/my-timesheets">MY TIMESHEETS</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+      
+<!-- Page Content -->
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 shadow-lg p-3 mb-5 rounded bg-white">
+                <h1 class="display-6">Expresso Employee Panel</h1><br/>
+                {{#if isEmployeeOfMonth}}
+                    <h4 class="text-success"><strong><em>Congratulations <span class="text-warning">{{employeeName}}</span> ! You are one of the top employees of the month. <p>Keep doing the good work !</p></em></strong></h4>
+                {{/if}}
+                <br/>
+                 <p>This control center can be used to manage your profile and view your timesheet.</p>
+                 <p>You can see your timesheet from the sidepanel on the left.</p>
+                 <a href="#menu-toggle" class="btn btn-danger" id="menu-toggle">Toggle Menu</a>
+            </div>
+        </div>
+    </div>
+</div>
+        <!-- /#page-content-wrapper -->
+
+</div>
+    <!-- /#wrapper -->
+
+     
