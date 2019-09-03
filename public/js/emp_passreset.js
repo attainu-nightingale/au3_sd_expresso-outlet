@@ -1,7 +1,7 @@
 $('#message').hide();
 $('#save').click(()=> {
-    var emp_name = $('#name').html();
-    console.log(emp_name);
+    var emp_id = $('#id').text();
+    console.log(emp_id);
     var newPasswd =  {
         password : $('#new-password').val()
     } 
@@ -9,7 +9,7 @@ $('#save').click(()=> {
     console.log(newPasswd);
     $.ajax({
         
-        url :'/employee/my-profile/' + emp_name,
+        url :'/employee/my-profile/' + emp_id,
         type : 'PUT',
         datatype : 'json',
         contentType : 'application/json',

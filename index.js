@@ -6,10 +6,12 @@ var ObjectId = require('mongodb').ObjectID;
 var mongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://localhost:27017';
 var PATH = path.join(__dirname, "/public/");
-var PORT = 5500;
+var multer = require('multer');
+var upload = multer({dest:'images/'});
+var PORT = process.env.PORT || 5500;
 var app = express();
 var db;
-var document;
+
 
 mongoClient.connect(url, {useNewUrlParser : true, useUnifiedTopology: true}, (err,client) => {
     if(err)
@@ -29,6 +31,17 @@ hbs.registerHelper('is',function(parameter,string,options){
         return options.inverse(this);    
 });
 
+app.use(session({
+    secret: 'Secret signature for secure session ID',
+    resave: false ,
+    saveUninitialized: true
+})); 
+
+app.use(express.urlencoded({extended: false}));
+app.use(express.json());
+
+app.use(express.static(PATH));
+
 var manager = require(PATH + './js/manager.js');
 var employee = require(PATH + './js/employee.js');
 
@@ -36,17 +49,6 @@ var employee = require(PATH + './js/employee.js');
 
 app.use('/manager' , manager);
 app.use('/employee' , employee);
-
-app.use(express.urlencoded({extended: false}));
-app.use(express.json());
-
-app.use(express.static(PATH));
-
-app.use(session({
-    resave: true ,
-    saveUninitialized: true,
-    secret: 'Secret signature for secure session ID'
-})); 
 
 app.get('/', (req,res) => {
     res.render(VIEWS_PATH + '/home.hbs',{
@@ -75,83 +77,6 @@ app.get('/contactus', (req,res) => {
     }); 
 });
 
-app.get('/manager-login', (req,res) => {
-    res.render(VIEWS_PATH + '/manager-login.hbs',{
-        title : "Manager Login Page" ,
-        style : '../../css/login.css',
-        layout : 'login-layout.hbs'
-    }); 
-});
-
-app.get('/employee-login', (req,res) => {
-    res.render(VIEWS_PATH + '/employee-login.hbs',{
-        title : "Employee Login Page" ,
-        style : '../../css/login.css',
-        layout : 'login-layout.hbs'
-    }); 
-});
-
-app.post("/manager-auth" , (req,res) => {
-    console.log(req.body);
-    var db = req.app.locals.db;
-    db.collection('manager').find({$and : [{username : req.body.username , password : req.body.password , emp_role : req.body.role}]}).toArray((err,doc) => {
-        if (err) 
-            throw err;
-        console.log(doc);
-        if (doc.length > 0) {
-            app.locals.username = req.body.username;
-            app.locals.password = req.body.password;
-            console.log(app.locals.username + ' ' + app.locals.password);
-            req.session.isLoggedIn = true;
-            res.redirect("/manager");
-        } 
-        else {
-            res.redirect("/manager-login");
-        }    
-    });  
-});
-
-app.post("/employee-auth" , (req,res) => {
-    console.log(req.body);
-    var db = req.app.locals.db;
-    db.collection('employees').find({$and : [{username : req.body.username , password : req.body.password , emp_role : req.body.role}]}).toArray((err,doc) => {
-        if (err) 
-            throw err;
-        console.log(doc);
-
-        if (doc.length > 0) {
-            app.locals.username = req.body.username;
-            app.locals.password = req.body.password;
-            app.locals.employee_name = doc[0].emp_name;
-            app.locals.is_employee_of_month = doc[0].is_employee_of_month;
-            app.locals._id = doc[0]._id;
-
-        //    if(doc[0].is_employee_of_month === true){
-        //         app.locals.is_employee_of_month = true;
-        //    }
-            console.log(app.locals.username + ' ' + app.locals.password + ' ' + app.locals.employee_name + ' ' + app.locals.is_employee_of_month + ' ' + app.locals._id);    
-            req.session.isLoggedIn = true;
-            res.redirect("/employee");
-        } 
-        else {
-            res.redirect("/employee-login");
-        }    
-    });  
-});
-
-// define the /manager/logout route
-
-app.get('/manager/logout', function (req, res) {
-    req.session.destroy();
-    res.redirect('/manager-login');
-});
-
-// define the /employee/logout route
-
-app.get('/employee/logout', function (req, res) {
-    req.session.destroy();
-    res.redirect('/employee-login');
-});
 
 app.get('/whats-new', (req,res) => {
     res.render(VIEWS_PATH + '/whats-new.hbs',{

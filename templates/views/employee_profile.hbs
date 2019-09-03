@@ -27,7 +27,8 @@
                         <div class="card-body shadow-lg p-3 mb-5 rounded bg-white">
     <h5 class="card-title text-center">Details</h5>
     <p class="card-text">
-        {{#each data}} 
+        {{#each data}}
+        Id : <span id="id">{{this.emp_id}}</span><br/>
         Name :<span id="name">{{this.emp_name}}</span><br/>
         Age : {{this.emp_age}}<br/>
         Email : {{this.email}}<br/>
@@ -53,7 +54,7 @@
     <div class="modal fade" id="updateModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header bg-warning">
         <h5 class="modal-title">Password Reset</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -70,8 +71,8 @@
             <p id="message">Password reset successfully !</p> 
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      <div class="modal-footer bg-warning">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick=location.reload()>Close</button>
         <button type="button" class="btn btn-primary" id="save">Save</button>
       </div>
     </div>
