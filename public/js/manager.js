@@ -199,6 +199,8 @@ router.get('/employee/:id', (req,res) => {
  }
   });
 
+  
+
   //define the /manager/employee-management/employee/1 route to see details of one employee
 
 router.get('/employee-management/employee/:id', (req,res) => {
@@ -220,10 +222,12 @@ router.get('/employee-management/employee/:id', (req,res) => {
         layout : 'manager-layout.hbs',
         data : doc
       });
-  });
+      });
 }
 });
 
+
+// PUT route to update employee details
 router.put('/employee-management/employee/:id', (req,res) => {
 
   var db = req.app.locals.db;
@@ -246,6 +250,56 @@ router.put('/employee-management/employee/:id', (req,res) => {
     res.json({success : "Employee record changed"});
   });
 });
+
+
+//define the /manager/employee/timesheets/1 to get timesheets of that employee
+router.get('/employee/timesheets/:id', (req,res) => {
+  // if(!req.session.isLoggedIn)
+  //   res.redirect('../../manager-login');
+  //   else {
+  var db = req.app.locals.db;
+  var id = req.params.id
+  
+  console.log(id);
+  db.collection('timesheets').find({emp_id : id}).toArray((err,doc) => {
+      if(err) throw err;
+      res.json(doc);
+      console.log(doc);
+    });
+//  }
+  });
+
+  router.get('/employee/timesheets/', (req,res) => {
+    var db = req.app.locals.db;
+    db.collection('timesheets').find({}).toArray((err,doc) => {
+      if(err) throw err;
+      else
+      res.json(doc);
+    });
+  });
+
+//define the POST route for /manager/employee/timesheets/ to add new timesheet for an employee
+router.post('/employee/timesheets/', (req,res) => {
+  var db = req.app.locals.db;
+  console.log(req.body);
+  var newTimesheetObj = {
+    emp_id : req.body.emp_id,
+    emp_name : req.body.emp_name,
+    date : req.body.date,
+    working_hours : req.body.working_hrs,
+    wage_per_hr : req.body.wage_per_hr,
+    total_wage : req.body.total_wage
+  };
+
+    console.log(newTimesheetObj);
+
+  db.collection('timesheets').insertOne(newTimesheetObj , (err,doc) => {
+      if(err) throw err;
+      console.log(JSON.stringify(doc));
+      res.json({success : "New employee timesheet added"});
+      console.log(doc);
+    });
+  });
 
 // define the /manager/logout route
 

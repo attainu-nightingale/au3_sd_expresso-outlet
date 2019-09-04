@@ -27,11 +27,9 @@
                  {{#each data}}
                  
                  <div class="card col-4" style="width: 18rem;">
-                    <div class="card-body shadow-lg p-3 mb-5 rounded bg-white">
-                        <h5 class="card-title text-center">Wage Details</h5>
+                    <div class="card-body shadow-lg p-3 mb-5 rounded bg-secondary">
+                        <h5 class="card-title text-center">{{this.date}}</h5>
                         <p class="card-text">
-        
-                            Date : {{this.date}}<br/>
                             Working Hours : {{this.working_hours}}<br/>
                             Wage Per Hour : {{this.wage_per_hr}}<br/>
                             Total Wage : {{this.total_wage}}<br/>

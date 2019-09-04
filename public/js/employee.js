@@ -124,7 +124,7 @@ router.put('/my-profile/:empid', function (req, res) {
   var id = req.session._id;
   var emp_id = req.params.empid;
   var name = req.session.employee_name;
-  var password = req.session.password;
+  //var password = req.session.password;
   var newPass = req.body.password;
   console.log(newPass);
   console.log(emp_id);

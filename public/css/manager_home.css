@@ -158,16 +158,20 @@ body {
         margin-left : 850px;
     }
 
-    .view-btn, .edit-btn, .delete-btn, .timesheets-btn, #back-btn {
+    .view-btn, #edit-btn, .delete-btn, #timesheets-btn, #back-btn, .passreset-btn, .edit-timesheet, .del-timesheet {
         margin: 3px;
     }
 
-    .view-btn, .edit-btn, .delete-btn, .timesheets-btn, #back-btn {
+    .view-btn, #edit-btn, .delete-btn, #timesheets-btn, #back-btn, .passreset-btn, .edit-timesheet, .del-timesheet {
         margin-left : 20px;
     }
 
     #button-box {
         float :right;
+    }
+
+    #timesheets-btn {
+        margin-left : 500px;
     }
 
     #gender-male, #gender-female, #gender-other {

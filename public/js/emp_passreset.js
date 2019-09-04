@@ -5,7 +5,7 @@ $('#save').click(()=> {
     var newPasswd =  {
         password : $('#new-password').val()
     } 
-    //var newPasswd = $('#new-password').val();
+
     console.log(newPasswd);
     $.ajax({
         
