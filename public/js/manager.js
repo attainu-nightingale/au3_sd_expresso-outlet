@@ -201,7 +201,7 @@ router.get('/employee/:id', (req,res) => {
 
   
 
-  //define the /manager/employee-management/employee/1 route to see details of one employee
+//define the GET for /manager/employee-management/employee/1 route to see details of one employee
 
 router.get('/employee-management/employee/:id', (req,res) => {
   console.log(req.session.isLoggedIn);
@@ -226,8 +226,41 @@ router.get('/employee-management/employee/:id', (req,res) => {
 }
 });
 
+// POST route to add a new employee
+router.post('/employee-management/employee/', (req,res) => {
+  var db = req.app.locals.db;
+  //var id = req.params.id
 
-// PUT route to update employee details
+  console.log(req.body);
+  var newEmployeeObj = {
+    emp_id : req.body.id,
+    emp_name : req.body.name,
+    emp_age : req.body.age,
+    email : req.body.email,
+    emp_gender : req.body.gender,
+    emp_addr : req.body.address,
+    emp_role : req.body.role,
+    job : req.body.job,
+    username : req.body.username,
+    password : req.body.password,
+    profile_pic : req.body.profile-pic,
+    joining_date : req.body.joiningdate,
+    is_employee_of_month : req.body.is-empofmonth
+  };
+
+    console.log(newEmployeeObj);
+
+  db.collection('employees').insertOne(newEmployeeObj , (err,doc) => {
+      if(err) throw err;
+      console.log(JSON.stringify(doc));
+      res.json({success : "New employee added sucessfully"});
+      console.log(doc);
+    });
+});
+
+
+
+// PUT route to update an employee
 router.put('/employee-management/employee/:id', (req,res) => {
 
   var db = req.app.locals.db;
@@ -251,6 +284,25 @@ router.put('/employee-management/employee/:id', (req,res) => {
   });
 });
 
+// DELETE route to delete an employee
+router.delete('/employee-management/employee/:id', (req,res) => {
+  var db = req.app.locals.db;
+  var id = req.params.id
+  console.log(id);
+  
+db.collection('employees').deleteOne({emp_id : id} , (err,doc) => {
+    if(err) throw err;
+    console.log(JSON.stringify(doc));
+    res.json({success : "Employee deleted successfully!"});
+}); 
+db.collection('timesheets').deleteOne({emp_id : id} , (err,doc) => {
+  if(err) throw err;
+  console.log(JSON.stringify(doc));
+console.log({success : "Employee timesheets deleted !"});
+
+}); 
+
+});
 
 //define the /manager/employee/timesheets/1 to get timesheets of that employee
 router.get('/employee/timesheets/:id', (req,res) => {

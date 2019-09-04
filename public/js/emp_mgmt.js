@@ -73,8 +73,36 @@ console.log(newUpdate);
       });  
 });
 
+// Delete Timesheet click
+$(document).on('click', '.delete-btn', function () {
+  $('#timesheetdel-successmsg').hide();
+  $('#del-footer').hide();
+  $('#del-confirm').show();
+   $('#confirm-footer').show();
+  var name = $(this).prev().prev().prev().text();
+  $('#for-name').text(name);
+  var emp_id = $(this).prev().prev().prev().prev().text();
+  console.log(emp_id);
+
+  $(document).on('click', '#yes-del', function () {
+   $('#del-confirm').hide();
+   $('#confirm-footer').hide();
+    $.ajax({
+          
+      url :'/manager/employee-management/employee/' + emp_id,
+      type : 'DELETE',
+      datatype : 'json',
+      success : function(data) {
+          console.log(data);
+          $('#timesheetdel-successmsg').show();
+          $('#del-footer').show();
+          console.log(JSON.stringify(data));
+      }
+  });
+});
+}); 
+
  $(document).on('click', '#timesheets-btn', function (e) {
-  //$('#update-successmsg').hide();
   e.preventDefault();
   $('#result-box').html("");
   var emp_id = $('#forid').text();
@@ -224,6 +252,8 @@ $(document).on('click', '.del-timesheet', function () {
   
   $('#timesheetdel-successmsg').hide();
   $('#del-footer').hide();
+  var name = $('#forname').text();
+  $('#for-name').text(name);
   var emp_id = $('#forid').text();
   var date = $(this).prev().prev().prev().text();
   console.log(emp_id + ' ' + date);
