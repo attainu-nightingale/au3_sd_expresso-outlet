@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+* {
+    box-sizing: border-box;
+}
+body {
+    background-color: #ffcd94;
+    font-family : Lato;
+}
+
+.navbar {
+    background:#333;
+}
+
+#logo {
+    height : 12%;
+    width : 12%;
+}
+
+#navbar-list-4 {
+    padding-left: 500px;
+}
+
+#expresso {
+    padding-left: 20px;
+}
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding-left: 250px;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 0;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    background: #130d0a;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #f7b05b;
+    background: #333;
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color : #f7b05b;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-left: 250px;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 250px;
+        color : #6F3E20;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+    
+    .list-group-item {
+        background-color:#130d0a;
+    }
+
+    .list-group-item:hover {
+        background-color : #333;
+    }
+
+    #add-employee, #menu-toggle {
+        margin : 30px;
+    }
+
+    #hide-employees, #hide-timesheets {
+        margin-left : 850px;
+    }
+
+    .view-btn, #edit-btn, .delete-btn, #timesheets-btn, #back-btn, .passreset-btn, .edit-timesheet, .del-timesheet {
+        margin: 3px;
+    }
+
+    .view-btn, #edit-btn, .delete-btn, #timesheets-btn, #back-btn, .passreset-btn, .edit-timesheet, .del-timesheet {
+        margin-left : 20px;
+    }
+
+    #button-box {
+        float :right;
+    }
+
+    #timesheets-btn {
+        margin-left : 500px;
+    }
+
+    #gender-male, #gender-female, #gender-other {
+        margin-left : 10px;
+    }
+
+}
