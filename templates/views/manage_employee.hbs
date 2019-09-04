@@ -291,15 +291,16 @@
       </div>
       <div class="modal-body" id="del-confirm">
           <p >Are you sure you want to proceed with this delete ?</p>
-           <button type="button" class="btn btn-primary" id="yes-del">Yes</button>
-            <button type="button" class="btn btn-danger" id="No-del">No</button>
         </div>
-        <div id="timesheetdel-successmsg">
+        <div class="modal-body" id="timesheetdel-successmsg">
             <p>Timesheet deleted successfully !</p>
         </div>
-      <div class="modal-footer bg-warning">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick=location.reload()>Close</button>
-        <button type="button" class="btn btn-primary" id="savedel-timesheet">Save</button>
+        <div class="modal-footer bg-warning" id="confirm-footer">
+        <button type="button" class="btn btn-success" id="yes-del">Yes</button>
+        <button type="button" class="btn btn-danger" id="no-del" data-dismiss="modal">No</button>
+        </div>
+      <div class="modal-footer bg-warning" id="del-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick=location.reload()>Close</button>
       </div>
     </div>
   </div>

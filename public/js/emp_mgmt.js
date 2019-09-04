@@ -94,7 +94,7 @@ console.log(newUpdate);
                 <div class="card-deck" id="timesheet-box"></div>`);
 
           for(i=0;i<data.length;i++){
-            $('#timesheet-box').append(`<div class="card col-4" style="width: 18rem;">
+            $('#timesheet-box').append(`<div class="card col-4 d-inline-block" style="min-width:25%;margin-top:10px;">
             <div class="card-body shadow-lg p-3 mb-5 rounded bg-white">
                 <h6 class="card-title text-center">${data[i].date}</h6>
                 <p class="card-text">
@@ -221,21 +221,32 @@ console.log(newUpdate);
 
 // Delete Timesheet click
 $(document).on('click', '.del-timesheet', function () {
+  
+  $('#timesheetdel-successmsg').hide();
+  $('#del-footer').hide();
+  var emp_id = $('#forid').text();
+  var date = $(this).prev().prev().prev().text();
+  console.log(emp_id + ' ' + date);
 
-
-$.ajax({
-        
-  url :'/manager/employee/timesheets/' + id + '/' + date,
-  type : 'DELETE',
-  datatype : 'json',
-  success : function(data) {
-      console.log(data);
-      $(this).parents('.card-box').html("");
-      alert("You have deleted the student successfully");
-      location.reload();
-  }
+  $(document).on('click', '#yes-del', function () {
+   $('#del-confirm').hide();
+   $('#confirm-footer').hide();
+    $.ajax({
+          
+      url :'/manager/employee/timesheets/' + emp_id + '/' + date,
+      type : 'DELETE',
+      datatype : 'json',
+      success : function(data) {
+          console.log(data);
+          $('#timesheetdel-successmsg').show();
+          $('#del-footer').show();
+          console.log(JSON.stringify(data));
+      }
+  });
 });
 });
+
+
 
 
 

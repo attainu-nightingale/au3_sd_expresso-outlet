@@ -329,7 +329,6 @@ router.post('/employee/timesheets/', (req,res) => {
         if(err) throw err;
         console.log(JSON.stringify(doc));
         res.json({success : "Employee timesheet deleted !"});
-
     }); 
 });
     
