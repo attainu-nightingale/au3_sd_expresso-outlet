@@ -1,6 +1,6 @@
 $( document ).ready(function() {
 
-$('#message').hide();
+
 
 $('.employee-list').hide();
 
@@ -14,6 +14,50 @@ $('#list-employees').click(() => {
     $('.employee-list').hide();
   });
 
+  $(document).on('click', '#add-employee', function () {
+    $('#message').hide();
+  });
+
+  $(document).on('click', '#save', function () {
+    var checkbox = "false";
+    if ($('#is_empofmonth').is(":checked"))
+    {
+      checkbox = "true";
+    }
+
+    var newEmp =  {
+      id : $('#id').val(),
+      name : $('#name').val(),
+      age : $('#age').val(),
+      email : $('#email').val(),
+      gender : $("input[name='gender']:checked").val(),
+      address : $('#address').val(),
+      role : $('#role').val(),
+      job : $('#job').val(),
+      username : $('#username').val(),
+      password : $('#password').val(),
+      profilepic : $('#profile_pic').val(),
+      joiningdate : $('#joining_date').val(),
+      empofmonth : checkbox
+     };
+  
+  console.log(newEmp);
+      
+      $.ajax({
+          
+          url :'/manager/employee-management/employee/',
+          type : 'POST',
+          dataType : 'json',
+          contentType : 'application/json',
+          data : JSON.stringify(newEmp),
+          success : function(data) {
+            $('.form-group').hide();
+              $('#message').show();
+              $('#save').hide();
+              console.log(JSON.stringify(data));
+          }
+        });  
+  }); 
 
 $(document).on('click', '#edit-btn', function () {
   $('#update-successmsg').hide();

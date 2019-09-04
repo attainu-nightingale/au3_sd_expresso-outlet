@@ -243,9 +243,9 @@ router.post('/employee-management/employee/', (req,res) => {
     job : req.body.job,
     username : req.body.username,
     password : req.body.password,
-    profile_pic : req.body.profile-pic,
-    joining_date : req.body.joiningdate,
-    is_employee_of_month : req.body.is-empofmonth
+    //profile_pic : req.body.profile-pic,
+    joining_date : req.body.joining_date,
+    is_employee_of_month : req.body.is_empofmonth
   };
 
     console.log(newEmployeeObj);
