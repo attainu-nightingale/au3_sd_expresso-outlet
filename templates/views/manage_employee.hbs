@@ -83,7 +83,7 @@
     <!--  Timesheet block -->
 
     <div class="container">
-        <div class="row">
+        <div class="row" id="timesheet-list">
             <div class="col-lg-12 shadow-lg p-3 mb-5 rounded bg-secondary" id="result-box">
                 
                 
@@ -221,8 +221,85 @@
         </form>
       </div>
       <div class="modal-footer bg-warning">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick=location.reload()>Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" id="save-timesheet">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Edit Timesheet Modal -->
+
+ <div class="modal fade" id="edit-timesheetModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title">Edit Timesheet for <span id="for-empname"></span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form role="form" id="edittimesheet"> 
+          <div class="form-group">
+                <label class="control-label">Date</label>
+                        <div>
+                            <input type="text" id="update-date" class="form-control input-lg" name="date">
+                        </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Working Hours</label>
+                        <div>
+                            <input type="number" id="update-working-hrs" class="form-control input-lg" name="working_hrs" placeholder="Hrs">
+                        </div>
+            </div> 
+            <div class="form-group">
+                <label class="control-label">Wage Per Hour</label>
+                        <div>
+                            <input type="number" id="update-wage-per-hr" class="form-control input-lg" name="wage_per_hr" placeholder="Rs.">
+                        </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Total Wage</label>
+                        <div>
+                            <input type="number" id="update-total-wage" class="form-control input-lg" name="total_wage" placeholder="Rs.">
+                        </div>
+            </div> 
+            <p id="timesheetupdate-successmsg">Timesheet updated successfully !</p> 
+        </form>
+      </div>
+      <div class="modal-footer bg-warning">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick=location.reload()>Close</button>
+        <button type="button" class="btn btn-primary" id="saveupdated-timesheet">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Delete Timesheet Modal -->
+
+ <div class="modal fade" id="del-timesheetModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title">Delete Timesheet for <span id="for-name"></span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="del-confirm">
+          <p >Are you sure you want to proceed with this delete ?</p>
+           <button type="button" class="btn btn-primary" id="yes-del">Yes</button>
+            <button type="button" class="btn btn-danger" id="No-del">No</button>
+        </div>
+        <div id="timesheetdel-successmsg">
+            <p>Timesheet deleted successfully !</p>
+        </div>
+      <div class="modal-footer bg-warning">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick=location.reload()>Close</button>
+        <button type="button" class="btn btn-primary" id="savedel-timesheet">Save</button>
       </div>
     </div>
   </div>

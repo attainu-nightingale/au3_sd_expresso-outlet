@@ -154,7 +154,7 @@ body {
         margin : 30px;
     }
 
-    #hide-employees {
+    #hide-employees, #hide-timesheets {
         margin-left : 850px;
     }
 

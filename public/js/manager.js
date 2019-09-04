@@ -269,14 +269,6 @@ router.get('/employee/timesheets/:id', (req,res) => {
 //  }
   });
 
-  router.get('/employee/timesheets/', (req,res) => {
-    var db = req.app.locals.db;
-    db.collection('timesheets').find({}).toArray((err,doc) => {
-      if(err) throw err;
-      else
-      res.json(doc);
-    });
-  });
 
 //define the POST route for /manager/employee/timesheets/ to add new timesheet for an employee
 router.post('/employee/timesheets/', (req,res) => {
@@ -301,8 +293,47 @@ router.post('/employee/timesheets/', (req,res) => {
     });
   });
 
-// define the /manager/logout route
 
+// define the PUT route for /manager/employee/timesheets/ to edit timesheet for an employee
+  router.put('/employee/timesheets/:id', (req,res) => {
+    var db = req.app.locals.db;
+    var id = req.params.id;
+    console.log('req.body', req.body); 
+
+    var updatedTimesheetObj = {
+
+    date : req.body.date,
+    working_hours : req.body.workinghours, 
+    wage_per_hr : req.body.wageperhr,
+    total_wage : req.body.totalwage 
+
+  };
+  
+    console.log(updatedTimesheetObj);
+  
+    db.collection('timesheets').updateOne({emp_id : id , date : updatedTimesheetObj.date} , {$set : updatedTimesheetObj} , (err,doc) => {
+        if(err) throw err;
+        console.log(JSON.stringify(doc));
+        res.json({success : "Employee timesheet updated !"});
+      });
+    });
+
+
+ // define the DELETE route for /manager/employee/timesheets/ to delete timesheet for an employee   
+ router.delete('/employee/timesheets/:id/:date', (req,res) => {
+  var db = req.app.locals.db;
+  var id = req.params.id;
+    console.log(id);
+  var date = req.params.date;  
+    db.collection('timesheets').deleteOne({emp_id : id, date : date} , (err,doc) => {
+        if(err) throw err;
+        console.log(JSON.stringify(doc));
+        res.json({success : "Employee timesheet deleted !"});
+
+    }); 
+});
+    
+// define the /manager/logout route
 router.get('/logout', function (req, res) {
   req.session.destroy();
   res.redirect('/manager/manager-login');
