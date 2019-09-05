@@ -49,7 +49,7 @@ router.post("/manager-auth" , (req,res) => {
       else {
         req.session.isLoggedIn = false;
           console.log("Incorrect credentials");
-          res.redirect("../manager-login");
+          res.redirect("/manager/manager-login");
       }    
   });  
 });
@@ -138,27 +138,100 @@ router.get('/order-management', function (req, res) {
 }
 });
 
-  // define the /manager/stock-management route
+// define the /manager/stock-management route
 router.get('/stock-management', function (req, res) {
   console.log(req.session.isLoggedIn);
   if(!req.session.isLoggedIn)
     res.redirect('/manager/manager-login');
     else {
-  var db = req.app.locals.db;
-  db.collection('employees').find({}).toArray((err,doc) => {
+  var db = req.app.locals.menuDB;
+  db.collection('menus').find({}).toArray((err,doc) => {
     if (err) 
         throw err;
     console.log(doc);
   res.render(VIEWS_PATH + '/stock_management.hbs',{
     title : "Stock Management Page" ,
     //style : '../../css/manager_home.css',
-    script : '../../js/manager_home.js',
+    script : '../../js/stock_manage.js',
     layout : 'manager-layout.hbs',
     data : doc
   });
   });
 }
 });
+
+// define the /manager/getAllMenus route
+router.get('/getAllMenus', function (req, res) {
+  // console.log(req.session.isLoggedIn);
+  // if(!req.session.isLoggedIn)
+  //   res.redirect('/manager/manager-login');
+  //   else {
+  var db = req.app.locals.menuDB;
+  db.collection('menus').find({}).toArray((err,doc) => {
+    if (err) 
+        throw err;
+        res.json(doc);
+    console.log(doc);
+  });
+//}
+});
+
+// define the GET for /manager/getMenuItem route
+router.get('/getMenuItem/:menuitem', function (req, res) {
+  // console.log(req.session.isLoggedIn);
+  // if(!req.session.isLoggedIn)
+  //   res.redirect('/manager/manager-login');
+  //   else {
+  var db = req.app.locals.menuDB;
+  var menuitem_name = req.params.menuitem;
+  db.collection('menus').find({ menu_items : {$elemMatch : {menu_item_name : menuitem_name}}}).toArray((err,doc) => {
+    if (err) 
+        throw err;
+        res.json(doc);
+    console.log(doc);
+  });
+//}
+});
+
+router.get('/getMenuItem/:menuname/:menuitem', function (req, res) {
+  var db = req.app.locals.menuDB;
+  var menu_name = req.params.menuname;
+  var menuitem_name = req.params.menuitem;
+  db.collection('menus').find({ menu_name : menu_name , menu_items : {$elemMatch : {menu_item_name : menuitem_name}}}).toArray((err,doc) => {
+    if (err) 
+        throw err;
+        res.json(doc);
+    console.log(doc);
+  });
+//}
+});
+
+
+// define the PUT for /manager/getMenuItem route
+router.put('/getMenuItem/:menuname/:menuitem', function (req, res) {
+  var db = req.app.locals.menuDB;
+  var menu_name = req.params.menuname;
+  var menuitem_name = req.params.menuitem;
+  var newInventory = req.body.newQuantity;
+  console.log('INVENTORY' + ' ' + newInventory + ' ' + menuitem_name);
+  
+  db.collection('menus').findOne({menu_name: menu_name , "menu_items.menu_item_name" : menuitem_name} , (err,doc) => {
+
+    var update = { "$set": {} };
+  update.$set["menu_items.in_inventory"] = newInventory;
+  db.collection('menus').updateOne({menu_name: menu_name}, update);
+  //   db.collection('menus').updateOne({ menu_item_name : menuitem_name },  {$set: {"menu_items.in_inventory": newInventory}} , (err,doc) => {
+  // db.collection('menus').updateOne({ menu_name : menu_name }, {menu_items : {$elemMatch : {menu_item_name : menuitem_name}}} , { $set: {menu_items : {$elemMatch : {$in_inventory : newInventory}}}} , (err,doc) => {
+//     if (err) 
+//         throw err;
+//     res.json({success : "Stock added successfully!"});
+//     console.log(doc);
+//     });
+  });
+});
+
+
+
 
 // define the /manager/employee-management route
 router.get('/employee-management', function (req, res) {

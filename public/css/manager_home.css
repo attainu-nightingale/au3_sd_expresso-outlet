@@ -158,11 +158,11 @@ body {
         margin-left : 850px;
     }
 
-    .view-btn, #edit-btn, .delete-btn, #timesheets-btn, #back-btn, .passreset-btn, .edit-timesheet, .del-timesheet {
+    .view-btn, #edit-btn, .delete-btn, #timesheets-btn, #back-btn, .passreset-btn, .edit-timesheet, .del-timesheet, #show-stock, #needed-stock, #add-stock {
         margin: 3px;
     }
 
-    .view-btn, #edit-btn, .delete-btn, #timesheets-btn, #back-btn, .passreset-btn, .edit-timesheet, .del-timesheet {
+    .view-btn, #edit-btn, .delete-btn, #timesheets-btn, #back-btn, .passreset-btn, .edit-timesheet, .del-timesheet, #show-stock, #needed-stock, #add-stock {
         margin-left : 20px;
     }
 
