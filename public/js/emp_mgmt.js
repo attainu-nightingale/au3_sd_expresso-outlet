@@ -1,6 +1,6 @@
 $( document ).ready(function() {
 
-$('#message').hide();
+
 
 $('.employee-list').hide();
 
@@ -14,6 +14,73 @@ $('#list-employees').click(() => {
     $('.employee-list').hide();
   });
 
+  $(document).on('click', '#add-employee', function () {
+    $('#message').hide();
+    $.ajax({
+        
+      url :'/manager/getAllEmployees/' ,
+      type : 'GET',
+      datatype : 'json',
+      contentType : 'application/json',
+      success : function(data) {
+        var newid = data.length + 1;
+        $('#id').val(newid);
+        console.log(newid);
+        $('#id').attr("disabled","true");
+
+      }
+      });    
+  });
+
+  $(document).on('click', '#save', function () {
+    var date = new Date($('#joining_date').val());
+      day = date.getDate() <10 ? "0" + date.getDate() : date.getDate();
+      month = (date.getMonth() + 1) <10 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1);
+      year = date.getFullYear();
+      var joiningdate = [year, month, day].join('/');
+      
+
+    var checkbox = "false";
+    if ($('#is_empofmonth').is(":checked"))
+    {
+      checkbox = "true";
+    }
+
+    console.log(joiningdate + ' ' + checkbox);
+
+    var newEmp =  {
+      id : $('#id').val(),
+      name : $('#name').val(),
+      age : $('#age').val(),
+      email : $('#email').val(),
+      gender : $("input[name='gender']:checked").val(),
+      address : $('#address').val(),
+      role : $('#role').val(),
+      job : $('#job').val(),
+      username : $('#username').val(),
+      password : $('#password').val(),
+      profilepic : $('#profile_pic').val(),
+      joiningdate : joiningdate,
+      empofmonth : checkbox
+     };
+  
+  console.log(newEmp);
+      
+      $.ajax({
+          
+          url :'/manager/employee-management/employee/',
+          type : 'POST',
+          dataType : 'json',
+          contentType : 'application/json',
+          data : JSON.stringify(newEmp),
+          success : function(data) {
+            $('.form-group').hide();
+              $('#message').show();
+              $('#save').hide();
+              console.log(JSON.stringify(data));
+          }
+        });  
+  }); 
 
 $(document).on('click', '#edit-btn', function () {
   $('#update-successmsg').hide();
@@ -73,8 +140,36 @@ console.log(newUpdate);
       });  
 });
 
+// Delete Timesheet click
+$(document).on('click', '.delete-btn', function () {
+  $('#timesheetdel-successmsg').hide();
+  $('#del-footer').hide();
+  $('#del-confirm').show();
+   $('#confirm-footer').show();
+  var name = $(this).prev().prev().prev().text();
+  $('#for-name').text(name);
+  var emp_id = $(this).prev().prev().prev().prev().text();
+  console.log(emp_id);
+
+  $(document).on('click', '#yes-del', function () {
+   $('#del-confirm').hide();
+   $('#confirm-footer').hide();
+    $.ajax({
+          
+      url :'/manager/employee-management/employee/' + emp_id,
+      type : 'DELETE',
+      datatype : 'json',
+      success : function(data) {
+          console.log(data);
+          $('#timesheetdel-successmsg').show();
+          $('#del-footer').show();
+          console.log(JSON.stringify(data));
+      }
+  });
+});
+}); 
+
  $(document).on('click', '#timesheets-btn', function (e) {
-  //$('#update-successmsg').hide();
   e.preventDefault();
   $('#result-box').html("");
   var emp_id = $('#forid').text();
@@ -94,18 +189,20 @@ console.log(newUpdate);
                 <div class="card-deck" id="timesheet-box"></div>`);
 
           for(i=0;i<data.length;i++){
-            $('#timesheet-box').append(`<div class="card col-4" style="width: 18rem;">
+            $('#timesheet-box').append(`<div class="card col-4 d-inline-block" style="min-width:25%;margin-top:10px;">
             <div class="card-body shadow-lg p-3 mb-5 rounded bg-white">
                 <h6 class="card-title text-center">${data[i].date}</h6>
-                <p class="card-text">
+                <p class="card-text text-center">
 
                     Working Hours : ${data[i].working_hours}<br/>
                     Wage Per Hour : ${data[i].wage_per_hr}<br/>
                     Total Wage : ${data[i].total_wage}<br/>
                 </p>
+                <div class="d-flex justify-content-center">
                 <a href="#" class="edit-timesheet btn btn-md btn-info" data-toggle="modal" data-target="#edit-timesheetModal">Edit</a>
                 <a href="#" class="del-timesheet btn btn-md btn-danger" data-toggle="modal" data-target="#del-timesheetModal">Delete</a><br/>
-            </div>
+                </div>
+                </div>
             
         </div>
              `);
@@ -114,6 +211,7 @@ console.log(newUpdate);
         });
         });
 
+  //Add New Timesheet button click
   $(document).on('click', '#add-timesheet', function () {
     $('#timesheetadd-successmsg').hide();
     var empid = $('#forid').text();
@@ -143,6 +241,7 @@ console.log(newUpdate);
   $("#update-total-wage").val(z.toFixed(2));
 });
 
+//Save New added timesheet button click
   $(document).on('click', '#save-timesheet', function (e) {
     e.preventDefault();
     
@@ -221,21 +320,34 @@ console.log(newUpdate);
 
 // Delete Timesheet click
 $(document).on('click', '.del-timesheet', function () {
+  
+  $('#timesheetdel-successmsg').hide();
+  $('#del-footer').hide();
+  var name = $('#forname').text();
+  $('#for-name').text(name);
+  var emp_id = $('#forid').text();
+  var date = $(this).prev().prev().prev().text();
+  console.log(emp_id + ' ' + date);
 
-
-$.ajax({
-        
-  url :'/manager/employee/timesheets/' + id + '/' + date,
-  type : 'DELETE',
-  datatype : 'json',
-  success : function(data) {
-      console.log(data);
-      $(this).parents('.card-box').html("");
-      alert("You have deleted the student successfully");
-      location.reload();
-  }
+  $(document).on('click', '#yes-del', function () {
+   $('#del-confirm').hide();
+   $('#confirm-footer').hide();
+    $.ajax({
+          
+      url :'/manager/employee/timesheets/' + emp_id + '/' + date,
+      type : 'DELETE',
+      datatype : 'json',
+      success : function(data) {
+          console.log(data);
+          $('#timesheetdel-successmsg').show();
+          $('#del-footer').show();
+          console.log(JSON.stringify(data));
+      }
+  });
 });
 });
+
+
 
 
 

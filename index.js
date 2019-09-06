@@ -4,14 +4,17 @@ var hbs = require('hbs');
 var session = require('express-session');
 var ObjectId = require('mongodb').ObjectID;
 var mongoClient = require('mongodb').MongoClient;
-var url = 'mongodb://localhost:27017';
+//var url = 'mongodb://localhost:27017';
 var PATH = path.join(__dirname, "/public/");
-var multer = require('multer');
-var upload = multer({dest:'images/'});
 var PORT = process.env.PORT || 5500;
 var app = express();
-var db;
+var db,menuDB,orderDB;
+var url;
 
+if(process.env.DB_URL)
+    url = 'mongodb+srv://asraj:asraj@123@expresso-cluster-2gmnz.mongodb.net/?retryWrites=true&w=majority';
+else
+    url = 'mongodb://localhost:27017';  
 
 mongoClient.connect(url, {useNewUrlParser : true, useUnifiedTopology: true}, (err,client) => {
     if(err)
@@ -20,16 +23,23 @@ mongoClient.connect(url, {useNewUrlParser : true, useUnifiedTopology: true}, (er
     console.log("Connected to database : employeeDB");
 });
 
+mongoClient.connect(url, {useNewUrlParser : true, useUnifiedTopology: true}, (err,client) => {
+    if(err)
+    throw err;
+    app.locals.menuDB = client.db('menuDB');
+    console.log("Connected to database : menuDB");
+});
+
+mongoClient.connect(url, {useNewUrlParser : true, useUnifiedTopology: true}, (err,client) => {
+    if(err)
+    throw err;
+    app.locals.orderDB = client.db('orderDB');
+    console.log("Connected to database : orderDB");
+});
+
 var VIEWS_PATH = path.join(__dirname,"/templates/views");
 app.set("views",VIEWS_PATH);
 app.set("view engine", "hbs");
-
-hbs.registerHelper('is',function(parameter,string,options){
-    if(parameter == string)
-        return options.fn(this);
-    else
-        return options.inverse(this);    
-});
 
 app.use(session({
     secret: 'Secret signature for secure session ID',
@@ -98,6 +108,8 @@ app.get('/our-coffees', (req,res) => {
         style : '../../css/our-coffees.css',
     }); 
 });
+
+
 
 app.listen(PORT,() => {
     console.log(`Server is listening on port ${PORT}`);

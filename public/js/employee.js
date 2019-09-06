@@ -16,7 +16,7 @@ router.use(session({
 
 // define the /employee/employee-login route
 router.get('/employee-login', (req,res) => {
-  if(!req.session.isLoggedIn){
+  if(!req.session.isEmpLoggedIn){
   res.render(VIEWS_PATH + '/employee-login.hbs',{
       title : "Employee Login Page" ,
       style : '../../css/login.css',
@@ -45,12 +45,12 @@ router.post("/employee-auth" , (req,res) => {
           req.session.is_employee_of_month = doc[0].is_employee_of_month;
           req.session._id = doc[0]._id;
           console.log(req.session.empid + " " + req.session.username + ' ' + req.session.password + ' ' + req.session.employee_name + ' ' + req.session.is_employee_of_month + ' ' + req.session._id);    
-          req.session.isLoggedIn = true;
-          console.log(req.session.isLoggedIn);
+          req.session.isEmpLoggedIn = true;
+          console.log(req.session.isEmpLoggedIn);
           res.redirect("/employee");
       } 
       else {
-        //req.session.isLoggedIn = false;
+        //req.session.isEmpLoggedIn = false;
         console.log("Incorrect credentials");
           res.redirect("/employee/employee-login");
       }    
@@ -59,8 +59,8 @@ router.post("/employee-auth" , (req,res) => {
 
 // define the /employee home page route
 router.get('/', function (req, res) {
-  console.log(req.session.isLoggedIn);
-  if(!req.session.isLoggedIn)
+  console.log(req.session.isEmpLoggedIn);
+  if(!req.session.isEmpLoggedIn)
     res.redirect('/employee/employee-login');
     else {
   var employee_name = req.session.employee_name;
@@ -79,7 +79,7 @@ router.get('/', function (req, res) {
 
 // define the /employee/my-profile route
 router.get('/my-profile', function (req, res) {
-  if(!req.session.isLoggedIn)
+  if(!req.session.isEmpLoggedIn)
     res.redirect('/employee/employee-login');
     else {
     var db = req.app.locals.db;
@@ -103,7 +103,7 @@ router.get('/my-profile', function (req, res) {
 
 // define the /employee/my-profile/:name route for unique record
 router.get('/my-profile/:name', (req,res) => {
-  if(!req.session.isLoggedIn)
+  if(!req.session.isEmpLoggedIn)
     res.redirect('/employee/employee-login');
     else {
   var db = req.app.locals.db;
@@ -137,8 +137,8 @@ router.put('/my-profile/:empid', function (req, res) {
 
 // define the /employee/my-timesheets route
 router.get('/my-timesheets', function (req, res) {
-  console.log(req.session.isLoggedIn);
-  if(!req.session.isLoggedIn)
+  console.log(req.session.isEmpLoggedIn);
+  if(!req.session.isEmpLoggedIn)
     res.redirect('/employee/employee-login');
     else {
   var db = req.app.locals.db;

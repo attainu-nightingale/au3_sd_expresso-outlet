@@ -22,23 +22,23 @@
                 <tbody>
                     {{#each data}}
                     <tr>
-                        <th class="text-warning">Employee ID</td>
+                        <th class="text-warning">Employee ID</th>
                         <td id="forid">{{this.emp_id}}</td>
                     </tr>
                     <tr>
-                        <th class="text-warning">Name</td>
+                        <th class="text-warning">Name</th>
                         <td id="forname">{{this.emp_name}}</td>
                     </tr>
                     <tr>
-                        <th class="text-warning">Age</td>
+                        <th class="text-warning">Age</th>
                         <td id="forage">{{this.emp_age}}</td>
                     </tr>
                     <tr>
-                        <th class="text-warning">Email</td>
+                        <th class="text-warning">Email</th>
                         <td id="foremail">{{this.email}}</td>
                     </tr>
                     <tr>
-                        <th class="text-warning">Gender</td>
+                        <th class="text-warning">Gender</th>
                         <td id="forgender">{{this.emp_gender}}</td>
                     </tr>
                     <tr>
@@ -46,27 +46,27 @@
                         <td id="foraddr">{{this.emp_addr}}</td>
                     </tr>
                     <tr>
-                        <th class="text-warning">Role</td>
+                        <th class="text-warning">Role</th>
                         <td id="forrole">{{this.emp_role}}</td>
                     </tr>
                     <tr>
-                        <th class="text-warning">Job</td>
+                        <th class="text-warning">Job</th>
                         <td id="forjob">{{this.job}}</td>
                     </tr>
                     <tr>
-                        <th class="text-warning">Username</td>
+                        <th class="text-warning">Username</th>
                         <td id="forusername">{{this.username}}</td>
                     </tr>
                     <tr>
-                        <th class="text-warning">Password</td>
+                        <th class="text-warning">Password</th>
                         <td id="forpassword">{{this.password}}</td>
                     </tr>
                     <tr>
-                        <th class="text-warning">Joining date</td>
+                        <th class="text-warning">Joining date</th>
                         <td id="forjd">{{this.joining_date}}</td>
                     </tr>
                     <tr>
-                        <th class="text-warning">Employee Of month</td>
+                        <th class="text-warning">Employee Of month</th>
                         <td id="forempofmon">{{this.is_employee_of_month}}</td>
                     </tr>
 
@@ -221,8 +221,8 @@
         </form>
       </div>
       <div class="modal-footer bg-warning">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" id="save-timesheet">Save</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick=location.reload()>Close</button>    
       </div>
     </div>
   </div>
@@ -291,16 +291,37 @@
       </div>
       <div class="modal-body" id="del-confirm">
           <p >Are you sure you want to proceed with this delete ?</p>
-           <button type="button" class="btn btn-primary" id="yes-del">Yes</button>
-            <button type="button" class="btn btn-danger" id="No-del">No</button>
         </div>
-        <div id="timesheetdel-successmsg">
+        <div class="modal-body" id="timesheetdel-successmsg">
             <p>Timesheet deleted successfully !</p>
         </div>
-      <div class="modal-footer bg-warning">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick=location.reload()>Close</button>
-        <button type="button" class="btn btn-primary" id="savedel-timesheet">Save</button>
+        <div class="modal-footer bg-warning" id="confirm-footer">
+        <button type="button" class="btn btn-success" id="yes-del">Yes</button>
+        <button type="button" class="btn btn-danger" id="no-del" data-dismiss="modal">No</button>
+        </div>
+      <div class="modal-footer bg-warning" id="del-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick=location.reload()>Close</button>
       </div>
     </div>
   </div>
 </div>
+
+{{!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  
+  <script src="{{script}}"></script>
+
+  <script>
+  $('#menu-toggle').click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+  });
+  </script>
+  
+    </body>
+</html> --}}
