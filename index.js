@@ -10,7 +10,7 @@ var multer = require('multer');
 var upload = multer({dest:'images/'});
 var PORT = process.env.PORT || 5500;
 var app = express();
-var db,menuDB;
+var db,menuDB,orderDB;
 var url;
 
 if(process.env.DB_URL)
@@ -30,6 +30,13 @@ mongoClient.connect(url, {useNewUrlParser : true, useUnifiedTopology: true}, (er
     throw err;
     app.locals.menuDB = client.db('menuDB');
     console.log("Connected to database : menuDB");
+});
+
+mongoClient.connect(url, {useNewUrlParser : true, useUnifiedTopology: true}, (err,client) => {
+    if(err)
+    throw err;
+    app.locals.orderDB = client.db('orderDB');
+    console.log("Connected to database : orderDB");
 });
 
 var VIEWS_PATH = path.join(__dirname,"/templates/views");

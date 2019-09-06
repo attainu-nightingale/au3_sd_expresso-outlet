@@ -1,0 +1,41 @@
+<div class="container" id="table-box" style="background-color: #ffcd94;">
+        <div class="row">
+            <div class="col-lg-12 shadow-lg p-3 mb-5 rounded bg-white">
+                
+                <div class="d-inline" id="button-box">
+                    <a href="/manager/order-management" class="btn btn-md btn-danger" id="back-btn">Back</a>
+                </div>
+                <br/>
+                {{#each data}}
+                <h3 class="text-center text-info float-left text-center">Order {{orderID}} Info </h3>
+                 {{/each}}   
+                <br/><br/>
+
+                <div class="container">
+                <table class="table table-dark table-striped table-hover">
+                <tbody>
+                    <tr>
+                        <th class="text-warning">Item</th>
+                          <th class="text-warning">Price</th>
+                          <th class="text-warning">Quantity</th>
+                          <th class="text-warning">Total Price</th>                   
+                    </tr>
+                    {{#each data}}
+                        {{#each orderedItems}}
+                    <tr>
+                        <td>{{this.item_name}}</td>
+                        <td>{{this.item_price}}</td>
+                        <td>{{this.quantity}}</td>
+                        <td>{{this.total_price}}</td>
+                    </tr>
+                    {{/each}}
+                    
+                </tbody>
+            </table>
+        </div>
+            <h5 class="float-right" style="margin-right:50px;">Grand Total : <span class="text-danger">{{this.grand_total}}</span></h5><br/>
+            <a href="/manager/order-management/order/{{this._id}}" download="order.txt" class="btn btn-md btn-success" id="print-btn">Print</a>
+           {{/each}}
+            </div>
+        </div>
+    </div>

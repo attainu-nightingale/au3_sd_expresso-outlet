@@ -67,14 +67,14 @@ $(document).on('click', '#add-stock', function () {
 });
 
 $(document).on('click', '#add', function() {
-    var menuname = $('#menu-name').val();
+    //var menuname = $('#menu-name').val();
     var menuitem = $("#menu-item").val();
     var quantity = parseInt($("#quantity").val());
     console.log(menuitem + ' ' + quantity);
     
     $.ajax({
         
-        url   :'/manager/getMenuItem/' + menuname + '/' + menuitem,
+        url   :'/manager/getMenuItem/' + menuitem,
         type  : 'GET',
         datatype : 'json',
         success : function(data) {
@@ -90,7 +90,7 @@ $(document).on('click', '#add', function() {
             
                         $.ajax({
                     
-                            url   :'/manager/getMenuItem/' + menuname + '/' + menuitem,
+                            url   :'/manager/getMenuItem/' + menuitem,
                             type  : 'PUT',
                             datatype : 'json',
                             contentType: 'application/json',

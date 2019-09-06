@@ -154,15 +154,15 @@ body {
         margin : 30px;
     }
 
-    #hide-employees, #hide-timesheets {
+    #hide-employees, #hide-timesheets, #hide-orders {
         margin-left : 850px;
     }
 
-    .view-btn, #edit-btn, .delete-btn, #timesheets-btn, #back-btn, .passreset-btn, .edit-timesheet, .del-timesheet, #show-stock, #needed-stock, #add-stock {
+    .view-btn, #edit-btn, .delete-btn, #timesheets-btn, #back-btn, .passreset-btn, .edit-timesheet, .del-timesheet, #show-stock, #needed-stock, #add-stock, #list-orders, #add-order {
         margin: 3px;
     }
 
-    .view-btn, #edit-btn, .delete-btn, #timesheets-btn, #back-btn, .passreset-btn, .edit-timesheet, .del-timesheet, #show-stock, #needed-stock, #add-stock {
+    .view-btn, #edit-btn, .delete-btn, #timesheets-btn, #back-btn, .passreset-btn, .edit-timesheet, .del-timesheet, #show-stock, #needed-stock, #add-stock, #list-orders, #add-order {
         margin-left : 20px;
     }
 

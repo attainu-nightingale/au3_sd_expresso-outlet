@@ -31,12 +31,31 @@
             <div class="col-lg-12 shadow-lg p-3 mb-5 rounded bg-white">
                 <h1 class="display-6">Order Management Panel</h1><br/>
                  <p>This control center can be used to add a new order for a table and prepare the bill.</p>
+                 <button class="btn btn-success" id="add-order" data-toggle="modal" data-target="#addModal">Add New Order</a>
+                 <button class="btn btn-primary" id="list-orders">List Orders</button>
                  <a href="#menu-toggle" class="btn btn-danger" id="menu-toggle">Toggle Menu</a>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12 shadow-lg p-3 mb-5 rounded bg-white">
-                <a href="/manager/order-management/" class="btn btn-primary" id="add-employee">Add New Menu</a>
+        <div class="row" id="order-list">
+            <div class="col-lg-12 shadow-lg p-3 mb-5 rounded bg-dark">
+                 <button class="btn btn-warning" id="hide-orders">Hide</button>
+                    <br/><br/>
+                <div class="card-deck">
+                 {{#each data}}
+                 
+                 <div class="card col-4" style="min-width:25%;margin-top:10px;">
+                     
+                    <div class="card-body shadow-lg p-3 mb-5 rounded bg-white">
+                        <p class="order-oid">{{this._id}}</p>
+                        <h5 class="card-title text-center">Order ID : {{this.orderID}}</h5>
+                        <h5 class="card-title text-center">Table No. : {{this.table_no}}</h5>
+                        <p class="card-text text-center">Grand Total : {{this.grand_total}}</p><br/>
+                        <a href="/manager/order-management/order/{{this._id}}" class="view-btn btn btn-dark">View</a>
+                        <a href="#" class="delete-btn btn btn-danger" data-toggle="modal" data-target="#deleteOrderModal">Delete</a>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
             </div>
         </div>        
     </div>
@@ -46,4 +65,33 @@
 </div>
     <!-- /#wrapper -->
 
-     
+
+
+<!-- Delete Order Modal -->
+
+ <div class="modal fade" id="deleteOrderModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title">Delete Order ?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="del-confirm">
+          <p >Are you sure you want to proceed with this delete ?</p>
+        </div>
+        <div class="modal-body" id="orderdel-successmsg">
+            <p>Order deleted successfully !</p>
+        </div>
+        <div class="modal-footer bg-warning" id="confirm-footer">
+        <button type="button" class="btn btn-success" id="yes-del">Yes</button>
+        <button type="button" class="btn btn-danger" id="no-del" data-dismiss="modal">No</button>
+        </div>
+      <div class="modal-footer bg-warning" id="del-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick=location.reload()>Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
