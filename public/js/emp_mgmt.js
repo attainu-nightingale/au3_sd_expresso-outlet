@@ -16,14 +16,37 @@ $('#list-employees').click(() => {
 
   $(document).on('click', '#add-employee', function () {
     $('#message').hide();
+    $.ajax({
+        
+      url :'/manager/getAllEmployees/' ,
+      type : 'GET',
+      datatype : 'json',
+      contentType : 'application/json',
+      success : function(data) {
+        var newid = data.length + 1;
+        $('#id').val(newid);
+        console.log(newid);
+        $('#id').attr("disabled","true");
+
+      }
+      });    
   });
 
   $(document).on('click', '#save', function () {
+    var date = new Date($('#joining_date').val());
+      day = date.getDate() <10 ? "0" + date.getDate() : date.getDate();
+      month = (date.getMonth() + 1) <10 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1);
+      year = date.getFullYear();
+      var joiningdate = [year, month, day].join('/');
+      
+
     var checkbox = "false";
     if ($('#is_empofmonth').is(":checked"))
     {
       checkbox = "true";
     }
+
+    console.log(joiningdate + ' ' + checkbox);
 
     var newEmp =  {
       id : $('#id').val(),
@@ -37,7 +60,7 @@ $('#list-employees').click(() => {
       username : $('#username').val(),
       password : $('#password').val(),
       profilepic : $('#profile_pic').val(),
-      joiningdate : $('#joining_date').val(),
+      joiningdate : joiningdate,
       empofmonth : checkbox
      };
   
@@ -169,15 +192,17 @@ $(document).on('click', '.delete-btn', function () {
             $('#timesheet-box').append(`<div class="card col-4 d-inline-block" style="min-width:25%;margin-top:10px;">
             <div class="card-body shadow-lg p-3 mb-5 rounded bg-white">
                 <h6 class="card-title text-center">${data[i].date}</h6>
-                <p class="card-text">
+                <p class="card-text text-center">
 
                     Working Hours : ${data[i].working_hours}<br/>
                     Wage Per Hour : ${data[i].wage_per_hr}<br/>
                     Total Wage : ${data[i].total_wage}<br/>
                 </p>
+                <div class="d-flex justify-content-center">
                 <a href="#" class="edit-timesheet btn btn-md btn-info" data-toggle="modal" data-target="#edit-timesheetModal">Edit</a>
                 <a href="#" class="del-timesheet btn btn-md btn-danger" data-toggle="modal" data-target="#del-timesheetModal">Delete</a><br/>
-            </div>
+                </div>
+                </div>
             
         </div>
              `);
@@ -186,6 +211,7 @@ $(document).on('click', '.delete-btn', function () {
         });
         });
 
+  //Add New Timesheet button click
   $(document).on('click', '#add-timesheet', function () {
     $('#timesheetadd-successmsg').hide();
     var empid = $('#forid').text();
@@ -215,6 +241,7 @@ $(document).on('click', '.delete-btn', function () {
   $("#update-total-wage").val(z.toFixed(2));
 });
 
+//Save New added timesheet button click
   $(document).on('click', '#save-timesheet', function (e) {
     e.preventDefault();
     

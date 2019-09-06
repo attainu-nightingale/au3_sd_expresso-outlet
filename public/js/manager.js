@@ -2,10 +2,31 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var session = require('express-session');
+var multer = require('multer');
+var PATH = path.join(__dirname, "/public/");
+var upload = multer({dest:PATH + '/images/'});
+var cloudinary = require('cloudinary').v2;
+var cloudinaryStorage = require("multer-storage-cloudinary");
+var dotenv = require('dotenv');
+dotenv.config();
 var VIEWS_PATH = path.join(__dirname,"../../templates/views");
 var mongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 var url = 'mongodb://localhost:27017';
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET
+  });
+
+  const storage = cloudinaryStorage({
+  cloudinary: cloudinary,
+  folder: "expresso",
+  allowedFormats: ["jpg", "png"],
+  transformation: [{ width: 500, height: 500, crop: "limit" }]
+  });
+  const parser = multer({ storage: storage });
 
 router.use(express.urlencoded({extended: false}));
 router.use(express.json());
@@ -64,8 +85,7 @@ router.get('/', function (req, res) {
       req.session.isLoggedIn = true;
   res.render(VIEWS_PATH + '/manager_home.hbs',{
     title : "Manager Home Page" ,
-    //style : '../../css/manager_home.css',
-    script : '../../js/manager_home.js',
+    style : '../../css/manager_home.css',
     layout : 'manager-layout.hbs'
 });
     }
@@ -86,8 +106,6 @@ router.get('/my-profile', function (req, res) {
       console.log(doc);
     res.render(VIEWS_PATH + '/manager_profile.hbs',{
     title : "Manager Profile Page" ,
-    //style : '../../css/manager_home.css',
-    script : '../../js/manager_home.js',
     layout : 'manager-layout.hbs',
     data : doc
   });
@@ -108,8 +126,6 @@ router.get('/menu-management', function (req, res) {
     console.log(doc);
   res.render(VIEWS_PATH + '/menu_management.hbs',{
     title : "Menu Management Page" ,
-    //style : '../../css/manager_home.css',
-    script : '../../js/manager_home.js',
     layout : 'manager-layout.hbs',
     data : doc
   });
@@ -140,25 +156,8 @@ router.get('/order-management', function (req, res) {
 });
 
 
-// define the /manager/order/1 route to see details of one employee in JSON format
 
-router.get('/order/:id', (req,res) => {
-  if(!req.session.isLoggedIn)
-    res.redirect('../manager-login');
-    else {
-  var db = req.app.locals.orderDB;
-  var id = req.params.id
-  
-  console.log(id);
-  db.collection('employees').find({orderID : id, orderedItems : {$elemMatch : {item_name : itemname}}}).toArray((err,doc) => {
-      if(err) throw err;
-      res.json(doc);
-    });
- }
-  });
-
-
-//define the GET for /manager/order-management/order/1 route to see details of one employee
+//define the GET for /manager/order-management/order/objid(id) route to see details of one employee
 
 router.get('/order-management/order/:id', (req,res) => {
   console.log(req.session.isLoggedIn);
@@ -176,7 +175,6 @@ router.get('/order-management/order/:id', (req,res) => {
       console.log(doc);
       res.render(VIEWS_PATH + '/manage_order.hbs',{
         title : "Order Details Page" ,
-        //style : '/css/manager_home.css',
         script : '/js/order_manage.js',
         layout : 'manager-layout.hbs',
         data : doc
@@ -262,7 +260,11 @@ router.put('/getMenuItem/:menuitem', function (req, res) {
   var menuitem_name = req.params.menuitem;
   var newInventory = req.body.newQuantity;
   console.log('INVENTORY' + ' ' + newInventory + ' ' + menuitem_name);
-   db.collection('menus').updateOne({ menu_item_name : menuitem_name }, {menu_items : {$elemMatch : {menu_item_name : menuitem_name}}} , { $set: {menu_items : {$elemMatch : {$in_inventory : newInventory}}}} , (err,doc) => {
+  
+   db.collection('menus').updateOne({ 
+     menu_item_name : menuitem_name }, 
+    {menu_items : {$elemMatch : {menu_item_name : menuitem_name}}} , 
+    { $set: {menu_items : {$elemMatch : {$in_inventory : newInventory}}}} , (err,doc) => {
     if (err) 
         throw err;
     res.json({success : "Stock added successfully!"});
@@ -333,6 +335,22 @@ router.get('/employee-management', function (req, res) {
    }
 });
 
+
+router.get('/getAllEmployees', (req,res) => {
+  if(!req.session.isLoggedIn)
+    res.redirect('../manager-login');
+    else {
+  var db = req.app.locals.db;
+  var id = req.params.id
+  
+  console.log(id);
+  db.collection('employees').find({}).toArray((err,doc) => {
+      if(err) throw err;
+      res.json(doc);
+    });
+ }
+  });
+
 // define the /manager/employee/1 route to see details of one employee in JSON format
 
 router.get('/employee/:id', (req,res) => {
@@ -368,7 +386,7 @@ router.get('/employee-management/employee/:id', (req,res) => {
       console.log(doc);
       res.render(VIEWS_PATH + '/manage_employee.hbs',{
         title : "Employee Details Page" ,
-        //style : '/css/manager_home.css',
+        //style : '../../css/manager_home.css',
         script : '/js/emp_mgmt.js',
         layout : 'manager-layout.hbs',
         data : doc
@@ -378,7 +396,10 @@ router.get('/employee-management/employee/:id', (req,res) => {
 });
 
 // POST route to add a new employee
-router.post('/employee-management/employee/', (req,res) => {
+router.post('/employee-management/employee/', parser.single('profile_pic'), (req,res) => {
+  cloudinary.uploader.upload(req.file.path, (err,result) => {
+    console.log("File upload result :" , result);
+    var imageUrl = result.secure_url;
   var db = req.app.locals.db;
   //var id = req.params.id
 
@@ -394,9 +415,9 @@ router.post('/employee-management/employee/', (req,res) => {
     job : req.body.job,
     username : req.body.username,
     password : req.body.password,
-    //profile_pic : req.body.profile-pic,
-    joining_date : req.body.joining_date,
-    is_employee_of_month : req.body.is_empofmonth
+    profile_pic : imageUrl,
+    joining_date : req.body.joiningdate,
+    is_employee_of_month : req.body.empofmonth
   };
 
     console.log(newEmployeeObj);
@@ -409,7 +430,7 @@ router.post('/employee-management/employee/', (req,res) => {
     });
 });
 
-
+});
 
 // PUT route to update an employee
 router.put('/employee-management/employee/:id', (req,res) => {

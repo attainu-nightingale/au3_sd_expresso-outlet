@@ -6,8 +6,6 @@ var ObjectId = require('mongodb').ObjectID;
 var mongoClient = require('mongodb').MongoClient;
 //var url = 'mongodb://localhost:27017';
 var PATH = path.join(__dirname, "/public/");
-var multer = require('multer');
-var upload = multer({dest:'images/'});
 var PORT = process.env.PORT || 5500;
 var app = express();
 var db,menuDB,orderDB;
@@ -42,13 +40,6 @@ mongoClient.connect(url, {useNewUrlParser : true, useUnifiedTopology: true}, (er
 var VIEWS_PATH = path.join(__dirname,"/templates/views");
 app.set("views",VIEWS_PATH);
 app.set("view engine", "hbs");
-
-hbs.registerHelper('is',function(parameter,string,options){
-    if(parameter == string)
-        return options.fn(this);
-    else
-        return options.inverse(this);    
-});
 
 app.use(session({
     secret: 'Secret signature for secure session ID',

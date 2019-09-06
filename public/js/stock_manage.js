@@ -24,7 +24,8 @@ $(document).on('click', '#submit', function () {
     });      
 });  
 
-$(document).on('click', '#needed-stock', function(e) {
+$(document).on('click', '#needed-stock', function() {
+    $('#for-addstock').html("");
     e.preventDefault();
     //$('#for-addstock').show();
     $('#for-addstock').append(`

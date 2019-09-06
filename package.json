@@ -10,11 +10,14 @@
   "author": "Team Expresso",
   "license": "ISC",
   "dependencies": {
+    "cloudinary": "^1.14.0",
+    "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "express-session": "^1.16.2",
     "hbs": "^4.0.4",
     "mongodb": "^3.3.2",
     "multer": "^1.4.2",
+    "multer-storage-cloudinary": "^2.2.1",
     "path": "^0.12.7"
   }
 }

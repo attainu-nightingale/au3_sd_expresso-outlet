@@ -9,19 +9,32 @@ body {
 
 .navbar {
     background:#333;
+    height : 40px;
 }
 
 #logo {
-    height : 12%;
-    width : 12%;
+    height : 5%;
+    width : 5%;
+    margin-top :10px;
 }
 
-#navbar-list-4 {
-    padding-left: 500px;
+#avatar {
+    height : 10%;
+    width : 10%;
+    float : right;
+    margin-top :20px;
 }
+
+.dropdown-menu {
+    float : right;
+}
+ #navbar-list-4 {
+   float : right;
+}  
 
 #expresso {
     padding-left: 20px;
+   font-family: 'Cantarell';
 }
 
 #wrapper {
@@ -159,10 +172,10 @@ body {
     }
 
     .view-btn, #edit-btn, .delete-btn, #timesheets-btn, #back-btn, .passreset-btn, .edit-timesheet, .del-timesheet, #show-stock, #needed-stock, #add-stock, #list-orders, #add-order {
-        margin: 3px;
+        margin: 5px;
     }
 
-    .view-btn, #edit-btn, .delete-btn, #timesheets-btn, #back-btn, .passreset-btn, .edit-timesheet, .del-timesheet, #show-stock, #needed-stock, #add-stock, #list-orders, #add-order {
+    .view-btn, #edit-btn, .delete-btn, #timesheets-btn, #back-btn, .passreset-btn, #show-stock, #needed-stock, #add-stock, #list-orders, #add-order {
         margin-left : 20px;
     }
 
