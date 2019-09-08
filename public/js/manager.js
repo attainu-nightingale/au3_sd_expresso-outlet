@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var session = require('express-session');
+var uuidv4 = require("uuid/v4");
 var multer = require('multer');
 var PATH = path.join(__dirname, "/public/");
 var upload = multer({dest:PATH + '/images/'});
@@ -133,7 +134,7 @@ router.get('/menu-management', function (req, res) {
 }
 });
 
-  // define the /manager/order-management route
+// define the /manager/order-management route
 router.get('/order-management', function (req, res) {
   console.log(req.session.isLoggedIn);
   if(!req.session.isLoggedIn)
@@ -146,7 +147,6 @@ router.get('/order-management', function (req, res) {
     console.log(doc);
   res.render(VIEWS_PATH + '/order_management.hbs',{
     title : "Order Management Page" ,
-    //style : '../../css/manager_home.css',
     script : '../../js/order_manage.js',
     layout : 'manager-layout.hbs',
     data : doc
@@ -157,7 +157,7 @@ router.get('/order-management', function (req, res) {
 
 
 
-//define the GET for /manager/order-management/order/objid(id) route to see details of one employee
+//define the GET for /manager/order-management/order/objid(id) route to see details of an order
 
 router.get('/order-management/order/:id', (req,res) => {
   console.log(req.session.isLoggedIn);
@@ -166,11 +166,10 @@ router.get('/order-management/order/:id', (req,res) => {
     else {
   var db = req.app.locals.orderDB;
   var id = req.params.id
-  var itemname = req.params.itemname;
+  //var itemname = req.params.itemname;
   
   console.log(id);
   db.collection('orders').find({_id : ObjectId(id)}).toArray((err,doc) => {
-  //db.collection('orders').find({orderedItems : {$elemMatch : {_id : ObjectId(id)}}}).toArray((err,doc) => {
       if(err) throw err;
       console.log(doc);
       res.render(VIEWS_PATH + '/manage_order.hbs',{
@@ -181,6 +180,89 @@ router.get('/order-management/order/:id', (req,res) => {
       });
       });
 }
+});
+
+//define the POST for /manager/order-management/order/objid(id) route 
+router.post('/order-management/order/:id', (req,res) => {
+  console.log(req.session.isLoggedIn);
+  if(!req.session.isLoggedIn)
+    res.redirect('../../manager-login');
+    else {
+  var db = req.app.locals.orderDB;
+  var id = req.params.id
+  //var itemname = req.params.itemname;
+  var newOrderItemObj = {
+    _id :  uuidv4(),
+    item_name : req.body.order_item,
+    item_price : req.body.price,
+    quantity : req.body.quantity,
+    total_price : req.body.total_price
+  };
+  
+  console.log(id);
+  console.log(newOrderItemObj);
+  db.collection('orders').update({_id : ObjectId(id)}, {$push: {orderedItems : newOrderItemObj}},(err,doc) => {
+      if(err) throw err;
+      console.log(doc);
+  });
+  db.collection('orders').update({_id: ObjectId(id)}, {$set: {grand_total: req.body.grand_total}} , (err,doc) => {
+    if(err) throw err;
+    console.log(doc);
+});
+    }
+});   
+
+//GET route for displaying all orders
+router.get('/getAllOrders', (req,res) => {
+  // console.log(req.session.isLoggedIn);
+  // if(!req.session.isLoggedIn)
+  //   res.redirect('/manager/manager-login');
+  //   else {
+  var db = req.app.locals.orderDB;
+  db.collection('orders').find({}).toArray((err,doc) => {
+    if(err) throw err;
+    res.json(doc);
+  });
+//}
+});
+
+
+//define the POST route for /manager/getAllOrders to add new order skeleton
+router.post('/getAllOrders/', (req,res) => {
+  var db = req.app.locals.orderDB;
+  var newOrderObj = {
+    orderID : req.body.order_id,
+    table_no : req.body.table_no,
+    orderedItems : []
+  };
+
+    console.log(newOrderObj);
+
+  db.collection('orders').insertOne(newOrderObj , (err,doc) => {
+      if(err) throw err;
+      console.log(JSON.stringify(doc));
+      res.json({success : "New order skeleton added"});
+    });
+  });
+
+//GET route for new order 
+router.get('/order-management/new-order/', (req,res) => {
+  console.log(req.session.isLoggedIn);
+  if(!req.session.isLoggedIn)
+    res.redirect('/manager/manager-login');
+    else {
+  var db = req.app.locals.menuDB;
+  db.collection('menus').find({}).toArray((err,doc) => {
+    if(err) throw err;
+    console.log(doc);
+    res.render(VIEWS_PATH + '/new_order.hbs',{
+      title : "New Order Page" ,
+      script : '/js/order_manage.js',
+      layout : 'manager-layout.hbs',
+      data : doc
+    });
+    });
+    }
 });
 
 
@@ -197,6 +279,7 @@ db.collection('orders').deleteOne({_id : ObjectId(id)} , (err,doc) => {
     res.json({success : "Order deleted successfully!"});
 }); 
 });
+
 
 // define the /manager/stock-management route
 router.get('/stock-management', function (req, res) {
@@ -259,13 +342,14 @@ router.put('/getMenuItem/:menuitem', function (req, res) {
   var db = req.app.locals.menuDB;
   var menuitem_name = req.params.menuitem;
   var newInventory = req.body.newQuantity;
-  console.log('INVENTORY' + ' ' + newInventory + ' ' + menuitem_name);
-  
-   db.collection('menus').updateOne({ 
-     menu_item_name : menuitem_name }, 
-    {menu_items : {$elemMatch : {menu_item_name : menuitem_name}}} , 
-    { $set: {menu_items : {$elemMatch : {$in_inventory : newInventory}}}} , (err,doc) => {
-    if (err) 
+  var menuoid = req.body.menu_oid;
+  var menuitemoid = req.body.menuitem_oid;
+  console.log('INVENTORY' + ' ' + newInventory + ' ' + menuitem_name + ' ' + menuoid + ' ' +menuitemoid);
+
+    db.collection('menus').update({_id: ObjectId(menuoid), 
+      menu_items: { $elemMatch:{ _id: ObjectId(menuitemoid)}}} , {$set: {"menu_items.$.in_inventory": newInventory}}, 
+      (err,doc) => {
+     if (err) 
         throw err;
     res.json({success : "Stock added successfully!"});
     console.log(doc);
@@ -285,32 +369,6 @@ router.get('/getMenuItem/:menuname/:menuitem', function (req, res) {
   });
 //}
 });
-
-
-// define the PUT for /manager/getMenuItem route
-router.put('/getMenuItem/:menuname/:menuitem', function (req, res) {
-  var db = req.app.locals.menuDB;
-  var menu_name = req.params.menuname;
-  var menuitem_name = req.params.menuitem;
-  var newInventory = req.body.newQuantity;
-  console.log('INVENTORY' + ' ' + newInventory + ' ' + menuitem_name);
-  
-  db.collection('menus').findOne({menu_name: menu_name , "menu_items.menu_item_name" : menuitem_name} , (err,doc) => {
-
-  // var update = { "$set": {} };
-  // update.$set["menu_items.in_inventory"] = newInventory;
-  // db.collection('menus').updateOne({menu_name: menu_name}, update);
-  //   db.collection('menus').updateOne({ menu_item_name : menuitem_name },  {$set: {"menu_items.in_inventory": newInventory}} , (err,doc) => {
-  // db.collection('menus').updateOne({ menu_name : menu_name }, {menu_items : {$elemMatch : {menu_item_name : menuitem_name}}} , { $set: {menu_items : {$elemMatch : {$in_inventory : newInventory}}}} , (err,doc) => {
-//     if (err) 
-//         throw err;
-//     res.json({success : "Stock added successfully!"});
-//     console.log(doc);
-//     });
-  });
-});
-
-
 
 
 // define the /manager/employee-management route

@@ -1,0 +1,86 @@
+<div class="container" id="table-box" style="background-color: #ffcd94;">
+        <div class="row">
+            <div class="col-lg-12 shadow-lg p-3 mb-5 rounded bg-white">
+                
+                <div class="d-inline" id="button-box">
+                    <a href="#" class="btn btn-md btn-info" id="addorderitem-btn" data-toggle="modal" data-target="#additemModal">Add New</a>
+                    <a href="/manager/order-management" class="btn btn-md btn-danger" id="back-btn">Back</a>
+                </div>
+                <br/>
+                    <h3 class="text-center text-info float-left text-center">New Order</h3><br/><br/>
+                    <div class="container">
+                <table class="table table-dark table-striped table-hover">
+                <tbody id="order-box">
+                    <tr>
+                        <th class="text-warning">Item</th>
+                        <th class="text-warning">Price</th>
+                        <th class="text-warning">Quantity</th>
+                        <th class="text-warning">Total Price</th>
+                        <th class="text-warning">Manage</th>                   
+                    </tr>
+                     </tbody>
+            </table>
+        </div>
+        <a href="/manager/order-management/new-order" download="order.txt" class="btn btn-md btn-success" id="print-btn">Print</a>
+        <h5 class="float-right" style="margin-right:50px;">Grand Total : Rs. <span class="text-danger" id="grand-total"></span></h5><br/>
+            </div>
+           </div>
+           </div>
+                
+
+<!-- Add Order Item Modal -->
+    <div class="modal fade" id="additemModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title">Add Order Item</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form id="addorderitem-form" role="form" method="POST" action="" data-toggle="validator">
+            <div class="form-group">
+                <label for="menu-item" id="label">Select Item</label>
+                <div class="input-group mb-3" id="fordatalist">
+                    <input type="text" id="menu-item" list="menu-list" class="form-control input-lg" name="menu-item" placeholder="Choose" required />      
+                </div>
+
+                <datalist id="menu-list" class="required-entry">
+                    {{#each data}}
+                        {{#each menu_items}}
+                    <option>{{this.menu_item_name}}</option>
+                     {{/each}}
+                    {{/each}}   
+                </datalist>      
+            </div> 
+            <div class="form-group">
+                <label for="price" id="label">Price</label>
+                <div class="input-group mb-3">
+                    <input type="number" id="price" class="form-control input-lg" name="price" placeholder="Rs." required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="quantity" id="label">Enter Quantity</label>
+                <div class="input-group mb-3">
+                    <input type="number" id="quantity" class="form-control input-lg" name="quantity" placeholder="No." required autofocus/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="total-price" id="label">Total Price</label>
+                <div class="input-group mb-3">
+                    <input type="number" id="total-price" class="form-control input-lg" name="total-price" placeholder="Rs."/>
+                </div>
+            </div>
+            <div id="addstock-successmsg">
+            <p>Item added !</p>
+            </div>
+            </form>
+      </div>
+      <div class="modal-footer bg-warning">
+        <button type="button" class="btn btn-success" id="add">Add</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>  
+      </div>
+    </div>
+  </div>
+</div>
