@@ -210,7 +210,49 @@ router.post('/order-management/order/:id', (req,res) => {
     console.log(doc);
 });
     }
-});   
+});  
+
+
+
+router.put('/order-management/order/:id', (req,res) => {
+  console.log(req.session.isLoggedIn);
+  if(!req.session.isLoggedIn)
+    res.redirect('../../manager-login');
+    else {
+  var db = req.app.locals.orderDB;
+  var id = req.params.id
+  
+  var newGrandTotal = req.body.grand_total;
+  
+  console.log('New Grand Total' + ' ' + newGrandTotal);
+
+//   var objForUpdate = {};
+      
+//       objForUpdate._id = uuid();
+//     if (req.body.orderitem) objForUpdate.item_name = req.body.orderitem;
+//     if (req.body.price) objForUpdate.item_price = req.body.price;
+//     if (req.body.quantity) objForUpdate.quantity = req.body.quantity;
+//     if (req.body.totalprice) objForUpdate.total_price = req.body.totalprice;
+//     if(req.body.grand_total) newGrandTotal.grand_total = req.body.grand_total;
+
+//     db.collection('orders').update({_id : ObjectId(id)} , {$pull: {orderedItems : {_id: orderitemoid }}} ,(err,doc) => {
+//       if(err) throw err;
+//       console.log(JSON.stringify(doc));
+//       res.json({success : "Order item deleted successfully!"});
+//   }); 
+
+//   db.collection('orders').update({_id: ObjectId(id)}, {$push: {orderedItems : objForUpdate}} , (err,doc) => {
+//     if(err) throw err;
+//     res.json({success : "Order item updated successfully!"});
+//     console.log(doc);
+// });
+
+db.collection('orders').update({_id: ObjectId(id)}, {$set: {grand_total: newGrandTotal}} , (err,doc) => {
+  if(err) throw err;
+  console.log(doc);
+});
+}
+});  
 
 //GET route for displaying all orders
 router.get('/getAllOrders', (req,res) => {
@@ -266,8 +308,7 @@ router.get('/order-management/new-order/', (req,res) => {
 });
 
 
-
-// DELETE route to delete an order
+// DELETE route to delete an orderitem
 router.delete('/order-management/order/:id', (req,res) => {
   var db = req.app.locals.orderDB;
   var id = req.params.id
@@ -278,6 +319,26 @@ db.collection('orders').deleteOne({_id : ObjectId(id)} , (err,doc) => {
     console.log(JSON.stringify(doc));
     res.json({success : "Order deleted successfully!"});
 }); 
+});
+
+
+
+// DELETE route to delete an order
+router.delete('/order-management/order/:id/:orderitem', (req,res) => {
+  var db = req.app.locals.orderDB;
+  var id = req.params.id
+  var orderitem = req.params.orderitem;
+  console.log(id);
+  
+db.collection('orders').update({_id : ObjectId(id)} , {$pull: {orderedItems : {item_name: orderitem }}} ,(err,doc) => {
+    if(err) throw err;
+    console.log(JSON.stringify(doc));
+    res.json({success : "Order item deleted successfully!"});
+}); 
+db.collection('orders').update({_id: ObjectId(id)}, {$set: {grand_total: req.body.grand_total}} , (err,doc) => {
+  if(err) throw err;
+  console.log(doc);
+});
 });
 
 
