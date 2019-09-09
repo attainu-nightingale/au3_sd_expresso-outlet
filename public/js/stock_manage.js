@@ -104,11 +104,12 @@ $(document).on('click', '#add', function() {
                             success : function(data) {
                                 $('.form-group').hide();
                                 $('#addstock-successmsg').show();
+                                $('#add').hide();
                                 console.log(JSON.stringify(data));
                             }    
             
      });
         }
-    });      
+    });     
 });  
  
