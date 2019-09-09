@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Lato');
+@import url('https://fonts.googleapis.com/css?family=Lato|Tangerine&display=swap');
 * {
     box-sizing: border-box;
 }
@@ -167,15 +167,15 @@ body {
         margin : 30px;
     }
 
-    #hide-employees, #hide-timesheets, #hide-orders {
+    #hide-employees, #hide-timesheets, #hide-orders, #hide-menus {
         margin-left : 850px;
     }
 
-    .view-btn, #edit-btn, .delete-btn, #timesheets-btn, #back-btn, .passreset-btn, .edit-timesheet, .del-timesheet, #show-stock, #needed-stock, #add-stock, #list-orders, #add-order {
+    .view-btn, #edit-btn, .delete-btn, #timesheets-btn, #back-btn, .passreset-btn, .edit-timesheet, .del-timesheet, .editorderitem, .delorderitem, #show-stock, #needed-stock, #add-stock, #list-orders, #add-order, #add-menu, #list-menus, .menuitem-edit-btn, .menuitem-del-btn {
         margin: 5px;
     }
 
-    .view-btn, #edit-btn, .delete-btn, #timesheets-btn, #back-btn, .passreset-btn, #show-stock, #needed-stock, #add-stock, #list-orders, #add-order {
+    .view-btn, #edit-btn, .delete-btn, #timesheets-btn, #back-btn, .passreset-btn, #show-stock, #needed-stock, #add-stock, #list-orders, #add-order, #add-menu, #list-menus, .menuitem-edit-btn, .menuitem-del-btn {
         margin-left : 20px;
     }
 
@@ -189,6 +189,12 @@ body {
 
     #gender-male, #gender-female, #gender-other {
         margin-left : 10px;
+    }
+
+    .card-img-top {
+        width: 100%;
+        height: 25vw;
+        object-fit: cover;
     }
 
 }

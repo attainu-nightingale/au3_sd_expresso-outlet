@@ -24,10 +24,9 @@ $(document).on('click', '#submit', function () {
     });      
 });  
 
-$(document).on('click', '#needed-stock', function() {
-    $('#for-addstock').html("");
+$(document).on('click', '#needed-stock', function(e) {
     e.preventDefault();
-    //$('#for-addstock').show();
+    $('#for-addstock').html("");
     $('#for-addstock').append(`
     <table class="table table-dark table-striped table-hover">
                 <tbody id="append-result">
@@ -68,11 +67,12 @@ $(document).on('click', '#add-stock', function () {
 });
 
 $(document).on('click', '#add', function() {
-    //var menuname = $('#menu-name').val();
+    
     var menuitem = $("#menu-item").val();
     var quantity = parseInt($("#quantity").val());
     console.log(menuitem + ' ' + quantity);
     
+    var menuitem_oid, menu_oid;
     $.ajax({
         
         url   :'/manager/getMenuItem/' + menuitem,
@@ -81,14 +81,19 @@ $(document).on('click', '#add', function() {
         success : function(data) {
             
             for(i=0;i<data[0].menu_items.length;i++) {
-                if(data[0].menu_items[i].menu_item_name == menuitem)
+                if(data[0].menu_items[i].menu_item_name == menuitem){
+                 menuitem_oid = data[0].menu_items[i]._id;
+                 menu_oid = data[0]._id;
                 quantity = parseInt(data[0].menu_items[i].in_inventory) + quantity;
-                }
+                }}
                 var newInventory =  {
-                    newQuantity : quantity
+                    newQuantity : quantity,
+                    menuitem_oid : menuitem_oid,
+                    menu_oid : menu_oid
+                    
                 };
-                console.log(newInventory);
-            
+                console.log(quantity + ' ' + menuitem_oid + ' ' + menu_oid);
+
                         $.ajax({
                     
                             url   :'/manager/getMenuItem/' + menuitem,
@@ -99,11 +104,12 @@ $(document).on('click', '#add', function() {
                             success : function(data) {
                                 $('.form-group').hide();
                                 $('#addstock-successmsg').show();
+                                $('#add').hide();
                                 console.log(JSON.stringify(data));
                             }    
             
      });
         }
-    });      
+    });     
 });  
  
