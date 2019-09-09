@@ -1,21 +1,24 @@
 {
-  "name": "expresso",
+  "name": "au3_sd_expresso-outlet",
   "version": "1.0.0",
-  "description": "",
+  "description": "Expresso Application using Express for Steamin' Mugs Outlet",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "divyansh",
+  "author": "Team Expresso",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.19.0",
+    "cloudinary": "^1.14.0",
+    "dotenv": "^8.1.0",
     "express": "^4.17.1",
-    "express-handlebars": "^3.1.0",
     "express-session": "^1.16.2",
-    "handlebars": "^4.1.2",
     "hbs": "^4.0.4",
-    "mongodb": "^3.3.2"
+    "mongodb": "^3.3.2",
+    "multer": "^1.4.2",
+    "multer-storage-cloudinary": "^2.2.1",
+    "path": "^0.12.7",
+    "uuid": "^3.3.3"
   }
 }

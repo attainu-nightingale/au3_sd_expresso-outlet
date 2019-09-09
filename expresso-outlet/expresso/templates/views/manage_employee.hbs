@@ -1,0 +1,327 @@
+
+<div class="container" id="table-box" style="background-color: #ffcd94;">
+        <div class="row">
+            <div class="col-lg-12 shadow-lg p-3 mb-5 rounded bg-white">
+                
+                <div class="d-inline" id="button-box">
+                    <a href="#" class="btn btn-md btn-info" id="edit-btn" data-toggle="modal" data-target="#updateModal">Edit</a>
+                    <a href="/manager/employee-management" class="btn btn-md btn-danger" id="back-btn">Back</a>
+                </div>
+                <br/>
+                
+                <h3 class="text-center text-info float-left">Employee Info</h3>
+                    
+                <br/><br/>
+
+                <div class="container">
+                    {{#each data}}
+                    <img src="{{this.profile_pic}}"></img>
+                    {{/each}}
+                    <br/><br/>
+                <table class="table table-dark table-striped table-hover">
+                <tbody>
+                    {{#each data}}
+                    <tr>
+                        <th class="text-warning">Employee ID</th>
+                        <td id="forid">{{this.emp_id}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Name</th>
+                        <td id="forname">{{this.emp_name}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Age</th>
+                        <td id="forage">{{this.emp_age}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Email</th>
+                        <td id="foremail">{{this.email}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Gender</th>
+                        <td id="forgender">{{this.emp_gender}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Address</td>
+                        <td id="foraddr">{{this.emp_addr}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Role</th>
+                        <td id="forrole">{{this.emp_role}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Job</th>
+                        <td id="forjob">{{this.job}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Username</th>
+                        <td id="forusername">{{this.username}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Password</th>
+                        <td id="forpassword">{{this.password}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Joining date</th>
+                        <td id="forjd">{{this.joining_date}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Employee Of month</th>
+                        <td id="forempofmon">{{this.is_employee_of_month}}</td>
+                    </tr>
+
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+  
+            <a href="#" class="btn btn-md btn-success" id="timesheets-btn">View Timesheets</a>
+            </div>
+        </div>
+    </div>
+
+    <!--  Timesheet block -->
+
+    <div class="container">
+        <div class="row" id="timesheet-list">
+            <div class="col-lg-12 shadow-lg p-3 mb-5 rounded bg-secondary" id="result-box">
+                
+                
+                  
+            </div>  
+        </div>
+    </div>
+</div>
+
+<!-- Update Modal -->
+
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title">Edit Employee</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="update-form" role="form" method="POST" action="" enctype="multipart/form-data">
+            <div class="form-group">
+                <label class="control-label">Name</label>
+                        <div>
+                            <input type="text" id="update-name" class="form-control input-lg" name="name">
+                        </div>
+            </div> 
+            <div class="form-group">
+            <label class="control-label">Age</label>
+                        <div>
+                            <input type="number" id="update-age" class="form-control input-lg" name="age">
+                        </div>
+            </div>
+            <div class="form-group">
+            <label class="control-label">Email</label>
+                        <div>
+                            <input type="email" id="update-email" class="form-control input-lg" name="email">
+                        </div>
+            </div>
+            <div class="form-group">
+            <label class="control-label">Address</label>
+                        <div>
+                            <input type="text" id="update-address" class="form-control input-lg" name="address">
+                        </div>
+            </div>
+            <div class="form-group">
+            <label class="control-label">Job</label>
+                        <div>
+                            <input type="text" id="update-job" class="form-control input-lg" name="job">
+                        </div>
+            </div>
+            <div class="form-group">
+            <label class="control-label">Username</label>
+                        <div>
+                            <input type="text" id="update-username" class="form-control input-lg" name="username">
+                        </div>
+            </div>
+            <div class="form-group">
+            <label class="control-label">Password</label>
+                        <div>
+                            <input type="password" id="update-password" class="form-control input-lg" name="password">
+                        </div>
+            </div>
+        
+            <div class="form-group">
+                <label class="control-label">Employee of the month</label>
+                        <div>
+                            <select class="form-control" id="update-empofmonth" name="empofmonth">
+                                <option value="false">false</option>
+                                <option value="true">true</option>
+                            </select>   
+                        </div>
+            </div>
+            <p id="update-successmsg">Employee details changed successfully !</p>
+            </form> 
+      </div>
+        <div class="modal-footer bg-warning">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick=location.reload()>Close</button>
+        <button type="button" class="btn btn-primary" id="update-save">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Timesheet Modal -->
+    <div class="modal fade" id="add-timesheetModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title">Add Timesheet</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form role="form" id="addtimesheet">
+            <div class="form-group">
+                <label class="control-label">Employee ID</label>
+                        <div>
+                            <input type="number" id="emp-id" class="form-control input-lg" name="emp_id">
+                        </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Name</label>
+                        <div>
+                            <input type="text" id="emp-name" class="form-control input-lg" name="emp_name">
+                        </div>
+            </div>
+          <div class="form-group">
+                <label class="control-label">Date</label>
+                        <div>
+                            <input type="date" id="date" class="form-control input-lg" name="date" placeholder="Pick Date">
+                        </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Working Hours</label>
+                        <div>
+                            <input type="number" id="working-hrs" class="form-control input-lg" name="working_hrs" placeholder="Hrs">
+                        </div>
+            </div> 
+            <div class="form-group">
+                <label class="control-label">Wage Per Hour</label>
+                        <div>
+                            <input type="number" id="wage-per-hr" class="form-control input-lg" name="wage_per_hr" placeholder="Rs.">
+                        </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Total Wage</label>
+                        <div>
+                            <input type="number" id="total-wage" class="form-control input-lg" name="total_wage" placeholder="Rs.">
+                        </div>
+            </div> 
+            <p id="timesheetadd-successmsg">New timesheet added successfully !</p> 
+        </form>
+      </div>
+      <div class="modal-footer bg-warning">
+        <button type="button" class="btn btn-primary" id="save-timesheet">Save</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick=location.reload()>Close</button>    
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Edit Timesheet Modal -->
+
+ <div class="modal fade" id="edit-timesheetModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title">Edit Timesheet for <span id="for-empname"></span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form role="form" id="edittimesheet"> 
+          <div class="form-group">
+                <label class="control-label">Date</label>
+                        <div>
+                            <input type="text" id="update-date" class="form-control input-lg" name="date">
+                        </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Working Hours</label>
+                        <div>
+                            <input type="number" id="update-working-hrs" class="form-control input-lg" name="working_hrs" placeholder="Hrs">
+                        </div>
+            </div> 
+            <div class="form-group">
+                <label class="control-label">Wage Per Hour</label>
+                        <div>
+                            <input type="number" id="update-wage-per-hr" class="form-control input-lg" name="wage_per_hr" placeholder="Rs.">
+                        </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Total Wage</label>
+                        <div>
+                            <input type="number" id="update-total-wage" class="form-control input-lg" name="total_wage" placeholder="Rs.">
+                        </div>
+            </div> 
+            <p id="timesheetupdate-successmsg">Timesheet updated successfully !</p> 
+        </form>
+      </div>
+      <div class="modal-footer bg-warning">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick=location.reload()>Close</button>
+        <button type="button" class="btn btn-primary" id="saveupdated-timesheet">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Delete Timesheet Modal -->
+
+ <div class="modal fade" id="del-timesheetModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title">Delete Timesheet for <span id="for-name"></span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="del-confirm">
+          <p >Are you sure you want to proceed with this delete ?</p>
+        </div>
+        <div class="modal-body" id="timesheetdel-successmsg">
+            <p>Timesheet deleted successfully !</p>
+        </div>
+        <div class="modal-footer bg-warning" id="confirm-footer">
+        <button type="button" class="btn btn-success" id="yes-del">Yes</button>
+        <button type="button" class="btn btn-danger" id="no-del" data-dismiss="modal">No</button>
+        </div>
+      <div class="modal-footer bg-warning" id="del-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick=location.reload()>Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  
+  <script src="{{script}}"></script>
+
+  <script>
+  $('#menu-toggle').click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+  });
+  </script>
+  
+    </body>
+</html> --}}

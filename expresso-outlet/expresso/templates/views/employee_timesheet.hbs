@@ -1,0 +1,50 @@
+<!-- Sidebar -->
+
+    <div id="wrapper">
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                        Manage
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="/employee/my-timesheets">MY TIMESHEETS</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+      
+<!-- Page Content -->
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 shadow-lg p-3 mb-5 rounded bg-white">
+                <h1 class="display-6">My Timesheets</h1><br/>
+                 <a href="#menu-toggle" class="btn btn-danger" id="menu-toggle">Toggle Menu</a><br/><br/>
+
+                <div class="card-deck">
+                 {{#each data}}
+                 
+                 <div class="card col-4" style="width: 18rem;">
+                    <div class="card-body shadow-lg p-3 mb-5 rounded bg-secondary">
+                        <h5 class="card-title text-center">{{this.date}}</h5>
+                        <p class="card-text">
+                            Working Hours : {{this.working_hours}}<br/>
+                            Wage Per Hour : {{this.wage_per_hr}}<br/>
+                            Total Wage : {{this.total_wage}}<br/>
+                        </p>
+                    </div>
+                </div>
+                {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+        <!-- /#page-content-wrapper -->
+
+</div>
+    <!-- /#wrapper -->

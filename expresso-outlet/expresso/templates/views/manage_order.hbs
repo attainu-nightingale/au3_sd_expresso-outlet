@@ -1,0 +1,75 @@
+<div class="container" id="table-box" style="background-color: #ffcd94;">
+        <div class="row">
+            <div class="col-lg-12 shadow-lg p-3 mb-5 rounded bg-white">
+                
+                <div class="d-inline" id="button-box">
+                    <a href="/manager/order-management" class="btn btn-md btn-danger" id="back-btn">Back</a>
+                </div>
+                <br/>
+                {{#each data}}
+                <h3 class="text-center text-info float-left text-center">Order {{orderID}} Info </h3>
+                 {{/each}}   
+                <br/><br/>
+
+                <div class="container">
+                <table class="table table-dark table-striped table-hover">
+                <tbody>
+                    <tr>
+                        <th class="text-warning">Item</th>
+                          <th class="text-warning">Price</th>
+                          <th class="text-warning">Quantity</th>
+                          <th class="text-warning">Total Price</th>
+                          <th class="text-warning">Manage</th>                  
+                    </tr>
+                    {{#each data}}
+                        {{#each orderedItems}}
+                    <tr>
+                        <td>{{this.item_name}}</td>
+                        <td>{{this.item_price}}</td>
+                        <td>{{this.quantity}}</td>
+                        <td>{{this.total_price}}</td>
+                        <td>
+                           {{!-- <a href="#" class="editorderitem btn btn-sm btn-warning" data-toggle="modal" data-target="#editorderitem-Modal">Edit</a> --}}
+                           <a href="#" class="delorderitem btn btn-sm btn-danger" data-toggle="modal" data-target="#delorderitem-Modal">Delete</a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                    
+                </tbody>
+            </table>
+        </div>
+            <h5 class="float-right" style="margin-right:50px;">Grand Total : <span class="text-danger">{{this.grand_total}}</span></h5><br/>
+            <a href="/manager/order-management/order/{{this._id}}" download="order.txt" class="btn btn-md btn-success" id="print-btn">Print</a>
+           {{/each}}
+            </div>
+        </div>
+    </div>
+
+
+<!-- Delete Order Item Modal -->
+
+ <div class="modal fade" id="delorderitem-Modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title">Delete Order Item ?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="del-confirm">
+          <p >Are you sure you want to proceed with this delete ?</p>
+        </div>
+        <div class="modal-body" id="orderdel-successmsg">
+            <p>Item deleted successfully !</p>
+        </div>
+        <div class="modal-footer bg-warning" id="confirm-footer">
+        <button type="button" class="btn btn-success" id="yes-del">Yes</button>
+        <button type="button" class="btn btn-danger" id="no-del" data-dismiss="modal">No</button>
+        </div>
+      <div class="modal-footer bg-warning" id="del-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick=location.reload()>Close</button>
+      </div>
+    </div>
+  </div>
+</div>

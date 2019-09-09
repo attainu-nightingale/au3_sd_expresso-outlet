@@ -1,30 +1,93 @@
-var express=require("express");
-var app=express();
-
-var exphbs = require('express-handlebars');
-
-// app.engine("hbs", exphbs({defaultLayout: "main", extname: "hbs"}));
-// app.set("view engine", "hbs");
-
+var express = require('express');
+var path = require('path');
 var hbs = require('hbs');
-app.set('view engine', hbs);
+var session = require('express-session');
+var ObjectId = require('mongodb').ObjectID;
+var mongoClient = require('mongodb').MongoClient;
+var url = 'mongodb://localhost:27017';
+var PATH = path.join(__dirname, "/public/");
+var PORT = process.env.PORT || 5500;
+var app = express();
+var db,menuDB,orderDB;
+var url;
 
-app.use(express.urlencoded({extended:false}));
-app.use(express.static("public"));
+if(process.env.DB_URL)
+    url = 'mongodb+srv://asraj:asraj@123@expresso-cluster-2gmnz.mongodb.net/?retryWrites=true&w=majority';
+else
+    url = 'mongodb://localhost:27017';  
 
-//default route //
-app.use("/",require("./routes/home"));
+mongoClient.connect(url, {useNewUrlParser : true, useUnifiedTopology: true}, (err,client) => {
+    if(err)
+    throw err;
+    app.locals.db = client.db('employeeDB');
+    console.log("Connected to database : employeeDB");
+});
 
-//aboutus route this route will inclued aboutus page  //
-app.use("/aboutus",require("./routes/aboutus"));
+mongoClient.connect(url, {useNewUrlParser : true, useUnifiedTopology: true}, (err,client) => {
+    if(err)
+    throw err;
+    app.locals.menuDB = client.db('menuDB');
+    console.log("Connected to database : menuDB");
+});
 
-//speciality route will tell about our special items//
-app.use("/speciality",require("./routes/speciality"));
+mongoClient.connect(url, {useNewUrlParser : true, useUnifiedTopology: true}, (err,client) => {
+    if(err)
+    throw err;
+    app.locals.orderDB = client.db('orderDB');
+    console.log("Connected to database : orderDB");
+});
 
-//contactus route will display the details of our outlet locations n all//
-app.use("/contactus",require("./routes/contactus"));
+var VIEWS_PATH = path.join(__dirname,"/templates/views");
+app.set("views",VIEWS_PATH);
+app.set("view engine", "hbs");
 
-//login route will check login credentials of three, manager admin employee and will redirect them to their profile route//
-app.use("/login",require("./routes/login"));
+app.use(session({
+    secret: 'Secret signature for secure session ID',
+    resave: false ,
+    saveUninitialized: true
+})); 
 
-app.listen(3000);
+app.use(express.urlencoded({extended: false}));
+app.use(express.json());
+
+app.use(express.static(PATH));
+
+var manager = require(PATH + './js/manager.js');
+var employee = require(PATH + './js/employee.js');
+
+//  <!--  Middleware -->
+
+app.use('/manager' , manager);
+app.use('/employee' , employee);
+
+app.get('/home', (req,res) => {
+    res.render(VIEWS_PATH + '/home.hbs',{
+                 
+        title:"Home Page",
+        addNavLink:"active",
+        script: "/js/homepagemenu.js",   
+        style : '../../css/home.css',
+    }); 
+});
+
+app.post("/adduser", function(req ,res){
+    //  db.collection("userinfo").insertOne(req.body);
+    console.log(req.body);
+    res.redirect("/home/#mu-contact");
+});
+
+
+
+
+
+
+
+
+
+
+
+app.listen(PORT,() => {
+    console.log(`Server is listening on port ${PORT}`);
+});
+
+
