@@ -2,6 +2,7 @@ $( document ).ready(function() {
 
     $('#menu-list').hide();
     $('.menu-oid').hide();
+    $('#menuoid').hide();
         
     $('#list-menus').click(() => {
         $('#menu-list').show();
@@ -12,7 +13,7 @@ $( document ).ready(function() {
         $('#menu-list').hide();
     });
 
-// Add New Order click
+// Add New Menu click
 $(document).on('click', '#add-menu', function () {
   $('#addmenu-successmsg').hide();
     $.ajax({
@@ -111,13 +112,14 @@ $(document).on('click', '#add', function () {
 });
 
 // Delete Menu click
-$(document).on('click', '.delete-btn', function () {
+$(document).on('click', '.menudelete-btn', function () {
     $('#menudel-successmsg').hide();
     $('#del-footer').hide();
     $('#del-confirm').show();
      $('#confirm-footer').show();
    
     var id = $(this).prev().prev().prev().text();
+    
     console.log('ObjectID of menu is ' + id);
   
     $(document).on('click', '#yes-del', function () {
@@ -139,7 +141,35 @@ $(document).on('click', '.delete-btn', function () {
   }); 
 
 
+// Delete Menu Item click
+$(document).on('click', '.menuitem-del-btn', function () {
+  $('#menuitemdel-successmsg').hide();
+  $('#del-footer').hide();
+  $('#del-confirm').show();
+   $('#confirm-footer').show();
+ 
+  var id = $('#menuoid').text();
+  console.log('ObjectID of menu is ' + id);
+  var itemname = $(this).prev().prev().prev().prev().text();
+  console.log('Menu item is : ' + ' ' +itemname);
 
+  $(document).on('click', '#yes-del', function () {
+   $('#del-confirm').hide();
+   $('#confirm-footer').hide();
+    $.ajax({
+          
+      url :'/manager/menu-management/menu/' + id + '/' + itemname,
+      type : 'DELETE',
+      datatype : 'json',
+      success : function(data) {
+          console.log(data);
+          $('#menuitemdel-successmsg').show();
+          $('#del-footer').show();
+          console.log(JSON.stringify(data));
+      }
+  });
+});
+}); 
 
 
 

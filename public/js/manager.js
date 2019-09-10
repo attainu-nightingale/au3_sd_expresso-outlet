@@ -273,8 +273,8 @@ router.post('/getMenu/:menuname', upload.single('item_pic'), (req,res) => {
   console.log(req.body);
   var newMenuItemObj = {
     _id : uuidv4(),
-    menu_no : req.body.menuitem_no,
-    menu_name : req.body.menuitem_name,
+    menu_item_no : req.body.menuitem_no,
+    menu_item_name : req.body.menuitem_name,
     price : parseInt(req.body.price),
     in_inventory : parseInt(req.body.inventory),
     image_Path : imageUrl
@@ -288,6 +288,21 @@ db.collection('menus').update({menu_name : menuname}, {$push: {menu_items : newM
   console.log(doc);
 });
 });
+});
+
+
+// DELETE route to delete a menu item
+router.delete('/menu-management/menu/:id/:itemname', (req,res) => {
+  var db = req.app.locals.menuDB;
+  var id = req.params.id
+  var itemname = req.params.itemname;
+  console.log(id);
+  
+db.collection('menus').update({_id : ObjectId(id)} , {$pull: {menu_items : {menu_item_name: itemname }}} ,(err,doc) => {
+    if(err) throw err;
+    console.log(JSON.stringify(doc));
+    res.json({success : "Menu item deleted successfully!"});
+}); 
 });
 
 
