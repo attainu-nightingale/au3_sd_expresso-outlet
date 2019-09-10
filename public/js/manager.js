@@ -542,7 +542,7 @@ router.post('/getAllMenus/', upload.single('menu_pic'), async(req,res) => {
 
   var db = req.app.locals.menuDB;
   var newMenuObj = {
-    menu_no : req.body.menu_no,
+    menu_no : parseInt(req.body.menu_no),
     menu_name : req.body.menu_name,
     menu_pic : result.secure_url,
     //menu_pic : req.file.path,
@@ -613,6 +613,24 @@ router.get('/getMenuItem/:menuname/:menuitem', function (req, res) {
     console.log(doc);
   });
 }
+});
+
+router.put('/getMenuItem/:menuname/:menuitem', function (req, res) {
+  var menu_name = req.params.menuname;
+  var menuitem_name = req.params.menuitem;
+  //var menuoid = req.body.menuoid;
+  var db = req.app.locals.menuDB;
+  var newInventory = req.body.inventory;
+  var newPrice = req.body.price;
+  db.collection('menus').update({menu_name: menu_name, 
+    menu_items: { $elemMatch:{ menu_item_name: menuitem_name}}} , {$set: {"menu_items.$.in_inventory": newInventory , "menu_items.$.price": newPrice}}, 
+    (err,doc) => {
+   if (err) 
+      throw err;
+  res.json({success : "Item updated successfully!"});
+  console.log(doc);
+  });
+
 });
 
 

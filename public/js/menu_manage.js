@@ -77,7 +77,7 @@ $(document).on('click', '#addmenuitem-btn',function () {
         contentType : 'application/json',
         success : function(data) {
           console.log(data);
-          var new_menuno = data[0].menu_items.length + 1;
+          var new_menuno = parseInt(data[0].menu_items.length + 1);
           $('#menuitem-no').val(new_menuno);
           console.log(new_menuno);
           $('#menuitem-no').attr("disabled","true");
@@ -93,7 +93,7 @@ $(document).on('click', '#add', function () {
   $('#addmenuitem-successmsg').show();
   $('#add').hide();  
   
-  var menuitemno = $('#menuitem-no').val();
+  var menuitemno = parseInt($('#menuitem-no').val());
   var menuitemname = $('#menuitem-name').val();
   var inventory = $('#inventory').val();
   var price = parseFloat($('#price').val());
@@ -139,6 +139,48 @@ $(document).on('click', '.menudelete-btn', function () {
     });
   });
   }); 
+
+// Edit Menu Item click
+$(document).on('click', '.menuitem-edit-btn', function () {
+    $('#menuitemupdate-successmsg').hide();
+    $('#for-itemname').html($(this).prev().prev().prev().text());
+    $('#item-no').val($(this).prev().prev().prev().prev().text());
+    $('#item-no').attr("disabled","true");
+    $('#item-name').val($(this).prev().prev().prev().text());
+    $('#item-name').attr("disabled","true");
+    $('#updated-price').val($(this).prev().prev().children('span').text());
+    $('#updated-inventory').val($(this).prev().children('span').text());
+});   
+ 
+$(document).on('click', '#saveupdated-menuitem', function () {
+
+  var menuname = $('#getName').text();
+  var menuitem = $('#item-name').val();
+  var price = parseInt($('#updated-price').val());
+  var inventory = parseInt($('#updated-inventory').val());
+
+    var updatedItem =  {
+      price : price,
+      inventory : inventory
+  };
+
+  console.log(inventory + ' ' + price);
+    
+    $.ajax({
+    
+      url   :'/manager/getMenuItem/' + menuname + '/' + menuitem,
+      type  : 'PUT',
+      datatype : 'json',
+      contentType: 'application/json',
+      data: JSON.stringify(updatedItem),
+      success : function(data) {
+        console.log(JSON.stringify(data));
+        $('.form-group').hide();
+        $('#menuitemupdate-successmsg').show();
+        $('#saveupdated-menuitem').hide(); 
+      }
+});    
+});
 
 
 // Delete Menu Item click

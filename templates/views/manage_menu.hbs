@@ -29,7 +29,7 @@
                         <h5 class="card-title text-center">{{this.menu_item_name}}</h5>
                         <p>Price : Rs.&nbsp;<span class="text-danger">{{this.price}}</span></p>
                         <p>Stock : <span class="text-success">{{this.in_inventory}}</span></p>
-                        <a href="#" class="menuitem-edit-btn btn btn-dark" data-toggle="modal" data-target="#editMenuitemModal">Edit</a>
+                        <a href="#" class="menuitem-edit-btn btn btn-dark" data-toggle="modal" data-target="#editMenuItemModal">Edit</a>
                         <a href="#" class="menuitem-del-btn btn btn-danger" data-toggle="modal" data-target="#deleteMenuItemModal">Delete</a>
                     </div>
                 </div>
@@ -126,6 +126,53 @@
         </div>
       <div class="modal-footer bg-warning" id="del-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal" onclick=location.reload()>Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Menu Item Modal -->
+<div class="modal fade" id="editMenuItemModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title">Edit Item <span id="for-itemname"></span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form role="form"> 
+          <div class="form-group">
+                <label for="menuitem-no" id="label">Item No.</label>
+                <div class="input-group mb-3">
+                    <input type="text" id="item-no"  class="form-control input-lg" name="item_no"/>      
+                </div>   
+            </div> 
+            <div class="form-group">
+                <label for="menuitem-name" id="label">Item Name</label>
+                <div class="input-group mb-3">
+                    <input type="text" id="item-name"  class="form-control input-lg" name="item_name" placeholder="Name"/>      
+                </div>   
+            </div> 
+            <div class="form-group">
+                <label for="price" id="label">Price</label>
+                <div class="input-group mb-3">
+                    <input type="number" id="updated-price" class="form-control input-lg" name="updated_price" placeholder="Rs."/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inventory" id="label">Inventory</label>
+                <div class="input-group mb-3">
+                    <input type="number" id="updated-inventory" class="form-control input-lg" name="updated_inventory" placeholder="No."/>
+                </div>
+            </div>
+            <p id="menuitemupdate-successmsg">Item updated successfully !</p> 
+        </form>
+      </div>
+      <div class="modal-footer bg-warning">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick=location.reload()>Close</button>
+        <button type="button" class="btn btn-primary" id="saveupdated-menuitem">Save</button>
       </div>
     </div>
   </div>
