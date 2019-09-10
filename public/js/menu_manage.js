@@ -30,13 +30,15 @@ $(document).on('click', '#add-menu', function () {
     });   
   });  
 
-//Next button click on New Menu Form
+//Add button click on New Menu Form
 $(document).on('click', '#next-btn', function () {
     $('#menu-no').removeAttr("disabled");
     var menuno = $('#menu-no').val();
     var menuname = $('#menu-name').val();
     var menuimg = $('#menu-pic').val();
-
+    $('.form-group').hide();
+        $('#addmenu-successmsg').show();
+        $('#next-btn').hide();  
 });  
 //     var newMenu = {
 //       menu_no : menuno,

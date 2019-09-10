@@ -197,4 +197,8 @@ body {
         object-fit: cover;
     }
 
+    #profile-pic {
+        height: 20vw;
+    }
+
 }
