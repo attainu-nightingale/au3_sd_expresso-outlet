@@ -3,13 +3,13 @@
             <div class="col-lg-12 shadow-lg p-3 mb-5 rounded bg-warning">
                 
                 <div class="d-inline" id="button-box">
-                    <a href="#" class="btn btn-md btn-info" id="addmenuitem-btn" data-toggle="modal" data-target="#additemModal">Add New</a>
+                    <a href="#" class="btn btn-md btn-info" id="addmenuitem-btn" data-toggle="modal" data-target="#addmenuitemModal">Add Menu Item</a>
                     <a href="/manager/menu-management" class="btn btn-md btn-danger" id="back-btn">Back</a>
                 </div>
                 <br/>
                 {{#each data}}
-                <h4 class="text-danger" style="font-weight:bold;">Menu {{menu_no}}</h4><br/>
-                <h5 class="text-danger text-center" style="font-family: Cantarell;">{{menu_name}}</h5>
+                <h4 class="text-danger" style="font-weight:bold;">Menu {{this.menu_no}}</h4><br/>
+                <h5 class="text-danger text-center" id="getName" style="font-family: Cantarell;">{{this.menu_name}}</h5>
                  {{/each}}   
                 <br/><br/>
 
@@ -44,7 +44,7 @@
 
 
     <!-- Add Menu Item Modal -->
-    <div class="modal fade" id="additemModal" tabindex="-1" role="dialog">
+    <div class="modal fade" id="addmenuitemModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header bg-warning">
@@ -54,7 +54,9 @@
         </button>
       </div>
       <div class="modal-body">
-          <form id="addmenuitem-form" role="form" method="POST" action="/manager/getAllMenus" enctype="multipart/form-data">
+          {{#each data}}
+          <form id="addmenuitem-form" role="form" method="POST" action="/manager/getMenu/{{menu_name}}" enctype="multipart/form-data">
+          {{/each}}
               <div class="form-group">
                 <label for="menuitem-no" id="label">Item No.</label>
                 <div class="input-group mb-3">
@@ -74,7 +76,13 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="img" id="label">Image</label>
+                <label for="inventory" id="label">Inventory</label>
+                <div class="input-group mb-3">
+                    <input type="number" id="inventory" class="form-control input-lg" name="inventory" placeholder="No."/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="item_pic" id="label">Image</label>
                 <div class="input-group mb-3">
                     <input type="file" id="item_pic" class="form-control input-lg" name="item_pic"><br/>
                 </div>
@@ -82,11 +90,41 @@
             <div id="addmenuitem-successmsg">
             <p>Item added !</p>
             </div>
-            </form>
+
       </div>
       <div class="modal-footer bg-warning">
-        <button type="button" class="btn btn-success" id="add">Add</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>  
+        <button type="submit" class="btn btn-success" id="add">Add</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+       </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- Delete Menu Item Modal -->
+
+ <div class="modal fade" id="delMenuItemModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title">Delete Menu Item ?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="del-confirm">
+          <p >Are you sure you want to proceed with this delete ?</p>
+        </div>
+        <div class="modal-body" id="menuitemdel-successmsg">
+            <p>Item deleted successfully !</p>
+        </div>
+        <div class="modal-footer bg-warning" id="confirm-footer">
+        <button type="button" class="btn btn-success" id="yes-del">Yes</button>
+        <button type="button" class="btn btn-danger" id="no-del" data-dismiss="modal">No</button>
+        </div>
+      <div class="modal-footer bg-warning" id="del-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick=location.reload()>Close</button>
       </div>
     </div>
   </div>

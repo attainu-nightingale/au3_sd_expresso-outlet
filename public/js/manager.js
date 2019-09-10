@@ -174,7 +174,7 @@ router.get('/menu-management/menu/:id', (req,res) => {
       console.log(doc);
       res.render(VIEWS_PATH + '/manage_menu.hbs',{
         title : "Menu Details Page" ,
-        script : '/js/order_manage.js',
+        script : '/js/menu_manage.js',
         layout : 'manager-layout.hbs',
         data : doc
       });
@@ -193,7 +193,7 @@ router.get('/getMenu/:menuname', function (req, res) {
     if (err) 
         throw err;
         res.json(doc);
-    console.log(doc);
+    //console.log(doc);
   });
 }
 });
@@ -256,6 +256,38 @@ router.get('/menu-management/menu/:id', (req,res) => {
       });
       });
 }
+});
+
+router.post('/getMenu/:menuname', upload.single('item_pic'), (req,res) => {
+  
+  cloudinary.uploader.upload(req.file.path, {
+    folder: 'expresso',
+    use_filename: true},
+    (err,result) => {
+      if(err) throw err;
+    console.log("File upload result :" , result);
+  var imageUrl = result.secure_url;
+  var db = req.app.locals.menuDB;
+  var id = req.params.id
+  var menuname = req.params.menuname;
+  console.log(req.body);
+  var newMenuItemObj = {
+    _id : uuidv4(),
+    menu_no : req.body.menuitem_no,
+    menu_name : req.body.menuitem_name,
+    price : parseInt(req.body.price),
+    in_inventory : parseInt(req.body.inventory),
+    image_Path : imageUrl
+};
+
+console.log(newMenuItemObj);
+
+db.collection('menus').update({menu_name : menuname}, {$push: {menu_items : newMenuItemObj}},(err,doc) => {
+  if(err) throw err;
+  res.redirect('/manager/menu-management/');
+  console.log(doc);
+});
+});
 });
 
 

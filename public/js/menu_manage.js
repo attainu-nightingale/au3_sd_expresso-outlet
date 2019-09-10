@@ -65,6 +65,7 @@ $(document).on('click', '#next-btn', function () {
 
 //Add New button click on Menu page to add new Menu item
 $(document).on('click', '#addmenuitem-btn',function () {
+  $('#addmenuitem-successmsg').hide();
     var menuname = $('#getName').text();
     console.log(menuname);
     $.ajax({
@@ -74,6 +75,7 @@ $(document).on('click', '#addmenuitem-btn',function () {
         datatype : 'json',
         contentType : 'application/json',
         success : function(data) {
+          console.log(data);
           var new_menuno = data[0].menu_items.length + 1;
           $('#menuitem-no').val(new_menuno);
           console.log(new_menuno);
@@ -85,17 +87,24 @@ $(document).on('click', '#addmenuitem-btn',function () {
 //Add button click on Add Menu Item form
 
 $(document).on('click', '#add', function () {
+  $('#menuitem-no').removeAttr("disabled");
+  $('.form-group').hide();
+  $('#addmenuitem-successmsg').show();
+  $('#add').hide();  
+  
   var menuitemno = $('#menuitem-no').val();
   var menuitemname = $('#menuitem-name').val();
+  var inventory = $('#inventory').val();
   var price = parseFloat($('#price').val());
   var imgpath = $('#item_pic').val();
-  $('#item-box').append (`<tr>
-                           <td>${menuitemno}</td>
-                           <td>${menuitemname}</td>
-                           <td>${price}</td>
-                           <td>${imgpath}</td>
-                           </tr>
-                        `);
+  console.log(menuitemno + menuitemname + inventory + price + imgpath);
+  // $('#item-box').append (`<tr>
+  //                          <td>${menuitemno}</td>
+  //                          <td>${menuitemname}</td>
+  //                          <td>${price}</td>
+  //                          <td>${imgpath}</td>
+  //                          </tr>
+  //                       `);
 
                         
 
