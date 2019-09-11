@@ -4,15 +4,16 @@ var hbs = require('hbs');
 var session = require('express-session');
 var ObjectId = require('mongodb').ObjectID;
 var mongoClient = require('mongodb').MongoClient;
-var url = 'mongodb://localhost:27017';
+//var url = 'mongodb://localhost:27017';
 var PATH = path.join(__dirname, "/public/");
 var PORT = process.env.PORT || 5500;
 var app = express();
 var db,menuDB,orderDB;
 var url;
+var nodemailer = require('nodemailer');
 
 if(process.env.DB_URL)
-    url = 'mongodb+srv://asraj:asraj@123@expresso-cluster-2gmnz.mongodb.net/?retryWrites=true&w=majority';
+    url = 'mongodb+srv://divyansh:hindustan123@cluster0-p4p04.mongodb.net/test?retryWrites=true&w=majorityd';
 else
     url = 'mongodb://localhost:27017';  
 
@@ -60,6 +61,18 @@ var employee = require(PATH + './js/employee.js');
 app.use('/manager' , manager);
 app.use('/employee' , employee);
 
+app.get('/getAllMenus', function (req, res) {
+    var db = req.app.locals.menuDB;
+    db.collection("menus").find({}).toArray((err,result) => {
+      if (err) 
+          throw err;
+          res.json(result);
+      
+    });
+ 
+  });
+
+
 app.get('/home', (req,res) => {
     res.render(VIEWS_PATH + '/home.hbs',{
                  
@@ -77,13 +90,63 @@ app.post("/adduser", function(req ,res){
 });
 
 
-
-
-
-
-
-
-
+app.post('/send', (req, res) => {
+    const output = `
+      <p>You have a new contact request</p>
+      <h3>Contact Details</h3>
+      <ul>  
+        <li>Name: ${req.body.name}</li>
+      
+        <li>Email: ${req.body.email}</li>
+      
+      </ul>
+      <h3>Message</h3>
+      <p>${req.body.message}</p>
+    `;
+  
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false, // true for 465, false for other ports
+      auth: {
+          user: 'teamexpressocafe@gmail.com', // generated ethereal user
+          pass: 'expresso@123'  // generated ethereal password
+      },
+      tls:{
+        rejectUnauthorized:false
+      }
+    });
+  
+    // setup email data with unicode symbols
+    let mailOptions = {
+        from: '"expresso coffe app" <teamexpressocafe@gmail.com>', // sender address
+        to: 'teamexpressocafe@gmail.com', // list of receivers
+        subject: 'customer req', // Subject line
+        text: 'Hello world?', // plain text body
+        html: output // html body
+    };
+  
+    // send mail with defined transport object
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('Message sent: %s', info.messageId);   
+        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+        
+        res.redirect("/home/#mu-contact");
+        // res.render(VIEWS_PATH + '/home',{
+                 
+        //     title:"Home Page",
+        //     addNavLink:"active",
+        //     script: "/js/homepagemenu.js",   
+        //     style : '../../css/home.css',
+        //     msg: 'sent!'
+        // }); 
+        
+    });
+    });
 
 
 app.listen(PORT,() => {

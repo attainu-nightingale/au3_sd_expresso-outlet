@@ -23,7 +23,9 @@
                 <h1 class="display-6">Personal Info</h1><br/>
                  <a href="#menu-toggle" class="btn btn-danger" id="menu-toggle">Toggle Menu</a><br/><br/>
                  <div class="card" style="width: 18rem;">
-                    <img src="../../images/boy.png" class="card-img-top">
+                   {{#each data}}
+                    <img src="{{this.profile_pic}}" class="card-img-top">
+                    {{/each}}
                         <div class="card-body shadow-lg p-3 mb-5 rounded bg-white">
     <h5 class="card-title text-center">Details</h5>
     <p class="card-text">

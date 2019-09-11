@@ -5,6 +5,15 @@ $('#hide-stock').click(() => {
     $('#for-addstock').hide();
   });
 
+  $('#menu-item').on('focus', function() {
+    $('#menu-item').val("");
+  });
+
+  $('#userinput').on('focus', function() {
+    $('#userinput').val("");
+  });
+  
+
 $(document).on('click', '#submit', function () {
     $('#search-result').html("");
     var menuitem = $("#userinput").val();
@@ -104,11 +113,12 @@ $(document).on('click', '#add', function() {
                             success : function(data) {
                                 $('.form-group').hide();
                                 $('#addstock-successmsg').show();
+                                $('#add').hide();
                                 console.log(JSON.stringify(data));
                             }    
             
      });
         }
-    });      
+    });     
 });  
  

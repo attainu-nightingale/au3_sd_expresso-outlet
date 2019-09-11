@@ -34,7 +34,7 @@ $(document).on('click', '#next-btn', function () {
   $('#order-id').removeAttr("disabled");
   var orderid = $('#order-id').val();
   var tableno = $('#table-no').val();
-  $('#orderno').text(orderid);
+  //$('#orderno').text(orderid);
   var newOrder = {
     order_id : orderid,
     table_no : tableno

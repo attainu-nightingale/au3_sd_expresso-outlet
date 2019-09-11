@@ -1,6 +1,7 @@
 
 
 
+
  body {
     background-color: #ffffff;
     font-family: "Prata", serif;
@@ -10,64 +11,41 @@
     line-height: 24px;
   }
   
-.card-text{
+  .card-text{
     font-family: "Prata", serif;
     text-align: center;
-}
-
-
-.logo{
+  }
+  
+  
+  .logo{
     height: 70px;
-}
-
-.expressotext{
+  }
+  
+  .expressotext{
     margin-left: 10px;
     font-family: Harlow Solid Italic, serif;
-}
-
-/* .navbar-expand-lg{
-  background-color: #6F3E20;
-} */
-
-.navbar-nav { 
-    overflow: hidden; 
-   
-}
-    
-
-.navbar-nav li { 
-        
-    display: block;
-    font-size: 17px;
-    color: black; 
-    text-align: center; 
-    margin-right: 40px;
-    padding: 5px 0;
-    text-decoration: none; 
-    } 
-    
-.navbar-nav li:hover { 
-    background-color: white; 
-    
-    border-bottom: 1px solid brown;
-    border-top: 1px solid brown;
+  }
   
-    } 
-
-.pic1 {
+  /* .navbar-expand-lg{
+  background-color: #6F3E20;
+  } */
+  
+  
+  
+  .pic1 {
     height:650px;
     
-}
-
-.pic2 {
+  }
+  
+  .pic2 {
     height:500px;
     
-}
-
-.pic3{
+  }
+  
+  .pic3{
   height:350px;
   width:673px;
-}
+  }
   .no-padding {
     padding: 0;
   }
@@ -78,9 +56,9 @@
     max-width: 100%;
   }
   
-
+  
   /* =========================================================================== */
- 
+  
     
   #mu-header {
    
@@ -92,10 +70,34 @@
     z-index: 999;
   }
   
+  .navbar-nav { 
+    overflow: hidden; 
+   
+  }
+    
   
- 
-
- 
+  .navbar-nav li { 
+        
+    display: block;
+    font-size: 17px;
+    color: black; 
+    text-align: center; 
+    margin-right: 40px;
+    padding: 5px 0;
+    text-decoration: none; 
+    } 
+    
+  .navbar-nav li:hover { 
+    background-color: white; 
+    
+    border-bottom: 1px solid brown;
+    border-top: 1px solid brown;
+  
+    } 
+  
+  
+  
+  
   
   /* =================================================================================================== */
   #mu-single {
@@ -117,7 +119,7 @@
   }
   
   
-
+  
   .mu-top-single-single {
        float: left;
     position: relative;
@@ -170,7 +172,7 @@
     padding: 0 30px;
   }
   
-
+  
   /* ================================================================== */
   
   
@@ -180,15 +182,15 @@
     background-size: cover;
     float: left;
     width: 100%;
-    height: 450px;
+    height: 550px;
   }
   
   .mu-counter-overlay {
     background-color: rgba(0, 0, 0, 0.8);
-    padding: 100px 0;
+    padding: 150px 0;
     float: left;
     width: 100%;
-    height: 450px;
+    height: 550px;
   }
   
    .mu-counter-area {
@@ -207,10 +209,10 @@
     margin-top: 3px;
     margin-left:6px;
   }
-
+  
   
   /* ========================================================================= */
-
+  
   #mu-restaurant-menu {
    
     background-attachment: fixed;
@@ -227,6 +229,7 @@
    
     float: left;
     width: 100%;
+    
   }
   
   .mu-restaurant-menu-content {
@@ -242,37 +245,39 @@
     text-align: center;
     border: none;
   }
- 
+  
   .mu-restaurant-menu li {
     display: inline-block;
     float: none;
-   
+    
   }
   
   .btn-primary {
     color: #fff;
     background-color: brown;
     border-color: black;
-}
+    text-transform:lowercase;
+    
+  }
   
   
-  .mu-restaurant-menu li a:hover,
+  /* .mu-restaurant-menu li a:hover,
   .mu-restaurant-menu .active a,
   .mu-restaurant-menu .active a:hover,
   .mu-restaurant-menu .active a:focus {
     background-color: rgb(255, 255, 255);
   }
-  
+   */
     
   /* ============================================================= */
-
+  
   
   #mu-contact {
     background-color: #AE8866;
     float: left;
-    padding: 15px 0 20px 0;
+    padding: 50px 0 20px 0;
     width: 100%;
-    height:600px;
+    height:650px;
   }
   
   .mu-contact-area {
@@ -374,29 +379,7 @@
       background-color: #fff;
   }
   
-  .success {
-    padding: 1em;
-    margin-bottom: 0.75rem;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-    color: #468847;
-    background-color: #dff0d8;
-    border: 1px solid #d6e9c6;
-    -webkit-border-radius: 4px;
-     -moz-border-radius: 4px;
-          border-radius: 4px;
-  }
   
-  .error {
-    padding: 1em;
-    margin-bottom: 0.75rem;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-    color: #b94a48;
-    background-color: #f2dede;
-    border: 1px solid rgba(185, 74, 72, 0.3);
-    -webkit-border-radius: 4px;
-     -moz-border-radius: 4px;
-          border-radius: 4px;
-  }
   
   .mu-title {
     float: left;
@@ -413,7 +396,7 @@
     margin-bottom: 20px;
     text-align: center;
   }
-
+  
   .mu-title .mu-subtitle {
     font-size: 50px;
     font-family: "Tangerine", cursive;
@@ -425,7 +408,7 @@
     font-family: "Tangerine", cursive;
     line-height: 30px;
   }
-
+  
   .mu-title h2 {
     color: #000;
     font-size: 35px;
@@ -437,44 +420,60 @@
     font-size: 35px;
     margin-bottom: 5px;
   }
-
-/* ============================================================================================= */
-
-#mu-about-us {
+  
+  /* ============================================================================================= */
+  
+  #mu-about-us {
   
   float: left;
   width: 100%;
   padding: 50px 0;
   height:650px;
-}
-
-.mu-title-about {
+  }
+  
+  .mu-title-about {
    margin-top:10px;
   margin-bottom: 20px;
   text-align: center;
-}
-
-.wrap-intro{
+  }
+  
+  .wrap-intro{
   margin-top: 70px;
-}
-
-
-.mu-title-about h2 {
+  }
+  
+  
+  .mu-title-about h2 {
   color: #000;
   font-size: 35px;
   margin-bottom: 5px;
-}
-
-
-
+  }
+  
+  
+  
   /* =============================================================================== */
   
+  .modal {
+    display: none;
+    position: fixed;
+    background: white;
+    padding: 10px;
+    width: 260px;
+    top: 100px;
+    left: calc(50% - 140px);
+    z-index: 1;    
+  }
   
   
-  
+  .modal h1 {
+    margin: 0;
+  }
   
     
-  
+  .menupic{
+    height:265px;
+    width:280px;
+    /* padding-left: 10px; */
+  }
   
   
   

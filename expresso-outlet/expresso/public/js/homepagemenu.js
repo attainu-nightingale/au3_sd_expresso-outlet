@@ -1,7 +1,8 @@
 
 $.ajax({
   
-    url:"https://api.myjson.com/bins/1clgr1",
+    url:"http://localhost:5500/getAllMenus",
+    // url:"https://api.myjson.com/bins/mp8kd",
     type: "GET",
     dataType: "json",
     success: (data) => {
@@ -23,7 +24,8 @@ $.ajax({
     console.log(btnText)
     $.ajax({
        
-        url:"https://api.myjson.com/bins/1clgr1",
+        url:"http://localhost:5500/getAllMenus",
+        // url:"https://api.myjson.com/bins/mp8kd",
         type: "GET",
         dataType: "json",
         success: (data) => {
@@ -56,8 +58,8 @@ $.ajax({
                  out += '</div>';
 
 
-                 out += '<div style ="height:300px width:300px" class="ml-2">';
-                 out += '<img  src=' + image_Path  + '>';
+                 out += '<div class="ml-2">';
+                 out += '<img align="center" class="menupic" src=' + image_Path  + '>';
                  out += '</div>';
                  out += '</div>';
                  out += '</div>';
@@ -69,7 +71,7 @@ $.ajax({
                  out += '<h6 style ="text-align: center" class="card-title">' + menu_item_name + '</h6>';
                  out += '</a>';
 
-                 out += '<p style ="text-align: center"    class="card-text">' + price + '</p>';
+                 out += '<p style ="text-align: center"    class="card-text">' + "Rs " + price + '</p>';
                  out += '</div>';
 
                  out += '</div></div>';
