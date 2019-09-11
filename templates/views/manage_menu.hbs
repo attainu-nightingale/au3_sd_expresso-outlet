@@ -1,16 +1,18 @@
 <div class="container" id="table-box">
         <div class="row">
-            <div class="col-lg-12 shadow-lg p-3 mb-5 rounded bg-warning">
-                
+            <div class="col-lg-12 shadow-lg p-3 mb-5 rounded bg-warning" id="overlay-box">
+                <img src="https://res.cloudinary.com/dmjrhkn5z/image/upload/v1568203649/coffee-header_s2ufjc.jpg" id="cafe-header"/>
                 <div class="d-inline" id="button-box">
                     <a href="#" class="btn btn-md btn-info" id="addmenuitem-btn" data-toggle="modal" data-target="#addmenuitemModal">Add Menu Item</a>
                     <a href="/manager/menu-management" class="btn btn-md btn-danger" id="back-btn">Back</a>
                 </div>
                 <br/>
+                <div class="text">
                 {{#each data}}
-                <h4 class="text-danger" style="font-weight:bold;">Menu {{this.menu_no}}</h4><br/>
-                <h5 class="text-danger text-center" id="getName" style="font-family: Cantarell;">{{this.menu_name}}</h5>
+                <h4 class="text-warning" style="font-weight:bold; font-size:40px;">Menu {{this.menu_no}}</h4><br/>
+                <h5 class="text-info text-center" id="getName" style="font-family: Josefin Sans;font-size:30px">{{this.menu_name}}</h5>
                  {{/each}}   
+                 </div>
                 <br/><br/>
 
             <div class="row" id="menuitem-list">

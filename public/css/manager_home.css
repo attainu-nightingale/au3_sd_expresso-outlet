@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Lato|Tangerine&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato|Tangerine|Great+Vibes|Josefin+Sans&display=swap');
 * {
     box-sizing: border-box;
 }
@@ -199,6 +199,28 @@ body {
 
     #profile-pic {
         height: 20vw;
+    }
+
+    #cafe-header {
+        width : 100%;
+        height : 15rem;
+    }
+
+    #overlay-box{
+        position: relative;
+        display: inline-block;
+    }
+    
+    .text{
+        position: absolute;
+        z-index: 999;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        top: 10%; /* Adjust this value to move the positioned div up and down */
+        text-align: center;
+        width: 60%; /* Set the width of the positioned div */
+        font-family : 'Great Vibes';
     }
 
 }

@@ -291,7 +291,8 @@ $(document).on('click', '.delete-btn', function () {
       console.log(name);
       $('#for-empname').text(name);
 
-      var date = $(this).prev().prev().text();
+      //var date = $(this).prev().prev().text();
+      var date = $(this).parent().prev().prev().text();
       console.log(date);
       $('#update-date').val(date);
       $('#update-date').attr("disabled","true");
@@ -338,7 +339,7 @@ $(document).on('click', '.del-timesheet', function () {
   var name = $('#forname').text();
   $('#for-name').text(name);
   var emp_id = $('#forid').text();
-  var date = $(this).prev().prev().prev().text();
+  var date = $(this).parent().prev().prev().text();
   console.log(emp_id + ' ' + date);
 
   $(document).on('click', '#yes-del', function () {

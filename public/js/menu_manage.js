@@ -77,38 +77,27 @@ $(document).on('click', '#addmenuitem-btn',function () {
         contentType : 'application/json',
         success : function(data) {
           console.log(data);
-          var new_menuno = parseInt(data[0].menu_items.length + 1);
+          var new_menuno = data[0].menu_items.length + 1;
           $('#menuitem-no').val(new_menuno);
-          console.log(new_menuno);
+          console.log(parseInt(new_menuno));
           $('#menuitem-no').attr("disabled","true");
         }
       });   
 });  
 
 //Add button click on Add Menu Item form
-
 $(document).on('click', '#add', function () {
   $('#menuitem-no').removeAttr("disabled");
   $('.form-group').hide();
   $('#addmenuitem-successmsg').show();
   $('#add').hide();  
   
-  var menuitemno = parseInt($('#menuitem-no').val());
+  var menuitemno = $('#menuitem-no').val();
   var menuitemname = $('#menuitem-name').val();
   var inventory = $('#inventory').val();
   var price = parseFloat($('#price').val());
   var imgpath = $('#item_pic').val();
-  console.log(menuitemno + menuitemname + inventory + price + imgpath);
-  // $('#item-box').append (`<tr>
-  //                          <td>${menuitemno}</td>
-  //                          <td>${menuitemname}</td>
-  //                          <td>${price}</td>
-  //                          <td>${imgpath}</td>
-  //                          </tr>
-  //                       `);
-
-                        
-
+  console.log(menuitemno + ' ' + menuitemname + ' ' + inventory + ' ' + price + ' ' + imgpath);
 });
 
 // Delete Menu click
