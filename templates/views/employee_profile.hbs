@@ -22,12 +22,15 @@
             <div class="col-lg-12 shadow-lg p-3 mb-5 rounded bg-white">
                 <h1 class="display-6">Personal Info</h1><br/>
                  <a href="#menu-toggle" class="btn btn-danger" id="menu-toggle">Toggle Menu</a><br/><br/>
-                 <div class="card" style="width: 18rem;">
+                 {{!-- <div class="card" style="display: block;margin-left: auto;margin-right: auto;width: 50%;">
                    {{#each data}}
                     <img src="{{this.profile_pic}}" class="card-img-top">
                     {{/each}}
-                        <div class="card-body shadow-lg p-3 mb-5 rounded bg-white">
+                    
+                    <div class="card-body shadow-lg p-3 mb-5 rounded bg-white text-center">
     <h5 class="card-title text-center">Details</h5>
+
+  
     <p class="card-text">
         {{#each data}}
         Id : <span id="id">{{this.emp_id}}</span><br/>
@@ -42,14 +45,71 @@
         Joining date : {{this.joining_date}}<br/>
         {{/each}}
         </p>
+        {{/each}}
     <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#updateModal">Reset Password</a>
   </div>
-</div>
+</div> --}}
+
+ {{#each data}}
+                    <img id="profile-pic" src="{{this.profile_pic}}" style="display: block;margin-left: auto;margin-right: auto;width: 25%;"></img>
+                    {{/each}}
+                    <br/><br/>
+                <table class="table table-dark table-striped table-hover text-center">
+                <tbody>
+                    {{#each data}}
+                    <tr>
+                        <th class="text-warning">Employee ID</th>
+                        <td id="id">{{this.emp_id}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Name</th>
+                        <td id="name">{{this.emp_name}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Age</th>
+                        <td>{{this.emp_age}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Email</th>
+                        <td>{{this.email}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Gender</th>
+                        <td>{{this.emp_gender}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Address</td>
+                        <td>{{this.emp_addr}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Role</th>
+                        <td>{{this.emp_role}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Job</th>
+                        <td>{{this.job}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Username</th>
+                        <td>{{this.username}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Password</th>
+                        <td>{{this.password}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Joining date</th>
+                        <td>{{this.joining_date}}</td>
+                    </tr>
+
+                    {{/each}}
+                </tbody>
+            </table>
+            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#updateModal">Reset Password</a>
+
             </div>
         </div>
-    </div>
-
-    
+    </div>   
 </div>
         <!-- /#page-content-wrapper -->
 

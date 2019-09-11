@@ -223,4 +223,15 @@ body {
         font-family : 'Great Vibes';
     }
 
+    .square {
+        position: relative;
+        width: 100%;
+      }
+      
+      .square:after {
+        /* content: ""; */
+        display: block;
+        padding-bottom: 100%;
+      }
 }
+

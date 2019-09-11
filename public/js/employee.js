@@ -30,6 +30,10 @@ else {
 
 // define the /employee/employee-auth route
 router.post("/employee-auth" , (req,res) => {
+  // console.log(req.session.isEmpLoggedIn);
+  // if(!req.session.isEmpLoggedIn)
+  //   res.redirect('/employee/employee-login');
+  //   else {
   console.log(req.body);
   var db = req.app.locals.db;
   db.collection('employees').find({$and : [{username : req.body.username , password : req.body.password , emp_role : req.body.role}]}).toArray((err,doc) => {
@@ -51,11 +55,12 @@ router.post("/employee-auth" , (req,res) => {
           res.redirect("/employee");
       } 
       else {
-        //req.session.isEmpLoggedIn = false;
+        req.session.isEmpLoggedIn = false;
         console.log("Incorrect credentials");
-          res.redirect("/employee/employee-login");
+        res.redirect("/employee/employee-login");
       }    
   });  
+//}
 });
 
 // define the /employee home page route
@@ -69,7 +74,6 @@ router.get('/', function (req, res) {
     var isEmpOfMonth = "true"
     var db = req.app.locals.db;
     var id = req.session._id;
-    //var pic = req.session.profile_pic;
     db.collection('employees').find({_id : ObjectId(id)}).toArray((err,doc) => {
       if (err) 
           throw err;
@@ -106,8 +110,8 @@ router.get('/my-profile', function (req, res) {
     src : req.session.profile_pic,
     data : doc
   });
-});
-    }
+  });
+  }
 });
 
 // define the /employee/getAllEmployees route
@@ -141,6 +145,9 @@ router.get('/my-profile/:name', (req,res) => {
 
 // define the /employee/my-profile/:name route for unique record password update
 router.put('/my-profile/:empid', function (req, res) {
+  if(!req.session.isEmpLoggedIn)
+    res.redirect('/employee/employee-login');
+    else {
   var db = req.app.locals.db;
   var id = req.session._id;
   var emp_id = req.params.empid;
@@ -153,6 +160,7 @@ router.put('/my-profile/:empid', function (req, res) {
     console.log(JSON.stringify(doc));
     res.json({success : "Password changed"});
   });
+}
 });
 
 // define the /employee/my-timesheets route
@@ -164,8 +172,6 @@ router.get('/my-timesheets', function (req, res) {
   var db = req.app.locals.db;
   var employee_name = req.session.employee_name;
   var id = req.session._id;
-  
-
   db.collection('timesheets').find({emp_name : employee_name}).toArray((err,doc) => {
     if (err) 
         throw err;
