@@ -1,34 +1,17 @@
 
-
-
-<head>
-   
-    
-    {{!-- <link href="/css/style.css" rel="stylesheet">       --}}
-    <link href='https://fonts.googleapis.com/css?family=Prata' rel='stylesheet' type='text/css'>   
-    <link href='https://fonts.googleapis.com/css?family=Tangerine' rel='stylesheet' type='text/css'>     
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    
-       
-
-</head>
-  <body>
-
-{{!-- =============================================================================== --}}
-
 <header id="mu-header"> 
     <nav class="navbar navbar-expand-lg navbar-light bg-light ">
         <div class=" sticky-top collapse navbar-collapse" id="navbarNavAltMarkup">
           <img src="https://res.cloudinary.com/dmjrhkn5z/image/upload/v1568126153/yb3f79beb6yopuay6rvb.png" class ="logo"></a>
           
              <span class="navbar-text expressotext">
-                    <h2>Steamin' Mugs</h2>
+                    <h2>Expresso</h2>
             </span>
 
            <div class="collapse navbar-collapse  justify-content-end" id="navbarText">
 
                     <ul class="navbar-nav float-md-right mu-main-nav">
-                    <li class="nav-item  {{addnavlink}}">
+                    <li class="nav-item">
                         <a class="nav-link" style="text-align: right" href="/"><em><strong>Home</strong></em></a>
                     </li>
                    
@@ -187,16 +170,16 @@
                   
                     <div id="form-messages"></div>
                       <div class="form-group">
-                        <label for="name">Your Name</label>
+                        <label for="name">Your Name<span class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="txtname" id="txtname" placeholder="Enter Name" required>
                       </div>
                       <div class="form-group">
-                        <label for="email">Email address</label>
+                        <label for="email">Email address<span class="text-danger">*</span></label>
                         <input type="email" class="form-control" name="txtemail" id="txtemail" placeholder="Enter Email"required>
                       </div>                      
                     
                       <div class="form-group">
-                        <label for="message">Message</label>                        
+                        <label for="message">Message<span class="text-danger">*</span></label>                        
                         <textarea class="form-control" id="txtmessage" name="txtmessage" cols="25" rows="5" placeholder="Type Your Message" required></textarea>
                       </div>                      
                       {{!-- <button type="submit" onclick="show_alert();" value="submit" id ="send_email" class="mu-send-btn" >Send Message</button> --}}
@@ -312,7 +295,3 @@
         <p>© Steamin' Mugs & Co. All rights reserved.</p>
       </div>
 </footer>
-
-
-  </body>
-</html>

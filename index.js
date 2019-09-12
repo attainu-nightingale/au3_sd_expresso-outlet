@@ -13,7 +13,7 @@ var db,menuDB,orderDB;
 var url;
 
 if(process.env.DB_URL)
-    url = 'mongodb+srv://asraj:asraj@123@expresso-cluster-2gmnz.mongodb.net/?retryWrites=true&w=majority';
+    url = 'mongodb+srv://asraj:asraj123@expresso-cluster-2gmnz.mongodb.net/?retryWrites=true&w=majority';
 else
     url = 'mongodb://localhost:27017';  
 
@@ -64,7 +64,6 @@ app.use('/employee' , employee);
 app.get('/', (req,res) => {
     res.render(VIEWS_PATH + '/home.hbs',{
         title : "Steamin' Mugs • Home" ,
-        addNavLink:"active",
         script: "/js/homepagemenu.js",   
         style : '../../css/home.css'
     }); 
@@ -102,49 +101,6 @@ app.get('/sendmail', function(req, res) {
      }  
    });  
 }); 
-
-app.get('/aboutus', (req,res) => {
-    res.render(VIEWS_PATH + '/aboutus.hbs',{
-        title : "Steamin' Mugs • About Us" ,
-        style : '../../css/aboutus.css',
-    }); 
-});
-
-app.get('/speciality', (req,res) => {
-    res.render(VIEWS_PATH + '/contactus.hbs',{
-        title : "Our Specialities",
-    }); 
-});
-
-app.get('/contactus', (req,res) => {
-    res.render(VIEWS_PATH + '/contactus.hbs',{
-        title : "Steamin' Mugs • Contact Us" ,
-        style : '../../css/contactus.css',
-    }); 
-});
-
-
-app.get('/whats-new', (req,res) => {
-    res.render(VIEWS_PATH + '/whats-new.hbs',{
-        title : "Steamin' Mugs • Whats New" ,
-        style : '../../css/whats-new.css',
-    }); 
-});
-
-app.get('/cafe-menu', (req,res) => {
-    res.render(VIEWS_PATH + '/cafe-menu.hbs',{
-        title : "Steamin' Mugs • Cafe Menu" ,
-        style : '../../css/cafe-menu.css',
-    }); 
-});
-
-app.get('/our-coffees', (req,res) => {
-    res.render(VIEWS_PATH + '/our-coffees.hbs',{
-        title : "Steamin' Mugs • Our Coffees" ,
-        style : '../../css/our-coffees.css',
-    }); 
-});
-
 
 
 app.listen(PORT,() => {

@@ -56,8 +56,14 @@ router.post("/employee-auth" , (req,res) => {
       } 
       else {
         req.session.isEmpLoggedIn = false;
+        res.render(VIEWS_PATH + '/employee-login.hbs',{
+          title : "Employee Login Page" ,
+          style : '../../css/login.css',
+          layout : 'login-layout.hbs',
+          msg: 'Wrong username or password'
+        }); 
         console.log("Incorrect credentials");
-        res.redirect("/employee/employee-login");
+        //res.redirect("/employee/employee-login");
       }    
   });  
 //}

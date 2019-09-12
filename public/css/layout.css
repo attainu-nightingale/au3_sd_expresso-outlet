@@ -1,7 +1,9 @@
- footer {
-    /* margin-top :-80px; */
+@import url('https://fonts.googleapis.com/css?family=Prata|Tangerine|Open+Sans&display=swap');
+ 
+ /* footer {
+     margin-top :-80px;
     background : rgb(185, 192, 192);
-} 
+}  */
 
 #social-icons {
     text-align : center;

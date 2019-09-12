@@ -26,6 +26,11 @@ body {
   background-color: #6F3E20;
   } */
   
+  #pc {
+    overflow-x: auto;
+    white-space: nowrap;
+    width: 50em;
+  }
   
   
   .pic1 {

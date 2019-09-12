@@ -3,6 +3,7 @@ var router = express.Router();
 var path = require('path');
 var session = require('express-session');
 var uuidv4 = require("uuid/v4");
+//var md5 = require('md5');
 var multer = require('multer');
 //var PATH = path.join(__dirname, '/public/');
 var upload = multer({dest: '../public/images/'});
@@ -39,11 +40,11 @@ router.use(session({
 //define the /manager/manager-login route for manager login page
 router.get('/manager-login', (req,res) => {
   if(!req.session.isLoggedIn){
-    res.render(VIEWS_PATH + '/manager-login.hbs',{
-      title : "Manager Login Page" ,
-      style : '../../css/login.css',
-      layout : 'login-layout.hbs'
-    }); 
+      res.render(VIEWS_PATH + '/manager-login.hbs',{
+        title : "Manager Login Page" ,
+        style : '../../css/login.css',
+        layout : 'login-layout.hbs'
+      }); 
   }
   else {
     res.redirect('../manager');
@@ -69,8 +70,14 @@ router.post("/manager-auth" , (req,res) => {
     } 
     else {
       req.session.isLoggedIn = false;
+      res.render(VIEWS_PATH + '/manager-login.hbs',{
+        title : "Manager Login Page" ,
+        style : '../../css/login.css',
+        layout : 'login-layout.hbs',
+        msg: 'Wrong username or password'
+      }); 
       console.log("Incorrect credentials");
-      res.redirect("/manager/manager-login");
+      //res.redirect("/manager/manager-login");
     }    
   });  
 });
@@ -98,7 +105,7 @@ router.get('/my-profile', function (req, res) {
   else {
     var db = req.app.locals.db;
     var id = req.session._id;
-  
+    
     db.collection('manager').find({_id : ObjectId(id)}).toArray((err,doc) => {
       if (err) 
       throw err;
