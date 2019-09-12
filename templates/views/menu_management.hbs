@@ -37,14 +37,14 @@
             </div>
         </div>
         <div class="row" id="menu-list">
-            <div class="col-lg-12 shadow-lg p-3 mb-5 rounded bg-dark">
+            <div class="col-lg-12 shadow-lg p-3 mb-5 rounded bg-dark" style="position:relative;">
                 <button class="btn btn-warning" id="hide-menus">Hide</button>
                 <br/><br/>
                 
                 <div class="card-deck">
                  {{#each data}}
                  
-                 <div class="card col-4" style="min-width:25%;margin-top:10px;">
+                 <div class="card col-4 square" style="min-width:25%;max-width:30%;padding-top:20px;margin-top:10px;">
                      <img class="card-img-top" src={{this.menu_pic}}>
                     <div class="card-body shadow-lg p-3 mb-5 rounded bg-white">
                        
@@ -52,7 +52,7 @@
                         <h5 class="card-title text-center" id="getName">{{this.menu_name}}</h5>
             
                         <a href="/manager/menu-management/menu/{{this._id}}" class="view-btn btn btn-dark">View</a>
-                        <a href="#" class="delete-btn btn btn-danger" data-toggle="modal" data-target="#deleteMenuModal">Delete</a>
+                        <a href="#" class="menudelete-btn btn btn-danger" data-toggle="modal" data-target="#deleteMenuModal">Delete</a>
                     </div>
                 </div>
                 {{/each}}

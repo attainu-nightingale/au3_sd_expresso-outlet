@@ -4,17 +4,18 @@ var hbs = require('hbs');
 var session = require('express-session');
 var ObjectId = require('mongodb').ObjectID;
 var mongoClient = require('mongodb').MongoClient;
+var nodemailer = require('nodemailer');
 //var url = 'mongodb://localhost:27017';
-var PATH = path.join(__dirname, "/public/");
+//var PATH = path.join(__dirname, "/public/");
 var PORT = process.env.PORT || 5500;
 var app = express();
 var db,menuDB,orderDB;
 var url;
 
-if(process.env.DB_URL)
-    url = 'mongodb+srv://asraj:asraj@123@expresso-cluster-2gmnz.mongodb.net/?retryWrites=true&w=majority';
-else
-    url = 'mongodb://localhost:27017';  
+// if(process.env.DB_URL)
+    url = 'mongodb+srv://asraj:asraj123@expresso-cluster-2gmnz.mongodb.net/?retryWrites=true&w=majority';
+// else
+//     url = 'mongodb://localhost:27017';  
 
 mongoClient.connect(url, {useNewUrlParser : true, useUnifiedTopology: true}, (err,client) => {
     if(err)
@@ -50,10 +51,10 @@ app.use(session({
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
-app.use(express.static(PATH));
+app.use(express.static(__dirname + '/public'));
 
-var manager = require(PATH + './js/manager.js');
-var employee = require(PATH + './js/employee.js');
+var manager = require(__dirname + '/public/js/manager.js');
+var employee = require(__dirname + '/public/js/employee.js');
 
 //  <!--  Middleware -->
 
@@ -63,52 +64,43 @@ app.use('/employee' , employee);
 app.get('/', (req,res) => {
     res.render(VIEWS_PATH + '/home.hbs',{
         title : "Steamin' Mugs • Home" ,
-        style : '../../css/home.css',
+        script: "/js/homepagemenu.js",   
+        style : '../../css/home.css'
     }); 
 });
 
-app.get('/aboutus', (req,res) => {
-    res.render(VIEWS_PATH + '/aboutus.hbs',{
-        title : "Steamin' Mugs • About Us" ,
-        style : '../../css/aboutus.css',
-    }); 
-});
+app.get('/getAllMenus', function (req, res) {
+    var db = req.app.locals.menuDB;
+    db.collection("menus").find({}).toArray((err,result) => {
+      if (err) 
+          throw err;
+          res.json(result);     
+    });
+  });
 
-app.get('/speciality', (req,res) => {
-    res.render(VIEWS_PATH + '/contactus.hbs',{
-        title : "Our Specialities",
-    }); 
-});
+var smtpTransport = nodemailer.createTransport({  
+    service: "gmail",  
+    host: "smtp.gmail.com",  
+    auth: {  
+        user: "teamexpressocafe@gmail.com",  
+        pass: "expresso@123"  
+    }  
+});  
 
-app.get('/contactus', (req,res) => {
-    res.render(VIEWS_PATH + '/contactus.hbs',{
-        title : "Steamin' Mugs • Contact Us" ,
-        style : '../../css/contactus.css',
-    }); 
-});
-
-
-app.get('/whats-new', (req,res) => {
-    res.render(VIEWS_PATH + '/whats-new.hbs',{
-        title : "Steamin' Mugs • Whats New" ,
-        style : '../../css/whats-new.css',
-    }); 
-});
-
-app.get('/cafe-menu', (req,res) => {
-    res.render(VIEWS_PATH + '/cafe-menu.hbs',{
-        title : "Steamin' Mugs • Cafe Menu" ,
-        style : '../../css/cafe-menu.css',
-    }); 
-});
-
-app.get('/our-coffees', (req,res) => {
-    res.render(VIEWS_PATH + '/our-coffees.hbs',{
-        title : "Steamin' Mugs • Our Coffees" ,
-        style : '../../css/our-coffees.css',
-    }); 
-});
-
+app.get('/sendmail', function(req, res) {  
+    var mailOptions = {  
+        to:"teamexpressocafe@gmail.com",  
+        subject:"Email from nodemailer",  
+        html:'<div>Name: '+ req.query.name +'</div><div>Email: '+ req.query.email +'</div><div>Message: '+ req.query.message +'</div>'  
+    }  
+    smtpTransport.sendMail(mailOptions, function(error, response) {  
+     if(error) {  
+        res.end("error");  
+     } else {  
+        res.end("sent");  
+     }  
+   });  
+}); 
 
 
 app.listen(PORT,() => {

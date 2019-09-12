@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Lato|Tangerine&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato|Tangerine|Great+Vibes|Josefin+Sans&display=swap');
 * {
     box-sizing: border-box;
 }
@@ -168,7 +168,9 @@ body {
     }
 
     #hide-employees, #hide-timesheets, #hide-orders, #hide-menus {
-        margin-left : 850px;
+        margin-left : 1rem; 
+        position : absolute;
+        
     }
 
     .view-btn, #edit-btn, .delete-btn, #timesheets-btn, #back-btn, .passreset-btn, .edit-timesheet, .del-timesheet, .editorderitem, .delorderitem, #show-stock, #needed-stock, #add-stock, #list-orders, #add-order, #add-menu, #list-menus, .menuitem-edit-btn, .menuitem-del-btn {
@@ -197,4 +199,30 @@ body {
         object-fit: cover;
     }
 
+    #profile-pic {
+        height: 20vw;
+    }
+
+    #cafe-header {
+        width : 100%;
+        height : 15rem;
+    }
+
+    #overlay-box{
+        position: relative;
+        display: inline-block;
+    }
+    
+    .text{
+        position: absolute;
+        z-index: 999;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        top: 5%; 
+        text-align: center;
+        width: 60%; 
+        font-family : 'Great Vibes';
+    }
 }
+

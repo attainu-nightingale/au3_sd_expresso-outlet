@@ -33,54 +33,66 @@ $('#list-employees').click(() => {
   });
 
   $(document).on('click', '#save', function () {
-    var date = new Date($('#joining_date').val());
-      day = date.getDate() <10 ? "0" + date.getDate() : date.getDate();
-      month = (date.getMonth() + 1) <10 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1);
-      year = date.getFullYear();
-      var joiningdate = [year, month, day].join('/');
-      
+    $('#id').removeAttr("disabled");
+    $('.form-group').hide();
+    $('#message').show();
+    $('#save').hide();
+  });
+    // var id = $('#id').val();
+    // var date = new Date($('#joining_date').val());
+    //   day = date.getDate() <10 ? "0" + date.getDate() : date.getDate();
+    //   month = (date.getMonth() + 1) <10 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1);
+    //   year = date.getFullYear();
+    //   var joiningdate = [year, month, day].join('/');
+    
+    // var checkbox = "false";
+    // if ($('#is_empofmonth').is(":checked"))
+    // {
+    //   checkbox = "true";
+    // }
 
-    var checkbox = "false";
-    if ($('#is_empofmonth').is(":checked"))
-    {
-      checkbox = "true";
-    }
+    // var is_empofmonth = checkbox;
 
-    console.log(joiningdate + ' ' + checkbox);
+    // console.log(id + ' ' + joiningdate + ' ' + checkbox);
 
-    var newEmp =  {
-      id : $('#id').val(),
-      name : $('#name').val(),
-      age : $('#age').val(),
-      email : $('#email').val(),
-      gender : $("input[name='gender']:checked").val(),
-      address : $('#address').val(),
-      role : $('#role').val(),
-      job : $('#job').val(),
-      username : $('#username').val(),
-      password : $('#password').val(),
-      profilepic : $('#profile_pic').val(),
-      joiningdate : joiningdate,
-      empofmonth : checkbox
-     };
+  //   var newEmp =  {
+  //     id : $('#id').val(),
+  //     name : $('#name').val(),
+  //     age : $('#age').val(),
+  //     email : $('#email').val(),
+  //     gender : $("input[name='gender']:checked").val(),
+  //     address : $('#address').val(),
+  //     role : $('#role').val(),
+  //     job : $('#job').val(),
+  //     username : $('#username').val(),
+  //     password : $('#password').val(),
+  //     joiningdate : joiningdate,
+  //     profilepic : $('#profile_pic').val(),
+  //     empofmonth : checkbox
+  //    };
   
-  console.log(newEmp);
+  // console.log(newEmp);
+
+  
+  //console.log(JSON.stringify(data));
+
+   // });
       
-      $.ajax({
+  //     $.ajax({
           
-          url :'/manager/employee-management/employee/',
-          type : 'POST',
-          dataType : 'json',
-          contentType : 'application/json',
-          data : JSON.stringify(newEmp),
-          success : function(data) {
-            $('.form-group').hide();
-              $('#message').show();
-              $('#save').hide();
-              console.log(JSON.stringify(data));
-          }
-        });  
-  }); 
+  //         url :'/manager/employee-management/employee/',
+  //         type : 'POST',
+  //         dataType : 'json',
+  //         contentType : 'application/json',
+  //         data : JSON.stringify(newEmp),
+  //         success : function(data) {
+  //           $('.form-group').hide();
+  //             $('#message').show();
+  //             $('#save').hide();
+  //             console.log(JSON.stringify(data));
+  //         }
+  //       });  
+  // }); 
 
 $(document).on('click', '#edit-btn', function () {
   $('#update-successmsg').hide();
@@ -189,7 +201,7 @@ $(document).on('click', '.delete-btn', function () {
                 <div class="card-deck" id="timesheet-box"></div>`);
 
           for(i=0;i<data.length;i++){
-            $('#timesheet-box').append(`<div class="card col-4 d-inline-block" style="min-width:25%;margin-top:10px;">
+            $('#timesheet-box').append(`<div class="card col-4 d-inline-block" style="min-width:25%;max-width:30%;padding-top:20px;margin-top:10px;">
             <div class="card-body shadow-lg p-3 mb-5 rounded bg-white">
                 <h6 class="card-title text-center">${data[i].date}</h6>
                 <p class="card-text text-center">
@@ -279,7 +291,8 @@ $(document).on('click', '.delete-btn', function () {
       console.log(name);
       $('#for-empname').text(name);
 
-      var date = $(this).prev().prev().text();
+      //var date = $(this).prev().prev().text();
+      var date = $(this).parent().prev().prev().text();
       console.log(date);
       $('#update-date').val(date);
       $('#update-date').attr("disabled","true");
@@ -326,7 +339,7 @@ $(document).on('click', '.del-timesheet', function () {
   var name = $('#forname').text();
   $('#for-name').text(name);
   var emp_id = $('#forid').text();
-  var date = $(this).prev().prev().prev().text();
+  var date = $(this).parent().prev().prev().text();
   console.log(emp_id + ' ' + date);
 
   $(document).on('click', '#yes-del', function () {

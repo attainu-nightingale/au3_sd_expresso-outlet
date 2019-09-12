@@ -43,7 +43,7 @@
                 <div class="card-deck">
                  {{#each data}}
                  
-                 <div class="card col-4" style="min-width:25%;margin-top:10px;">
+                 <div class="card col-4" style="min-width:25%;max-width:30%;padding-top:20px;margin-top:10px;">
                     <div class="card-body shadow-lg p-3 mb-5 rounded bg-white">
 
                         <h5 class="getId card-title text-center">{{this.emp_id}}</h5>
@@ -77,7 +77,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form role="form" method="POST" action="" enctype="multipart/form-data">
+        <form role="form" method="POST" action="/manager/employee-management/employee/" enctype="multipart/form-data">
         <div class="form-group">
                 <label class="control-label">Employee ID</label>
                         <div>
@@ -156,7 +156,6 @@
                 <label class="control-label">Profile Pic</label>
                         <div>
                             <input type="file" id="profile_pic" class="form-control input-lg" name="profile_pic"><br/>
-                            {{!-- <button type="submit" class="btn btn-secondary">Upload Image</button> --}}
                         </div>
             </div> 
             <div class="form-group">
@@ -164,11 +163,12 @@
                  <label class="control-label">Employee of Month</label><br/>
             </div>
             <p id="message">Employee added successfully !</p> 
-        </form>
+        
       </div>
       <div class="modal-footer bg-warning">
         <button type="button" class="btn btn-danger" data-dismiss="modal" onclick=location.reload()>Close</button>
-        <button type="button" class="btn btn-primary" id="save">Save</button>
+        <button type="submit" class="btn btn-primary" id="save">Save</button>
+        </form>
       </div>
     </div>
   </div>

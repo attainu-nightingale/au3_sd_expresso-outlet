@@ -6,7 +6,11 @@
 			</div>
 			<div class="card-body">
 				<form action='/manager/manager-auth' method="POST">
-
+					{{#if msg}} 
+                    <div class="alert alert-warning" role="alert">
+                    Wrong username or password
+                    </div>
+                    {{/if}}
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
