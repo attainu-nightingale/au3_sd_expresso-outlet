@@ -168,7 +168,9 @@ body {
     }
 
     #hide-employees, #hide-timesheets, #hide-orders, #hide-menus {
-        margin-left : 850px;
+        margin-left : 1rem; 
+        position : absolute;
+        
     }
 
     .view-btn, #edit-btn, .delete-btn, #timesheets-btn, #back-btn, .passreset-btn, .edit-timesheet, .del-timesheet, .editorderitem, .delorderitem, #show-stock, #needed-stock, #add-stock, #list-orders, #add-order, #add-menu, #list-menus, .menuitem-edit-btn, .menuitem-del-btn {
@@ -217,21 +219,21 @@ body {
         margin: 0 auto;
         left: 0;
         right: 0;
-        top: 10%; /* Adjust this value to move the positioned div up and down */
+        top: 10%; 
         text-align: center;
-        width: 60%; /* Set the width of the positioned div */
+        width: 60%; 
         font-family : 'Great Vibes';
     }
 
-    .square {
+    /* .square {
         position: relative;
         width: 100%;
       }
       
       .square:after {
-        /* content: ""; */
+         content: ""; 
         display: block;
         padding-bottom: 100%;
-      }
+      } */
 }
 

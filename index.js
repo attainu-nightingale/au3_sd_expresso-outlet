@@ -4,6 +4,7 @@ var hbs = require('hbs');
 var session = require('express-session');
 var ObjectId = require('mongodb').ObjectID;
 var mongoClient = require('mongodb').MongoClient;
+var nodemailer = require('nodemailer');
 //var url = 'mongodb://localhost:27017';
 var PATH = path.join(__dirname, "/public/");
 var PORT = process.env.PORT || 5500;
@@ -63,9 +64,44 @@ app.use('/employee' , employee);
 app.get('/', (req,res) => {
     res.render(VIEWS_PATH + '/home.hbs',{
         title : "Steamin' Mugs • Home" ,
-        style : '../../css/home.css',
+        addNavLink:"active",
+        script: "/js/homepagemenu.js",   
+        style : '../../css/home.css'
     }); 
 });
+
+app.get('/getAllMenus', function (req, res) {
+    var db = req.app.locals.menuDB;
+    db.collection("menus").find({}).toArray((err,result) => {
+      if (err) 
+          throw err;
+          res.json(result);     
+    });
+  });
+
+var smtpTransport = nodemailer.createTransport({  
+    service: "gmail",  
+    host: "smtp.gmail.com",  
+    auth: {  
+        user: "teamexpressocafe@gmail.com",  
+        pass: "expresso@123"  
+    }  
+});  
+
+app.get('/sendmail', function(req, res) {  
+    var mailOptions = {  
+        to:"teamexpressocafe@gmail.com",  
+        subject:"Email from nodemailer",  
+        html:'<div>Name: '+ req.query.name +'</div><div>Email: '+ req.query.email +'</div><div>Message: '+ req.query.message +'</div>'  
+    }  
+    smtpTransport.sendMail(mailOptions, function(error, response) {  
+     if(error) {  
+        res.end("error");  
+     } else {  
+        res.end("sent");  
+     }  
+   });  
+}); 
 
 app.get('/aboutus', (req,res) => {
     res.render(VIEWS_PATH + '/aboutus.hbs',{

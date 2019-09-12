@@ -61,6 +61,7 @@ router.post("/manager-auth" , (req,res) => {
     if (doc.length > 0) {
       req.session.username = req.body.username;
       req.session.password = req.body.password;
+      req.session._id = doc[0]._id;
       console.log(req.session.username + ' ' + req.session.password);
       req.session.isLoggedIn = true;
       console.log(req.session.isLoggedIn);
@@ -96,9 +97,9 @@ router.get('/my-profile', function (req, res) {
   res.redirect('/manager/manager-login');
   else {
     var db = req.app.locals.db;
-    var username = req.session.username;
-    var password = req.session.password;
-    db.collection('manager').find({$and : [{username : username , password : password }]}).toArray((err,doc) => {
+    var id = req.session._id;
+  
+    db.collection('manager').find({_id : ObjectId(id)}).toArray((err,doc) => {
       if (err) 
       throw err;
       console.log(doc);
@@ -112,7 +113,7 @@ router.get('/my-profile', function (req, res) {
   }
 });
 
-
+// define the /manager/my-profile/:name route for manager password update
 router.put('/my-profile/:empname', function (req, res) {
   if(!req.session.isLoggedIn)
     res.redirect('/manager/manager-login');
@@ -120,7 +121,6 @@ router.put('/my-profile/:empname', function (req, res) {
   var db = req.app.locals.db;
   var id = req.session._id;
   var emp_name = req.params.empname;
-  //var emp_name = req.session.employee_name;
   var newPass = req.body.password;
   console.log(newPass);
   console.log(emp_name);
