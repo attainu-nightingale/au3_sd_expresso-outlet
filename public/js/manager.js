@@ -6,7 +6,7 @@ var uuidv4 = require("uuid/v4");
 //var md5 = require('md5');
 var multer = require('multer');
 //var PATH = path.join(__dirname, '/public/');
-var upload = multer({dest: __dirname + '/public/images/'});
+var upload = multer({dest: '../public/images/'});
 var cloudinary = require('cloudinary').v2;
 var cloudinaryStorage = require("multer-storage-cloudinary");
 var dotenv = require('dotenv');
@@ -17,7 +17,7 @@ var ObjectId = require('mongodb').ObjectID;
 var url = 'mongodb://localhost:27017';
 
 cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
+  cloud_name: process.env.CLOUD_NAME, 
   api_key: process.env.API_KEY,
   api_secret: process.env.API_SECRET
 });
