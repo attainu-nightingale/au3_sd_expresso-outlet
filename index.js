@@ -6,7 +6,7 @@ var ObjectId = require('mongodb').ObjectID;
 var mongoClient = require('mongodb').MongoClient;
 var nodemailer = require('nodemailer');
 //var url = 'mongodb://localhost:27017';
-var PATH = path.join(__dirname, "/public/");
+//var PATH = path.join(__dirname, "/public/");
 var PORT = process.env.PORT || 5500;
 var app = express();
 var db,menuDB,orderDB;
@@ -51,10 +51,10 @@ app.use(session({
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
-app.use(express.static(PATH));
+app.use(express.static(__dirname + '/public'));
 
-var manager = require(PATH + './js/manager.js');
-var employee = require(PATH + './js/employee.js');
+var manager = require(__dirname + '/public/js/manager.js');
+var employee = require(__dirname + '/public/js/employee.js');
 
 //  <!--  Middleware -->
 

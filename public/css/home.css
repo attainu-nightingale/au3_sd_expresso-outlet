@@ -471,10 +471,16 @@ margin-bottom: 5px;
 
 }
 ​
-#mu-restaurant-menu {
+/* #mu-restaurant-menu {
    overflow-x: auto;
   overflow-y: auto;
   white-space: nowrap;
   margin: 0 auto; 
   
+} */
+
+#mu-restaurant-menu {
+  display: flex;
+overflow-x: auto;
+overflow-y: auto;
 }
