@@ -201,7 +201,7 @@ $(document).on('click', '.delete-btn', function () {
                 <div class="card-deck" id="timesheet-box"></div>`);
 
           for(i=0;i<data.length;i++){
-            $('#timesheet-box').append(`<div class="card col-4 d-inline-block" style="min-width:25%;margin-top:10px;">
+            $('#timesheet-box').append(`<div class="card col-4 d-inline-block" style="min-width:25%;max-width:30%;padding-top:20px;margin-top:10px;">
             <div class="card-body shadow-lg p-3 mb-5 rounded bg-white">
                 <h6 class="card-title text-center">${data[i].date}</h6>
                 <p class="card-text text-center">

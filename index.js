@@ -12,10 +12,10 @@ var app = express();
 var db,menuDB,orderDB;
 var url;
 
-if(process.env.DB_URL)
+// if(process.env.DB_URL)
     url = 'mongodb+srv://asraj:asraj123@expresso-cluster-2gmnz.mongodb.net/?retryWrites=true&w=majority';
-else
-    url = 'mongodb://localhost:27017';  
+// else
+//     url = 'mongodb://localhost:27017';  
 
 mongoClient.connect(url, {useNewUrlParser : true, useUnifiedTopology: true}, (err,client) => {
     if(err)

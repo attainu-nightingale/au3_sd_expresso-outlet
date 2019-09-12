@@ -219,21 +219,10 @@ body {
         margin: 0 auto;
         left: 0;
         right: 0;
-        top: 10%; 
+        top: 5%; 
         text-align: center;
         width: 60%; 
         font-family : 'Great Vibes';
     }
-
-    /* .square {
-        position: relative;
-        width: 100%;
-      }
-      
-      .square:after {
-         content: ""; 
-        display: block;
-        padding-bottom: 100%;
-      } */
 }
 

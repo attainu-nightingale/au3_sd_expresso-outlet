@@ -471,14 +471,22 @@ margin-bottom: 5px;
 
 }
 
-
-#mu-restaurant-menu {
-  /* overflow-x: auto;
- overflow-y: auto;
- white-space: nowrap;
- margin: 0 auto;  */
- display: flex;
- overflow-x: auto;
- overflow-y:auto;
+.row{
+  align-items: stretch;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
  }
+ .card {
+  
+  flex-grow: 0;
+  flex-shrink: 0;
+ }
+ 
+ .row::-webkit-scrollbar {
+  display: none;
+ }
+
 
