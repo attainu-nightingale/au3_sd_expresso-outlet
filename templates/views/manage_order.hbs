@@ -1,6 +1,6 @@
 <div class="container" id="table-box" style="background-color: #ffcd94;">
         <div class="row">
-            <div class="col-lg-12 shadow-lg p-3 mb-5 rounded bg-white">
+            <div class="col-lg-12 shadow-lg p-3 mb-5 rounded bg-white" id="tocanvasdiv">
                 
                 <div class="d-inline" id="button-box">
                     <a href="/manager/order-management" class="btn btn-md btn-danger" id="back-btn">Back</a>
@@ -12,14 +12,14 @@
                 <br/><br/>
 
                 <div class="container">
-                <table class="table table-dark table-striped table-hover">
+                <table class="table table-dark table-striped table-hover" id="table-box">
                 <tbody>
                     <tr>
                         <th class="text-warning">Item</th>
                           <th class="text-warning">Price</th>
                           <th class="text-warning">Quantity</th>
                           <th class="text-warning">Total Price</th>
-                          <th class="text-warning">Manage</th>                  
+                          <th class="text-warning" id="manage">Manage</th>                  
                     </tr>
                     {{#each data}}
                         {{#each orderedItems}}
@@ -30,7 +30,7 @@
                         <td>{{this.total_price}}</td>
                         <td>
                            {{!-- <a href="#" class="editorderitem btn btn-sm btn-warning" data-toggle="modal" data-target="#editorderitem-Modal">Edit</a> --}}
-                           <a href="#" class="delorderitem btn btn-sm btn-danger" data-toggle="modal" data-target="#delorderitem-Modal">Delete</a>
+                           <a href="#" class="delorderitem btn btn-sm btn-danger" id="delete" data-toggle="modal" data-target="#delorderitem-Modal">Delete</a>
                         </td>
                     </tr>
                     {{/each}}
@@ -39,7 +39,8 @@
             </table>
         </div>
             <h5 class="float-right" style="margin-right:50px;">Grand Total : <span class="text-danger">{{this.grand_total}}</span></h5><br/>
-            <a href="/manager/order-management/order/{{this._id}}" download="order.txt" class="btn btn-md btn-success" id="print-btn">Print</a>
+            {{!-- <a href="/manager/order-management/order/{{this._id}}" download="order.txt" class="btn btn-md btn-success" id="print-btn">Print</a> --}}
+            <button class="btn btn-md btn-success" onClick="printPDF()" id="print-btn">Print</button>
            {{/each}}
             </div>
         </div>
@@ -73,3 +74,6 @@
     </div>
   </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.1/jspdf.debug.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.js"  crossorigin="anonymous"></script>

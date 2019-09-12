@@ -342,5 +342,43 @@ $(document).on('click', '.delete-btn', function () {
   });
   }); 
 
-
 });   
+
+function printneworderPDF () {
+  const domElement = document.getElementById('table-box')
+  html2canvas(domElement, { onclone: (document) => {
+    document.getElementById('print-btn').style.visibility = 'hidden'
+    var elems = document.getElementsByClassName('btn btn-sm btn-warning');
+    for (var i=0; i<elems.length; i++) {
+      (elems[i].style.visibility = 'hidden')};
+      var elems = document.getElementsByClassName('btn btn-sm btn-danger');
+      for (var i=0; i<elems.length; i++) {
+        (elems[i].style.visibility = 'hidden')}
+    document.getElementById('addorderitem-btn').style.visibility = 'hidden'
+    document.getElementById('back-btn').style.visibility = 'hidden'
+ }})
+  .then((canvas) => {
+      const img = canvas.toDataURL('image/png')
+      var pdf = new jsPDF();
+      var ratio = canvas.width/canvas.height; var width = pdf.internal.pageSize.getWidth(); var height = width / ratio;
+      pdf.addImage(img, 'PNG', 0, 0, width, height);
+     pdf.save('order bill.pdf')
+ })};
+ function printPDF () {
+  const domElement = document.getElementById('tocanvasdiv')
+  html2canvas(domElement, { onclone: (document) => {
+    document.getElementById('print-btn').style.visibility = 'hidden'
+    document.getElementById('back-btn').style.visibility = 'hidden'
+    var elems = document.getElementsByClassName('delorderitem btn btn-sm btn-danger');
+    for (var i=0; i<elems.length; i++) {
+      (elems[i].style.visibility = 'hidden')};
+      document.getElementById('manage').style.visibility = 'hidden'
+ }})
+  .then((canvas) => {
+      const img = canvas.toDataURL('image/png')
+      var pdf = new jsPDF();
+      var ratio = canvas.width/canvas.height; var width = pdf.internal.pageSize.getWidth(); var height = width / ratio;
+      pdf.addImage(img, 'PNG', 0, 0, width, height);
+
+     pdf.save('order bill.pdf')
+ })};
