@@ -1,3 +1,4 @@
+$(document).ready(function(){
 $.ajax({
   
     url:"/getAllMenus",
@@ -21,7 +22,7 @@ $.ajax({
 
  $(document).on('click', 'button', function() {
     var btnText = $(this).attr("value")
-    console.log(btnText)
+    console.log(btnText);
     $.ajax({
        
         url:"/getAllMenus",
@@ -86,34 +87,57 @@ $.ajax({
     })
  })
 
- $(document).ready(function(){  
-    var name;  
-    var email;  
-    var mobile;  
-    var message;  
-    $("#btnsendemail").click(function() {        
-        name    = $("#txtname").val();  
-        email   = $("#txtemail").val();  
-        mobile  = $("#txtmobile").val();  
-        message = $("#txtmessage").val();  
-        $("#message").text("Sending Email please wait ...");  
-        $.get("/sendmail",  
-            {  
-                name: name,  
-                email: email,  
-                mobile: mobile,  
-                message: message  
-            },  
-        function(data) {  
-        if(data == "sent") {  
-            $("#message").html("Message has been sent successfully. Thanks");  
-        }  
-      });  
-    });  
+
+ var name,email,message;
+ name    = $("#txtname").val();  
+ email   = $("#txtemail").val();   
+ message = $("#txtmessage").val();
+     
+$('#txtname, #txtemail, #txtmessage').bind('keyup', function() {
+    $("#message").html("");
+    if(name || email || message == ''){
+        $('#btnsendemail').attr('disabled','true');
+    }
+    if(allFilled()) $('#btnsendemail').removeAttr('disabled');
+});
+    
+function allFilled() {
+    var filled = true;
+    if($('#textmessage').val() == '') filled = false;
+    $('body input').each(function() {
+        if($(this).val() == '') filled = false;
+        
+    });
+    return filled;
+}  
+
+$("#btnsendemail").click(function() { 
+    name = $("#txtname").val();  
+    email = $("#txtemail").val();   
+    message = $("#txtmessage").val();
+    console.log(name + email + message);       
+    
+    
+    $.get("/sendmail",  
+        {  
+            name: name,  
+            email: email,    
+            message: message  
+        },  
+    function(data) {  
+        $("#message").text("Sending Email please wait ..."); 
+    if(data == "sent") {  
+        $("#message").html("Message has been sent successfully. Thanks");  
+        $("#txtname").val("");
+        $("#txtemail").val("");
+        $("#txtmessage").val("");
+    }  
+    }); 
 });  
 
 
-//  ==============================MENU SCROLLING WITH ACTIVE ITEM SELECTED
+
+//  ===  MENU SCROLLING WITH ACTIVE ITEM SELECTED  ====
 
     
 var lastId,
@@ -159,4 +183,7 @@ jQuery(window).scroll(function(){
          .parent().removeClass("active")
          .end().filter("[href=\\#"+id+"]").parent().addClass("active");
    }           
-})
+});
+
+
+});

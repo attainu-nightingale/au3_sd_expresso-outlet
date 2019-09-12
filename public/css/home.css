@@ -25,12 +25,20 @@ body {
   /* .navbar-expand-lg{
   background-color: #6F3E20;
   } */
-  
-  #pc {
+
+  /* #pc {
     overflow-x: auto;
+    overflow-y: hidden;
     white-space: nowrap;
-    width: 50em;
-  }
+    margin: 0 auto; 
+  } */
+  
+  /* .mu-restaurant-menu-content {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    width: 50em; 
+  } */
   
   
   .pic1 {
