@@ -4,8 +4,7 @@
   "description": "Expresso Application using Express for Steamin' Mugs Outlet",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "script": "node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "Team Expresso",
