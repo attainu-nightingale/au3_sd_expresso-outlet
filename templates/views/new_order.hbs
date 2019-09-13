@@ -20,7 +20,8 @@
                      </tbody>
             </table>
         </div>
-        <a href="/manager/order-management/new-order" download="order.txt" class="btn btn-md btn-success" id="print-btn">Print</a>
+        {{!-- <a href="/manager/order-management/new-order" download="order.txt" class="btn btn-md btn-success" id="print-btn">Print</a> --}}
+        <button class="btn btn-md btn-success" onClick="printneworderPDF()" id="print-btn">Print</button>
         <h5 class="float-right" style="margin-right:50px;">Grand Total : Rs. <span class="text-danger" id="grand-total"></span></h5><br/>
             </div>
            </div>
@@ -85,6 +86,7 @@
 </div>
 
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.1/jspdf.debug.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.js"  crossorigin="anonymous"></script>
 
 
