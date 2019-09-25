@@ -1,0 +1,149 @@
+<!-- Sidebar -->
+
+    <div id="wrapper">
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                        Manage
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="/manager/menu-management">MENU MANAGEMENT</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="/manager/order-management">ORDER MANAGEMENT</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="/manager/stock-management">STOCK MANAGEMENT</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="/manager/employee-management">EMP MANAGEMENT</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+      
+<!-- Page Content -->
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 shadow-lg p-3 mb-5 rounded bg-white">
+                <h1 class="display-6">Personal Info</h1><br/>
+                 <a href="#menu-toggle" class="btn btn-danger" id="menu-toggle">Toggle Menu</a><br/><br/>
+                 {{!-- <div class="card" style="width: 18rem;">
+                     {{#each data}}
+                <img src="{{this.profile_pic}}" class="card-img-top">
+                    {{/each}}
+                <div class="card-body shadow-lg p-3 mb-5 rounded bg-white">
+    <h5 class="card-title text-center">Details</h5>
+    <p class="card-text">
+        {{#each data}} 
+        Name : {{this.emp_name}}<br/>
+        Age : {{this.emp_age}}<br/>
+        Email : {{this.email}}<br/>
+        Gender : {{this.emp_gender}}<br/>
+        Role : {{this.emp_role}}<br/>
+        Role : {{this.job}}<br/>
+        Username : {{this.username}}<br/>
+        Password : {{this.password}}<br/>
+        Joining date : {{this.joining_date}}<br/>
+        {{/each}}
+        </p>
+    <a href="#" class="btn btn-primary">Edit</a>
+  </div>
+</div> --}}
+{{#each data}}
+                    <img id="profile-pic" src="{{this.profile_pic}}" style="display: block;margin-left: auto;margin-right: auto;width: 25%;"></img>
+                    {{/each}}
+                    <br/><br/>
+                <table class="table table-dark table-striped table-hover text-center">
+                <tbody>
+                    {{#each data}}
+                    <tr>
+                        <th class="text-warning">Name</th>
+                        <td id="name">{{this.emp_name}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Age</th>
+                        <td>{{this.emp_age}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Email</th>
+                        <td>{{this.email}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Gender</th>
+                        <td>{{this.emp_gender}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Address</td>
+                        <td>{{this.emp_addr}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Role</th>
+                        <td>{{this.emp_role}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Job</th>
+                        <td>{{this.job}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Username</th>
+                        <td>{{this.username}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Password</th>
+                        <td>{{this.password}}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-warning">Joining date</th>
+                        <td>{{this.joining_date}}</td>
+                    </tr>
+
+                    {{/each}}
+                </tbody>
+            </table>
+            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#updateModal">Reset Password</a>
+
+            </div>
+        </div>
+    </div>   
+</div>
+<!-- /#page-content-wrapper -->
+
+<!-- Password Reset Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title">Password Reset</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form role="form" method="POST" action="">
+          <div class="form-group">
+                <label class="control-label">Enter New Password</label>
+                        <div>
+                            <input type="password" id="new-password" class="form-control input-lg" name="new_password" placeholder="New Password">
+                        </div>
+            </div> 
+            <p id="message">Password reset successfully !</p> 
+        </form>
+      </div>
+      <div class="modal-footer bg-warning">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick=location.reload()>Close</button>
+        <button type="button" class="btn btn-primary" id="save">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+    <!-- /#wrapper -->
+
+     

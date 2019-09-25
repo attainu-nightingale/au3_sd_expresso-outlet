@@ -1,0 +1,181 @@
+<div class="container" id="table-box">
+        <div class="row">
+            <div class="col-lg-12 shadow-lg p-3 mb-5 rounded bg-warning" id="overlay-box">
+                <img src="https://res.cloudinary.com/dmjrhkn5z/image/upload/v1568203649/coffee-header_s2ufjc.jpg" id="cafe-header"/>
+                <div class="d-inline" id="button-box">
+                    <a href="#" class="btn btn-md btn-info" id="addmenuitem-btn" data-toggle="modal" data-target="#addmenuitemModal">Add Menu Item</a>
+                    <a href="/manager/menu-management" class="btn btn-md btn-danger" id="back-btn">Back</a>
+                </div>
+                <br/>
+                <div class="text">
+                {{#each data}}
+                <h4 class="text-warning" style="font-weight:bold; font-size:40px;">Menu {{this.menu_no}}</h4><br/>
+                <h5 class="text-info text-center" id="getName" style="font-family: Josefin Sans;font-size:30px">{{this.menu_name}}</h5>
+                 {{/each}}   
+                 </div>
+                <br/><br/>
+
+            <div class="row" id="menuitem-list">
+            <div class="col-lg-12 shadow-lg p-3 mb-5 rounded bg-dark">
+                <br/><br/>
+                
+                <div class="card-deck">
+                 {{#each data}}
+                 <p id="menuoid">{{this._id}}</p>
+                 {{#each menu_items}}
+                 <div class="card col-4" style="min-width:25%;max-width:30%;padding-top:20px;margin-top:10px;">
+                     <img class="card-img-top" src={{this.image_Path}}>
+                    <div class="card-body shadow-lg p-3 mb-5 rounded bg-white">
+                       
+                        <p class="text-center">{{this.menu_item_no}}</p>
+                        <h5 class="card-title text-center">{{this.menu_item_name}}</h5>
+                        <p>Price : Rs.&nbsp;<span class="text-danger">{{this.price}}</span></p>
+                        <p>Stock : <span class="text-success">{{this.in_inventory}}</span></p>
+                        <a href="#" class="menuitem-edit-btn btn btn-dark" data-toggle="modal" data-target="#editMenuItemModal">Edit</a>
+                        <a href="#" class="menuitem-del-btn btn btn-danger" data-toggle="modal" data-target="#deleteMenuItemModal">Delete</a>
+                    </div>
+                </div>
+                {{/each}}
+                {{/each}}
+                </div>
+              
+        </div>
+           </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Add Menu Item Modal -->
+    <div class="modal fade" id="addmenuitemModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title">Add Menu Item</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          {{#each data}}
+          <form id="addmenuitem-form" role="form" method="POST" action="/manager/getMenu/{{menu_name}}" enctype="multipart/form-data">
+          {{/each}}
+              <div class="form-group">
+                <label for="menuitem-no" id="label">Item No.</label>
+                <div class="input-group mb-3">
+                    <input type="text" id="menuitem-no"  class="form-control input-lg" name="menuitem_no"/>      
+                </div>   
+            </div> 
+            <div class="form-group">
+                <label for="menuitem-name" id="label">Item Name</label>
+                <div class="input-group mb-3">
+                    <input type="text" id="menuitem-name"  class="form-control input-lg" name="menuitem_name" placeholder="Name"/>      
+                </div>   
+            </div> 
+            <div class="form-group">
+                <label for="price" id="label">Price</label>
+                <div class="input-group mb-3">
+                    <input type="number" id="price" class="form-control input-lg" name="price" placeholder="Rs."/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inventory" id="label">Inventory</label>
+                <div class="input-group mb-3">
+                    <input type="number" id="inventory" class="form-control input-lg" name="inventory" placeholder="No."/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="item_pic" id="label">Image</label>
+                <div class="input-group mb-3">
+                    <input type="file" id="item_pic" class="form-control input-lg" name="item_pic"><br/>
+                </div>
+            </div>
+            <div id="addmenuitem-successmsg">
+            <p>Item added !</p>
+            </div>
+
+      </div>
+      <div class="modal-footer bg-warning">
+        <button type="submit" class="btn btn-success" id="add">Add</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+       </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- Delete Menu Item Modal -->
+
+ <div class="modal fade" id="deleteMenuItemModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title">Delete Menu Item ?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="del-confirm">
+          <p >Are you sure you want to proceed with this delete ?</p>
+        </div>
+        <div class="modal-body" id="menuitemdel-successmsg">
+            <p>Item deleted successfully !</p>
+        </div>
+        <div class="modal-footer bg-warning" id="confirm-footer">
+        <button type="button" class="btn btn-success" id="yes-del">Yes</button>
+        <button type="button" class="btn btn-danger" id="no-del" data-dismiss="modal">No</button>
+        </div>
+      <div class="modal-footer bg-warning" id="del-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick=location.reload()>Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Menu Item Modal -->
+<div class="modal fade" id="editMenuItemModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title">Edit Item <span id="for-itemname"></span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form role="form"> 
+          <div class="form-group">
+                <label for="menuitem-no" id="label">Item No.</label>
+                <div class="input-group mb-3">
+                    <input type="text" id="item-no"  class="form-control input-lg" name="item_no"/>      
+                </div>   
+            </div> 
+            <div class="form-group">
+                <label for="menuitem-name" id="label">Item Name</label>
+                <div class="input-group mb-3">
+                    <input type="text" id="item-name"  class="form-control input-lg" name="item_name" placeholder="Name"/>      
+                </div>   
+            </div> 
+            <div class="form-group">
+                <label for="price" id="label">Price</label>
+                <div class="input-group mb-3">
+                    <input type="number" id="updated-price" class="form-control input-lg" name="updated_price" placeholder="Rs."/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inventory" id="label">Inventory</label>
+                <div class="input-group mb-3">
+                    <input type="number" id="updated-inventory" class="form-control input-lg" name="updated_inventory" placeholder="No."/>
+                </div>
+            </div>
+            <p id="menuitemupdate-successmsg">Item updated successfully !</p> 
+        </form>
+      </div>
+      <div class="modal-footer bg-warning">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick=location.reload()>Close</button>
+        <button type="button" class="btn btn-primary" id="saveupdated-menuitem">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

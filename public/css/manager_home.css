@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css?family=Lato|Tangerine|Great+Vibes|Josefin+Sans&display=swap');
+* {
+    box-sizing: border-box;
+}
+body {
+    background-color: #ffcd94;
+    font-family : Lato;
+}
+
+.navbar {
+    background:#333;
+    height : 40px;
+}
+
+#logo {
+    height : 5%;
+    width : 5%;
+    margin-top :10px;
+}
+
+#avatar {
+    height : 10%;
+    width : 10%;
+    float : right;
+    margin-top :20px;
+}
+
+.dropdown-menu {
+    float : right;
+}
+ #navbar-list-4 {
+   float : right;
+}  
+
+#expresso {
+    padding-left: 20px;
+   font-family: 'Cantarell';
+}
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding-left: 250px;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 0;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    background: #130d0a;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #f7b05b;
+    background: #333;
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color : #f7b05b;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-left: 250px;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 250px;
+        color : #6F3E20;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+    
+    .list-group-item {
+        background-color:#130d0a;
+    }
+
+    .list-group-item:hover {
+        background-color : #333;
+    }
+
+    #add-employee, #menu-toggle {
+        margin : 30px;
+    }
+
+    #hide-employees, #hide-timesheets, #hide-orders, #hide-menus {
+        margin-left : 1rem; 
+        position : absolute;
+        
+    }
+
+    .view-btn, #edit-btn, .delete-btn, #timesheets-btn, #back-btn, .passreset-btn, .edit-timesheet, .del-timesheet, .editorderitem, .delorderitem, #show-stock, #needed-stock, #add-stock, #list-orders, #add-order, #add-menu, #list-menus, .menuitem-edit-btn, .menuitem-del-btn {
+        margin: 5px;
+    }
+
+    .view-btn, #edit-btn, .delete-btn, #timesheets-btn, #back-btn, .passreset-btn, #show-stock, #needed-stock, #add-stock, #list-orders, #add-order, #add-menu, #list-menus, .menuitem-edit-btn, .menuitem-del-btn {
+        margin-left : 20px;
+    }
+
+    #button-box {
+        float :right;
+    }
+
+    #timesheets-btn {
+        margin-left : 500px;
+    }
+
+    #gender-male, #gender-female, #gender-other {
+        margin-left : 10px;
+    }
+
+    .card-img-top {
+        width: 100%;
+        height: 25vw;
+        object-fit: cover;
+    }
+
+    #profile-pic {
+        height: 20vw;
+    }
+
+    #cafe-header {
+        width : 100%;
+        height : 15rem;
+    }
+
+    #overlay-box{
+        position: relative;
+        display: inline-block;
+    }
+    
+    .text{
+        position: absolute;
+        z-index: 999;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        top: 5%; 
+        text-align: center;
+        width: 60%; 
+        font-family : 'Great Vibes';
+    }
+}
+

@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css?family=Prata|Tangerine|Open+Sans&display=swap');
+ 
+ /* footer {
+     margin-top :-80px;
+    background : rgb(185, 192, 192);
+}  */
+
+#social-icons {
+    text-align : center;
+}
+
+i.fa.fa-facebook, i.fa.fa-twitter, i.fa.fa-instagram, i.fa.fa-linkedin {
+    border-radius: 100%;
+    font-size: 28px;
+    height: 42px;
+    line-height: 40px;
+    margin: 5px;
+    text-align: center;
+    width: 44px;
+    
+    }
+
+i.fa.fa-facebook {
+    border: 2px solid #3B5998;
+    color: #3B5998;
+    font-weight :bold;
+    }
+
+i.fa.fa-twitter {
+    border: 2px solid #00aced;
+    color: #00aced;
+    }
+
+i.fa.fa-instagram {
+    border: 2px solid #833ab4;
+    color: #833ab4;
+    }
+
+i.fa.fa-linkedin {
+    border: 2px solid  #007BB6;
+    color: #007BB6;
+    }
+
+.f-links {
+    text-align : center;
+    
+} 
+
+.f-links a {
+    color : rgb(119, 28, 28);
+    font-weight : 3px;
+}
+
+.copy-rights p {
+    text-align:center;
+    color : rgb(61, 27, 27);
+}
