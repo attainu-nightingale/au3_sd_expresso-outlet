@@ -554,7 +554,6 @@ router.post('/getMenu/:menuname', upload.single('item_pic'), (req,res) => {
           menu_no : parseInt(req.body.menu_no),
           menu_name : req.body.menu_name,
           menu_pic : result.secure_url,
-          //menu_pic : req.file.path,
           menu_items : []
         };
         
@@ -563,8 +562,7 @@ router.post('/getMenu/:menuname', upload.single('item_pic'), (req,res) => {
         db.collection('menus').insertOne(newMenuObj , (err,doc) => {
           if(err) throw err;
           console.log(JSON.stringify(doc));
-          res.redirect('/manager/menu-management/menu-management');
-          //res.json({success : "New menu skeleton added"});
+          res.redirect('/manager/menu-management/');
         });
       });
     }
